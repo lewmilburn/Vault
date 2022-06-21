@@ -1,0 +1,6 @@
+[submodule "Boa"]
+	path = Boa
+	url = https://github.com/lmwnweb/Boa
+[submodule "Bonfire"]
+	path = Bonfire
+	url = https://github.com/lmwnweb/Bonfire

@@ -1,0 +1,13 @@
+# START - BONFIRE HTTP ERROR PAGES
+ErrorDocument 400 /Bonfire/error.php?code=400
+ErrorDocument 401 /Bonfire/error.php?code=401
+ErrorDocument 402 /Bonfire/error.php?code=402
+ErrorDocument 403 /Bonfire/error.php?code=403
+ErrorDocument 404 /Bonfire/error.php?code=404
+ErrorDocument 405 /Bonfire/error.php?code=405
+ErrorDocument 406 /Bonfire/error.php?code=406
+ErrorDocument 407 /Bonfire/error.php?code=407
+ErrorDocument 408 /Bonfire/error.php?code=408
+ErrorDocument 409 /Bonfire/error.php?code=409
+ErrorDocument 410 /Bonfire/error.php?code=410
+# END - BONFIRE HTTP ERROR PAGES
