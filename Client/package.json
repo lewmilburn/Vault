@@ -1,0 +1,22 @@
+{
+  "name": "vault-client",
+  "version": "1.0.0",
+  "description": "A desktop client for the Vault project.",
+  "main": "app.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Passwords",
+    "Security",
+    "Vault",
+    "Password",
+    "Manager"
+  ],
+  "author": "Lewis Milburn",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "electron": "^27.0.1"
+  }
+}
