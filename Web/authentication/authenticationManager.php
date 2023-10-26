@@ -2,8 +2,8 @@
 
 namespace Vault\Authentication;
 
-use mysql_xdevapi\Exception;
 use Vault\Data\dataManager;
+use Vault\Event\errorHandler;
 
 class authenticationManager
 {
@@ -23,7 +23,9 @@ class authenticationManager
                 return false;
             }
         } else {
-            throw new Exception('No active session.');
+            $eh = new errorHandler();
+            $eh->sessionRequired('Vault\Authentication\authenticationManager()::Login');
+            exit;
         }
     }
 
@@ -35,7 +37,9 @@ class authenticationManager
 
             return true;
         } else {
-            throw new Exception('No active session.');
+            $eh = new errorHandler();
+            $eh->sessionRequired('Vault\Authentication\authenticationManager()::Logout');
+            exit;
         }
     }
 }
