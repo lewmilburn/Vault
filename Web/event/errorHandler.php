@@ -38,6 +38,6 @@ class errorHandler
 
     public function sessionRequired(string $function): void
     {
-        $this->error($function,'Internal Server Error - An active PHP session is required to run this function.', 500);
+        $this->error($function, 'Internal Server Error - An active PHP session is required to run this function.', 500);
     }
 }
