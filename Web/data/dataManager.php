@@ -15,7 +15,7 @@ class dataManager
     /**
      * @throws \Exception Invalid data type.
      */
-    public function getUserData(string $username)
+    public function getUserData(string $username): string
     {
         if ($this->dataType == 1) {
             $dm = new databaseManager();

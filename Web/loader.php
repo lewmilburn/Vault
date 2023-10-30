@@ -17,3 +17,5 @@ require_once __DIR__.'/authentication/authenticationManager.php';
 require_once __DIR__.'/authentication/tokenManager.php';
 
 require_once __DIR__.'/event/errorHandler.php';
+
+require_once __DIR__.'/event/routeHandler.php';
