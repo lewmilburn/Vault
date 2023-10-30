@@ -1,6 +1,6 @@
 <?php
 
-namespace Vault\Event;
+namespace Vault\event;
 
 class errorHandler
 {

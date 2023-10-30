@@ -1,6 +1,6 @@
 <?php
 
-namespace Vault\Authentication;
+namespace Vault\authentication;
 
 class tokenManager
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Vault\Data;
+namespace Vault\data;
 
 class dataManager
 {
