@@ -14,16 +14,16 @@ class routeHandler
     public function endRouter(): void
     {
         $eh = new errorHandler();
-        $eh->fileNotFound('event','routeHandler','endRouter');
+        $eh->fileNotFound('event', 'routeHandler', 'endRouter');
     }
 
     private function displayFile($file): void
     {
-        if (file_exists(__DIR__ . '/../' .$file)) {
-            require_once __DIR__ . '/../' .$file;
+        if (file_exists(__DIR__.'/../'.$file)) {
+            require_once __DIR__.'/../'.$file;
         } else {
             $eh = new errorHandler();
-            $eh->fileNotFound('event','routeHandler','displayFile');
+            $eh->fileNotFound('event', 'routeHandler', 'displayFile');
         }
         exit;
     }

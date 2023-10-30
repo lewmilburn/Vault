@@ -10,13 +10,14 @@ class encryptionManager
     public function generateKey($password): string
     {
         try {
-            return sodium_crypto_pwhash(SODIUM_CRYPTO_SECRETBOX_KEYBYTES, $password, '0000000000000000',SODIUM_CRYPTO_PWHASH_OPSLIMIT_INTERACTIVE, SODIUM_CRYPTO_PWHASH_MEMLIMIT_INTERACTIVE, SODIUM_CRYPTO_PWHASH_ALG_ARGON2ID13);
+            return sodium_crypto_pwhash(SODIUM_CRYPTO_SECRETBOX_KEYBYTES, $password, '0000000000000000', SODIUM_CRYPTO_PWHASH_OPSLIMIT_INTERACTIVE, SODIUM_CRYPTO_PWHASH_MEMLIMIT_INTERACTIVE, SODIUM_CRYPTO_PWHASH_ALG_ARGON2ID13);
         } catch (SodiumException $e) {
             $eh = new errorHandler();
-            $eh->error('encryption', 'encryptionManager','encrypt',$e,'500');
+            $eh->error('encryption', 'encryptionManager', 'encrypt', $e, '500');
             exit;
         }
     }
+
     public function encrypt($string, $key): array
     {
         try {
@@ -27,13 +28,14 @@ class encryptionManager
             sodium_memzero($string);
             sodium_memzero($key);
 
-            return array($encryptedData,$nonce);
+            return [$encryptedData, $nonce];
         } catch (SodiumException|\Exception $e) {
             $eh = new errorHandler();
-            $eh->error('encryption', 'encryptionManager','encrypt',$e,'500');
+            $eh->error('encryption', 'encryptionManager', 'encrypt', $e, '500');
             exit;
         }
     }
+
     public function decrypt($string, $key, $nonce): string|null
     {
         try {
@@ -47,7 +49,7 @@ class encryptionManager
             return $decryptedData;
         } catch (SodiumException|\Exception $e) {
             $eh = new errorHandler();
-            $eh->error('encryption', 'encryptionManager','decrypt',$e,'500');
+            $eh->error('encryption', 'encryptionManager', 'decrypt', $e, '500');
             exit;
         }
     }

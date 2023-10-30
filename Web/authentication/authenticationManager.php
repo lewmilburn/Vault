@@ -24,7 +24,7 @@ class authenticationManager
             }
         } else {
             $eh = new errorHandler();
-            $eh->sessionRequired('authentication','authenticationManager','Login');
+            $eh->sessionRequired('authentication', 'authenticationManager', 'Login');
             exit;
         }
     }
@@ -38,7 +38,7 @@ class authenticationManager
             return true;
         } else {
             $eh = new errorHandler();
-            $eh->sessionRequired('authentication','authenticationManager','Logout');
+            $eh->sessionRequired('authentication', 'authenticationManager', 'Logout');
             exit;
         }
     }
