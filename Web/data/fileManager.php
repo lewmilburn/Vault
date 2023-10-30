@@ -7,18 +7,18 @@ use Vault\encryption\encryptionManager;
 class fileManager
 {
     private string $usersFile;
-    private string $vaultFile;
+    private string $defaultVault;
 
     public function __construct()
     {
-        $this->usersFile = __DIR__ . '/../' . USERS_FILE;
-        $this->vaultFile = __DIR__ . '/../' . VAULT_FILE;
+        $this->usersFile = __DIR__ . '/../' . SECURE_LOCATION . USERS_FILE;
+        $this->defaultVault = __DIR__ . '/../' . SECURE_LOCATION . DEFAULT_USER . '.vault';
 
         if (!file_exists($this->usersFile)) {
             $this->initialiseUsers();
         }
 
-        if (!file_exists($this->vaultFile)) {
+        if (!file_exists($this->defaultVault)) {
             $this->initialiseVault();
         }
     }
@@ -32,18 +32,18 @@ class fileManager
     private function initialiseUsers(): void
     {
         $UserFile = fopen($this->usersFile, "w");
-        fwrite($UserFile, '{"users" : []}');
+        fwrite($UserFile, '[{"user":"admin","passkey":"'.password_hash(TEMPORARY_PASSWORD,PASSWORD_DEFAULT).'"}]');
         fclose($UserFile);
     }
 
     private function initialiseVault(): void
     {
-        $VaultFile = fopen($this->vaultFile, "w");
+        $VaultFile = fopen($this->defaultVault, "w");
 
         $em = new encryptionManager();
-        $EncryptedData = $em->encrypt('"users" : []',$em->generateKey(TEMPORARY_PASSWORD));
+        $EncryptedData = $em->encrypt('[{}]',$em->generateKey(PASSWORD_DEFAULT));
 
-        fwrite($VaultFile, $EncryptedData[0].'[!]'.$EncryptedData[1]);
+        fwrite($VaultFile, $EncryptedData[0].FILE_SEPARATOR.$EncryptedData[1]);
         fclose($VaultFile);
     }
 }

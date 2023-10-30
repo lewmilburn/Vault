@@ -10,7 +10,9 @@ const TEMPORARY_PASSWORD = 'Vault123!';
 
 // Filesystem storage settings
 const USERS_FILE = 'users.json';
-const VAULT_FILE = 'default.vault';
+const DEFAULT_USER = 'admin';
+const SECURE_LOCATION = ''; // relative to this file.
+const FILE_SEPARATOR = '[SEP]';
 
 // Database storage settings
 const DB_HOST = '';
