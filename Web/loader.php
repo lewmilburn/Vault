@@ -1,6 +1,5 @@
 <?php
 
-use Vault\data\fileManager;
 use Vault\event\errorHandler;
 
 require_once __DIR__.'/data/const.php';
@@ -25,8 +24,7 @@ require_once __DIR__.'/event/errorHandler.php';
 
 require_once __DIR__.'/event/routeHandler.php';
 
-if (!extension_loaded('sodium'))
-{
+if (!extension_loaded('sodium')) {
     $eh = new errorHandler();
     $eh->error(null, null, null, 'Sodium not installed.', '500');
 }
