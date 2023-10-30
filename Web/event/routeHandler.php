@@ -13,7 +13,7 @@ class routeHandler
             require_once __DIR__ . $file;
         } else {
             $eh = new errorHandler();
-            $eh->error('Vault\Event\authenticationManager()::Login');
+            $eh->fileNotFound('event','routeHandler','displayFile');
         }
     }
 }

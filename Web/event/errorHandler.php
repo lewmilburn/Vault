@@ -4,7 +4,7 @@ namespace Vault\event;
 
 class errorHandler
 {
-    public function error(string $function, string $message, string $code): void
+    public function error(string $namespace, string $class, string $function, string $message, string $code): void
     {
         http_response_code($code);
         ob_end_clean();
@@ -24,7 +24,7 @@ class errorHandler
                 <table class="table">
                     <tr>
                         <th scope="row">Function</th>
-                        <td>'.$function.'</td>
+                        <td>Vault\\'.$namespace.'\\'.$class.'::'.$function.'</td>
                     </tr>
                     <tr>
                         <th scope="row">Error</th>
@@ -36,8 +36,13 @@ class errorHandler
         exit;
     }
 
-    public function sessionRequired(string $function): void
+    public function sessionRequired(string $namespace, string $class, string $function): void
     {
-        $this->error($function, 'Internal Server Error - An active PHP session is required to run this function.', 500);
+        $this->error($namespace, $class, $function, 'Internal Server Error - An active PHP session is required to run this function.', 500);
+    }
+
+    public function fileNotFound(string $namespace, string $class, string $function)
+    {
+        $this->error($namespace, $class, $function, 'File Not Found - The requested file could not be found.', 404);
     }
 }
