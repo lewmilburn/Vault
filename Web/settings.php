@@ -5,6 +5,8 @@ const ENV = DEV;
 
 // STORAGE_TYPE = DATABASE or FILESYSTEM
 const STORAGE_TYPE = FILESYSTEM;
+// TEMPORARY_PASSWORD - first run password
+const TEMPORARY_PASSWORD = 'Vault123!';
 
 // Filesystem storage settings
 const USERS_FILE = 'users.json';

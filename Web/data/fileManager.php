@@ -41,7 +41,7 @@ class fileManager
         $VaultFile = fopen($this->vaultFile, "w");
 
         $em = new encryptionManager();
-        $EncryptedData = $em->encrypt('"users" : []',hex2bin('000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f'));
+        $EncryptedData = $em->encrypt('"users" : []',$em->generateKey(TEMPORARY_PASSWORD));
 
         fwrite($VaultFile, $EncryptedData[0].'[!]'.$EncryptedData[1]);
         fclose($VaultFile);
