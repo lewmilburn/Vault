@@ -4,7 +4,7 @@ namespace Vault\event;
 
 class errorHandler
 {
-    public function error(string $namespace, string $class, string $function, string $message, string $code): void
+    public function error(string|null $namespace, string|null $class, string|null $function, string $message, string $code): void
     {
         http_response_code($code);
         ob_end_clean();
