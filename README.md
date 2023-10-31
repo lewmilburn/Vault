@@ -13,5 +13,8 @@ The project will be developed in two parts, a JavaScript-based offline/syncable 
 ## Developer Documentation and User Guide
 https://github.com/lewmilburn/Vault/wiki
 
+## UML Diagrams:
+https://github.com/lewmilburn/Vault/issues/1
+
 ## SonarCloud Testing
 https://sonarcloud.io/summary/overall?id=lewmilburn_Vault
