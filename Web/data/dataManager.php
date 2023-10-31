@@ -7,7 +7,7 @@ class dataManager
     /**
      * @throws \Exception Invalid data type.
      */
-    public function getUserData(string $username): string
+    public function getUserData(string $username): object|null
     {
         if (STORAGE_TYPE == DATABASE) {
             $dm = new databaseManager();

@@ -23,11 +23,17 @@ class fileManager
         }
     }
 
-    public function getUserData(string $username)
+    public function getUserData(string $username): object|null
     {
         $usersFile = file_get_contents($this->usersFile);
+        $users = json_decode($usersFile);
+        foreach ($users as $user) {
+            if ($user->user == $username) {
+                return $user;
+            }
+        }
 
-        return json_decode($usersFile);
+        return null;
     }
 
     private function initialiseUsers(): void

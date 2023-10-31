@@ -12,10 +12,10 @@ class authenticationManager
         if (session_status() == PHP_SESSION_ACTIVE) {
             $data = new dataManager();
             $user = $data->getUserData($username);
-            if (password_verify($password, $user->password)) {
+            if (password_verify($password, $user->passkey)) {
                 $tm = new tokenManager();
-                $token = $tm->generateToken($user->uuid);
-                $_SESSION['uuid'] = $user->uuid;
+                $token = $tm->generateToken($user->user);
+                $_SESSION['user'] = $user->user;
                 $_SESSION['token'] = $token;
 
                 return true;
