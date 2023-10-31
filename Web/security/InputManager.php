@@ -2,7 +2,7 @@
 
 namespace Vault;
 
-class inputManager
+class InputManager
 {
     public function escapeString($string): string
     {

@@ -2,9 +2,9 @@
 
 namespace Vault\data;
 
-use Vault\security\encryptionManager;
+use Vault\security\EncryptionManager;
 
-class fileManager
+class FileManager
 {
     private string $usersFile;
     private string $defaultVault;
@@ -47,7 +47,7 @@ class fileManager
     {
         $VaultFile = fopen($this->defaultVault, 'w');
 
-        $em = new encryptionManager();
+        $em = new EncryptionManager();
         $EncryptedData = $em->encrypt('[{}]', $em->generateKey(PASSWORD_DEFAULT));
 
         fwrite($VaultFile, $EncryptedData[0].FILE_SEPARATOR.$EncryptedData[1]);

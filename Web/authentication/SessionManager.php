@@ -2,7 +2,7 @@
 
 namespace Vault\authentication;
 
-class sessionManager
+class SessionManager
 {
     public function active(): bool
     {

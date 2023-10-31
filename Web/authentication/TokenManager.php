@@ -2,7 +2,7 @@
 
 namespace Vault\authentication;
 
-class tokenManager
+class TokenManager
 {
     public function generateToken(string $uuid): string
     {

@@ -2,7 +2,7 @@
 
 namespace Vault\event;
 
-class errorHandler
+class ErrorHandler
 {
     public function error(string|null $namespace, string|null $class, string|null $function, string $message, string $code): void
     {

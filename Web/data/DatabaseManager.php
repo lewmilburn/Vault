@@ -2,7 +2,7 @@
 
 namespace Vault\data;
 
-class databaseManager
+class DatabaseManager
 {
     public function getUserData(string $username)
     {
