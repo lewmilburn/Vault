@@ -17,7 +17,13 @@ class DataManager
             $dm = new FileManager();
         } else {
             $em = new ErrorHandler();
-            $em->error('data', 'DataManager', 'getUserData', 'Selected storage type is invalid, please use DATABASE or FILESYSTEM.', '500');
+            $em->error(
+                'data',
+                'DataManager',
+                'getUserData',
+                'Selected storage type is invalid, please use DATABASE or FILESYSTEM.',
+                '500'
+            );
         }
 
         return $dm->getUserData($username);
