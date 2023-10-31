@@ -4,7 +4,7 @@ namespace Vault\event;
 
 use JetBrains\PhpStorm\NoReturn;
 
-class routeHandler
+class RouteHandler
 {
     #[NoReturn]
     public function getRequest($url, $file): void
@@ -29,7 +29,7 @@ class routeHandler
     #[NoReturn]
     public function endRouter(): void
     {
-        $eh = new errorHandler();
+        $eh = new ErrorHandler();
         $eh->fileNotFound('event', 'routeHandler', 'endRouter');
     }
 
@@ -39,7 +39,7 @@ class routeHandler
         if (file_exists(__DIR__.'/../'.$file)) {
             require_once __DIR__.'/../'.$file;
         } else {
-            $eh = new errorHandler();
+            $eh = new ErrorHandler();
             $eh->fileNotFound('event', 'routeHandler', 'displayFile');
         }
         exit;

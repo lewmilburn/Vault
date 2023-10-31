@@ -2,7 +2,7 @@
 
 namespace Vault\data;
 
-class dataManager
+class DataManager
 {
     /**
      * @throws \Exception Invalid data type.
@@ -10,9 +10,9 @@ class dataManager
     public function getUserData(string $username): object|null
     {
         if (STORAGE_TYPE == DATABASE) {
-            $dm = new databaseManager();
+            $dm = new DatabaseManager();
         } elseif (STORAGE_TYPE == FILESYSTEM) {
-            $dm = new fileManager();
+            $dm = new FileManager();
         } else {
             throw new \Exception('Data type is invalid.');
         }

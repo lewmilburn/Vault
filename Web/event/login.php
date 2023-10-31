@@ -1,17 +1,17 @@
 <?php
 
-use Vault\authentication\authenticationManager;
-use Vault\data\dataManager;
-use Vault\inputManager;
+use Vault\authentication\AuthenticationManager;
+use Vault\data\DataManager;
+use Vault\InputManager;
 
 if (!isset($_POST['user']) || !isset($_POST['pass'])) {
     header('Location: /');
     exit;
 }
 
-$am = new authenticationManager();
-$dm = new dataManager();
-$im = new inputManager();
+$am = new AuthenticationManager();
+$dm = new DataManager();
+$im = new InputManager();
 
 $user = $im->escapeString($_POST['user']);
 $pass = $im->escapeString($_POST['pass']);

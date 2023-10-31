@@ -2,10 +2,10 @@
 
 namespace Vault\authentication;
 
-use Vault\Data\dataManager;
-use Vault\Event\errorHandler;
+use Vault\Data\DataManager;
+use Vault\Event\ErrorHandler;
 
-class authenticationManager
+class AuthenticationManager
 {
     public function login(string $username, string $password)
     {
@@ -14,7 +14,7 @@ class authenticationManager
         }
 
         if (session_status() == PHP_SESSION_ACTIVE) {
-            $data = new dataManager();
+            $data = new DataManager();
             $user = $data->getUserData($username);
 
             if ($user == null) {
@@ -22,7 +22,7 @@ class authenticationManager
             }
 
             if (password_verify($password, $user->passkey)) {
-                $tm = new tokenManager();
+                $tm = new TokenManager();
                 $token = $tm->generateToken($user->user);
                 $_SESSION['user'] = $user->user;
                 $_SESSION['token'] = $token;
@@ -32,7 +32,7 @@ class authenticationManager
                 return false;
             }
         } else {
-            $eh = new errorHandler();
+            $eh = new ErrorHandler();
             $eh->sessionRequired('authentication', 'authenticationManager', 'Login');
             exit;
         }
@@ -40,7 +40,7 @@ class authenticationManager
 
     public function logout()
     {
-        $sm = new sessionManager();
+        $sm = new SessionManager();
         if ($sm->end()) {
             header('Location: /');
             exit;
@@ -49,8 +49,8 @@ class authenticationManager
 
     public function authenticated()
     {
-        $sm = new sessionManager();
-        $tm = new tokenManager();
+        $sm = new SessionManager();
+        $tm = new TokenManager();
         if ($sm->authTokens() && $tm->validToken($_SESSION['token'], $_SESSION['user'])) {
             return true;
         } else {

@@ -5,16 +5,16 @@
  * @license Apache 2.0 International License
  */
 
-use Vault\authentication\authenticationManager;
-use Vault\event\routeHandler;
+use Vault\authentication\AuthenticationManager;
+use Vault\event\RouteHandler;
 
 ob_start();
 session_start();
 
 require_once __DIR__.'/loader.php';
 
-$router = new routeHandler();
-$auth = new authenticationManager();
+$router = new RouteHandler();
+$auth = new AuthenticationManager();
 
 if ($auth->authenticated()) {
     $router->getRequest('/', 'view/dashboard.php');
