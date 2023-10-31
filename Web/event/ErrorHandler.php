@@ -2,9 +2,18 @@
 
 namespace Vault\event;
 
+use JetBrains\PhpStorm\NoReturn;
+
 class ErrorHandler
 {
-    public function error(string|null $namespace, string|null $class, string|null $function, string $message, string $code): void
+    #[NoReturn]
+    public function error(
+        string|null $namespace,
+        string|null $class,
+        string|null $function,
+        string $message,
+        string $code
+    ): void
     {
         http_response_code($code);
         ob_end_clean();
@@ -41,6 +50,7 @@ class ErrorHandler
         exit;
     }
 
+    #[NoReturn]
     public function sessionRequired(string $namespace, string $class, string $function): void
     {
         $this->error(
@@ -52,7 +62,8 @@ class ErrorHandler
         );
     }
 
-    public function fileNotFound(string $namespace, string $class, string $function)
+    #[NoReturn]
+    public function fileNotFound(string $namespace, string $class, string $function): void
     {
         $this->error(
             $namespace,
