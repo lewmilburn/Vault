@@ -38,19 +38,19 @@ class FileManager
 
     private function initialiseUsers(): void
     {
-        $UserFile = fopen($this->usersFile, 'w');
-        fwrite($UserFile, '[{"user":"admin","passkey":"'.password_hash(TEMPORARY_PASSWORD, PASSWORD_DEFAULT).'"}]');
-        fclose($UserFile);
+        $userFile = fopen($this->usersFile, 'w');
+        fwrite($userFile, '[{"user":"admin","passkey":"'.password_hash(TEMPORARY_PASSWORD, PASSWORD_DEFAULT).'"}]');
+        fclose($userFile);
     }
 
     private function initialiseVault(): void
     {
-        $VaultFile = fopen($this->defaultVault, 'w');
+        $vaultFile = fopen($this->defaultVault, 'w');
 
         $em = new EncryptionManager();
-        $EncryptedData = $em->encrypt('[{}]', $em->generateKey(PASSWORD_DEFAULT));
+        $encryptedData = $em->encrypt('[{}]', $em->generateKey(PASSWORD_DEFAULT));
 
-        fwrite($VaultFile, $EncryptedData[0].FILE_SEPARATOR.$EncryptedData[1]);
-        fclose($VaultFile);
+        fwrite($vaultFile, $encryptedData[0].FILE_SEPARATOR.$encryptedData[1]);
+        fclose($vaultFile);
     }
 }

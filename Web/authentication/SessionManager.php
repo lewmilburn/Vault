@@ -6,11 +6,7 @@ class SessionManager
 {
     public function active(): bool
     {
-        if (session_status() == PHP_SESSION_ACTIVE) {
-            return true;
-        } else {
-            return false;
-        }
+        return session_status() == PHP_SESSION_ACTIVE;
     }
 
     public function end(): bool
@@ -27,10 +23,6 @@ class SessionManager
 
     public function authTokens(): bool
     {
-        if (isset($_SESSION['token']) && isset($_SESSION['user'])) {
-            return true;
-        } else {
-            return false;
-        }
+        return isset($_SESSION['token']) && isset($_SESSION['user']);
     }
 }
