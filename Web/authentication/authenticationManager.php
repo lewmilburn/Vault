@@ -9,9 +9,18 @@ class authenticationManager
 {
     public function login(string $username, string $password)
     {
+        if ($username == null || $password == null) {
+            return false;
+        }
+
         if (session_status() == PHP_SESSION_ACTIVE) {
             $data = new dataManager();
             $user = $data->getUserData($username);
+
+            if ($user == null) {
+                return false;
+            }
+
             if (password_verify($password, $user->passkey)) {
                 $tm = new tokenManager();
                 $token = $tm->generateToken($user->user);
@@ -44,6 +53,8 @@ class authenticationManager
         $tm = new tokenManager();
         if ($sm->authTokens() && $tm->validToken($_SESSION['token'], $_SESSION['user'])) {
             return true;
+        } else {
+            return false;
         }
     }
 }
