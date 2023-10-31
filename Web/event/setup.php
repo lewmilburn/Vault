@@ -16,6 +16,6 @@ require_once __DIR__.'/../security/EncryptionManager.php';
 $fm = new FileManager();
 $fm->initialiseFileSystem($tempPassword);
 
-file_put_contents(__DIR__.'/../run.json','{"config":true}');
+file_put_contents(__DIR__.'/../run.json', '{"config":true}');
 
 header('Location: /?temp='.$tempPassword);

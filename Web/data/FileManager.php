@@ -2,7 +2,6 @@
 
 namespace Vault\data;
 
-use Vault\event\ErrorHandler;
 use Vault\security\EncryptionManager;
 
 class FileManager
