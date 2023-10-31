@@ -2,8 +2,13 @@
 
 use Vault\event\ErrorHandler;
 
+if (!file_exists(__DIR__.'/run.json'))
+{
+    require_once __DIR__.'/event/setup.php';
+}
+
 require_once __DIR__.'/data/const.php';
-require_once __DIR__.'/settings.php';
+require_once __DIR__ .'/settings.php';
 
 if (ENV == DEV) {
     error_reporting(-1);
