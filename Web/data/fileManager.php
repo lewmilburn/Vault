@@ -2,7 +2,7 @@
 
 namespace Vault\data;
 
-use Vault\encryption\encryptionManager;
+use Vault\security\encryptionManager;
 
 class fileManager
 {

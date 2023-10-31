@@ -7,7 +7,7 @@ use Vault\Event\errorHandler;
 
 class authenticationManager
 {
-    public function Login(string $username, string $password)
+    public function login(string $username, string $password)
     {
         if (session_status() == PHP_SESSION_ACTIVE) {
             $data = new dataManager();
@@ -29,17 +29,21 @@ class authenticationManager
         }
     }
 
-    public function Logout()
+    public function logout()
     {
-        if (session_status() == PHP_SESSION_ACTIVE) {
-            session_unset();
-            session_destroy();
-
-            return true;
-        } else {
-            $eh = new errorHandler();
-            $eh->sessionRequired('authentication', 'authenticationManager', 'Logout');
+        $sm = new sessionManager();
+        if ($sm->end()) {
+            header('Location: /');
             exit;
+        }
+    }
+
+    public function authenticated()
+    {
+        $sm = new sessionManager();
+        $tm = new tokenManager();
+        if ($sm->authTokens() && $tm->validToken($_SESSION['token'], $_SESSION['user'])) {
+            return true;
         }
     }
 }
