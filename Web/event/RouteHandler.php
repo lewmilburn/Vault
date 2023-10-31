@@ -21,7 +21,8 @@ class RouteHandler
     #[NoReturn]
     public function request(string $url, string $file, string $method): void
     {
-        if ($_SERVER['REQUEST_URI'] === $url && $_SERVER['REQUEST_METHOD'] === $method) {
+        $request = strtok($_SERVER['REQUEST_URI'], '?');
+        if ($request === $url && $_SERVER['REQUEST_METHOD'] === $method) {
             $this->runFile($file);
         }
     }

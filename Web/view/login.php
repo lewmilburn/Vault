@@ -6,7 +6,16 @@
     </head>
     <body>
         <?php require_once __DIR__.'/common/alerts.php'; ?>
-        Login to Vault.
+
+        <?php if (isset($_GET['temp'])) { ?>
+            <div class="alert-red">
+                A temporary account has been set up.
+                Username = 'admin'
+                Password = '<?= $_GET['temp']; ?>'
+            </div>
+        <?php } ?>
+
+        <h1 class="text-center">Login to Vault.</h1>
 
         <form action="/auth" method="post">
             <label for="user">Username</label>
