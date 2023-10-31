@@ -13,8 +13,7 @@ class ErrorHandler
         string|null $function,
         string $message,
         string $code
-    ): void
-    {
+    ): void {
         http_response_code($code);
         ob_end_clean();
         echo' <!DOCTYPE html>
