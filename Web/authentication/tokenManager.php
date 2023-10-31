@@ -9,9 +9,9 @@ class tokenManager
         return hash('sha3-512', $uuid.date('Y-m-d'));
     }
 
-    public function validateToken(string $token, string $uuid): string
+    public function validToken(string $token, string $user): string
     {
-        if ($token == hash('sha3-512', $uuid.date('Y-m-d'))) {
+        if ($token == hash('sha3-512', $user.date('Y-m-d'))) {
             return true;
         } else {
             return false;

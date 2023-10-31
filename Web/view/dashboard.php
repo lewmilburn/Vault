@@ -4,10 +4,6 @@
         <title>Vault</title>
     </head>
     <body>
-        Login to Vault.
-
-        <form action="/auth" method="post">
-
-        </form>
+        Vault dashboard.
     </body>
 </html>
