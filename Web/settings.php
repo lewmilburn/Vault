@@ -5,12 +5,12 @@ const ENV = DEV;
 
 // STORAGE_TYPE = DATABASE or FILESYSTEM
 const STORAGE_TYPE = FILESYSTEM;
-// TEMPORARY_PASSWORD - first run password
-const TEMPORARY_PASSWORD = 'Vault123!';
 
 // Filesystem storage settings
 const USERS_FILE = 'users.json';
 const DEFAULT_USER = 'admin';
+// TEMPORARY_PASSWORD - first run password
+const TEMPORARY_PASSWORD = 'Vault123!';
 const SECURE_LOCATION = ''; // relative to this file.
 const FILE_SEPARATOR = '[SEP]';
 
