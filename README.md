@@ -18,4 +18,19 @@ https://github.com/lewmilburn/Vault/wiki
 https://github.com/lewmilburn/Vault/issues/1
 
 ## SonarCloud Testing
-https://sonarcloud.io/summary/overall?id=lewmilburn_Vault
+
+The below badges will automatically update, you can also see all information about SonarCloud Testing and the results here: https://sonarcloud.io/summary/overall?id=lewmilburn_Vault
+
+### Stats
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=lewmilburn_Vault&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=lewmilburn_Vault)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=lewmilburn_Vault&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=lewmilburn_Vault)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=lewmilburn_Vault&metric=bugs)](https://sonarcloud.io/summary/new_code?id=lewmilburn_Vault)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=lewmilburn_Vault&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=lewmilburn_Vault)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=lewmilburn_Vault&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=lewmilburn_Vault)
+[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=lewmilburn_Vault&metric=sqale_index)](https://sonarcloud.io/summary/new_code?id=lewmilburn_Vault)
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=lewmilburn_Vault&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=lewmilburn_Vault)
+
+### Ratings
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=lewmilburn_Vault&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=lewmilburn_Vault)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=lewmilburn_Vault&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=lewmilburn_Vault)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=lewmilburn_Vault&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=lewmilburn_Vault)
