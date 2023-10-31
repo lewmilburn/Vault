@@ -18,6 +18,7 @@ class sessionManager
         if ($this->active()) {
             session_unset();
             session_destroy();
+
             return true;
         } else {
             return false;
