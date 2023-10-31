@@ -1,6 +1,6 @@
 <?php
 
-namespace Vault\encryption;
+namespace Vault\security;
 
 use SodiumException;
 use Vault\event\errorHandler;
@@ -13,7 +13,7 @@ class encryptionManager
             return sodium_crypto_pwhash(SODIUM_CRYPTO_SECRETBOX_KEYBYTES, $password, '0000000000000000', SODIUM_CRYPTO_PWHASH_OPSLIMIT_INTERACTIVE, SODIUM_CRYPTO_PWHASH_MEMLIMIT_INTERACTIVE, SODIUM_CRYPTO_PWHASH_ALG_ARGON2ID13);
         } catch (SodiumException $e) {
             $eh = new errorHandler();
-            $eh->error('encryption', 'encryptionManager', 'encrypt', $e, '500');
+            $eh->error('security', 'encryptionManager', 'encrypt', $e, '500');
             exit;
         }
     }
@@ -31,7 +31,7 @@ class encryptionManager
             return [$encryptedData, $nonce];
         } catch (SodiumException|\Exception $e) {
             $eh = new errorHandler();
-            $eh->error('encryption', 'encryptionManager', 'encrypt', $e, '500');
+            $eh->error('security', 'encryptionManager', 'encrypt', $e, '500');
             exit;
         }
     }
@@ -49,7 +49,7 @@ class encryptionManager
             return $decryptedData;
         } catch (SodiumException|\Exception $e) {
             $eh = new errorHandler();
-            $eh->error('encryption', 'encryptionManager', 'decrypt', $e, '500');
+            $eh->error('security', 'encryptionManager', 'decrypt', $e, '500');
             exit;
         }
     }
