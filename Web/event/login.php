@@ -4,8 +4,10 @@ use Vault\authentication\AuthenticationManager;
 use Vault\data\DataManager;
 use Vault\InputManager;
 
+$failLocation = 'Location: /';
+
 if (!isset($_POST['user']) || !isset($_POST['pass'])) {
-    header('Location: /');
+    header($failLocation);
     exit;
 }
 
@@ -17,11 +19,11 @@ $user = $im->escapeString($_POST['user']);
 $pass = $im->escapeString($_POST['pass']);
 
 if ($user == null || $pass == null) {
-    header('Location: /');
+    header($failLocation);
     exit;
 }
 
 $am->login($user, $pass);
 
-header('Location: /');
+header($failLocation);
 exit;

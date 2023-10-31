@@ -27,10 +27,12 @@ class AuthenticationManager
                 $_SESSION['user'] = $user->user;
                 $_SESSION['token'] = $token;
 
-                return true;
+                $result = true;
             } else {
-                return false;
+                $result = false;
             }
+
+            return $result;
         } else {
             $eh = new ErrorHandler();
             $eh->sessionRequired('authentication', 'authenticationManager', 'Login');
@@ -51,10 +53,7 @@ class AuthenticationManager
     {
         $sm = new SessionManager();
         $tm = new TokenManager();
-        if ($sm->authTokens() && $tm->validToken($_SESSION['token'], $_SESSION['user'])) {
-            return true;
-        } else {
-            return false;
-        }
+
+        return $sm->authTokens() && $tm->validToken($_SESSION['token'], $_SESSION['user']);
     }
 }

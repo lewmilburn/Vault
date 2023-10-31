@@ -11,10 +11,6 @@ class TokenManager
 
     public function validToken(string $token, string $user): string
     {
-        if ($token == hash('sha3-512', $user.date('Y-m-d'))) {
-            return true;
-        } else {
-            return false;
-        }
+        return $token == hash('sha3-512', $user.date('Y-m-d'));
     }
 }

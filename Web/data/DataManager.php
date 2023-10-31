@@ -2,6 +2,8 @@
 
 namespace Vault\data;
 
+use Vault\event\ErrorHandler;
+
 class DataManager
 {
     /**
@@ -14,7 +16,8 @@ class DataManager
         } elseif (STORAGE_TYPE == FILESYSTEM) {
             $dm = new FileManager();
         } else {
-            throw new \Exception('Data type is invalid.');
+            $em = new ErrorHandler();
+            $em->error('data', 'DataManager', 'getUserData', 'Selected storage type is invalid, please use DATABASE or FILESYSTEM.', '500');
         }
 
         return $dm->getUserData($username);
