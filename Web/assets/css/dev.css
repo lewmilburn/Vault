@@ -7,7 +7,7 @@ body {
 }
 
 input {
-    @apply border px-2 py-1;
+    @apply border px-2 py-1 dark:bg-black;
 }
 
 main {
