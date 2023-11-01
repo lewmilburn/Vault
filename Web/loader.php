@@ -4,6 +4,7 @@ use Vault\event\ErrorHandler;
 
 if (!file_exists(__DIR__.'/run.json')) {
     require_once __DIR__.'/event/setup.php';
+    exit;
 }
 
 require_once __DIR__.'/data/const.php';
@@ -17,6 +18,7 @@ if (ENV == DEV) {
 
 require_once __DIR__.'/security/EncryptionManager.php';
 require_once __DIR__.'/security/InputManager.php';
+require_once __DIR__.'/security/HashManager.php';
 
 require_once __DIR__.'/data/FileManager.php';
 require_once __DIR__.'/data/DatabaseManager.php';

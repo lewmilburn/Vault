@@ -12,6 +12,8 @@ const DEFAULT_USER = 'admin';
 const SECURE_LOCATION = ''; // relative to this file.
 const FILE_SEPARATOR = '[SEP]';
 
+const DEFAULT_HASH = 'sha3-512';
+
 // Database storage settings
 const DB_HOST = '';
 const DB_NAME = '';
