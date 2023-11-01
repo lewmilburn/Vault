@@ -1,5 +1,5 @@
 /.idea/
 /Web/users.json
-/Web/admin.vault
+/Web/*.vault
 /Web/run.json
 /Web/node_modules/
