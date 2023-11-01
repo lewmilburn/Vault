@@ -21,7 +21,6 @@ class EncryptionManager
         } catch (SodiumException $e) {
             $eh = new ErrorHandler();
             $eh->error('security', 'encryptionManager', 'encrypt', $e, '500');
-            exit;
         }
     }
 
@@ -50,7 +49,6 @@ class EncryptionManager
                 $e,
                 '500'
             );
-            exit;
         }
     }
 
@@ -79,7 +77,6 @@ class EncryptionManager
                 $e,
                 '500'
             );
-            exit;
         }
     }
 }
