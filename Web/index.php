@@ -11,6 +11,8 @@ use Vault\event\RouteHandler;
 ob_start();
 session_start();
 
+var_dump($_SESSION);
+
 require_once __DIR__.'/loader.php';
 
 $router = new RouteHandler();

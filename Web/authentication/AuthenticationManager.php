@@ -21,9 +21,10 @@ class AuthenticationManager
                 return false;
             }
 
-            if (password_verify($password, $user->passkey)) {
+            if (password_verify($password, $user->pass)) {
                 $tm = new TokenManager();
                 $token = $tm->generateToken($user->user);
+                $_SESSION['name'] = $username;
                 $_SESSION['user'] = $user->user;
                 $_SESSION['token'] = $token;
 
@@ -36,11 +37,10 @@ class AuthenticationManager
         } else {
             $eh = new ErrorHandler();
             $eh->sessionRequired('authentication', 'authenticationManager', 'Login');
-            exit;
         }
     }
 
-    public function logout()
+    public function logout(): void
     {
         $sm = new SessionManager();
         if ($sm->end()) {
@@ -49,7 +49,7 @@ class AuthenticationManager
         }
     }
 
-    public function authenticated()
+    public function authenticated(): bool
     {
         $sm = new SessionManager();
         $tm = new TokenManager();

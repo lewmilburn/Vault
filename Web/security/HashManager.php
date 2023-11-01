@@ -9,6 +9,11 @@ class HashManager
         return hash(DEFAULT_HASH, $string);
     }
 
+    public function hashUser($string)
+    {
+        return hash(USER_HASH, $string);
+    }
+
     public function generateChecksum($string)
     {
         return hash('sha1', $string);

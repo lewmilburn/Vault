@@ -3,16 +3,17 @@
 namespace Vault\data;
 
 use Vault\security\EncryptionManager;
+use Vault\security\HashManager;
 
 class FileManager
 {
     private string $usersFile;
-    private string $defaultVault;
+    private string $secureLocation;
 
     public function __construct()
     {
         $this->usersFile = __DIR__.'/../'.SECURE_LOCATION.USERS_FILE;
-        $this->defaultVault = __DIR__.'/../'.SECURE_LOCATION.DEFAULT_USER.'.vault';
+        $this->secureLocation = __DIR__.'/../'.SECURE_LOCATION;
     }
 
     public function getUserData(string $username): object|null
@@ -28,30 +29,45 @@ class FileManager
         return null;
     }
 
-    public function initialiseFileSystem($tempPassword): void
+    public function createUser(string $username, string $password): bool
     {
-        if (!file_exists($this->usersFile)) {
-            $this->initialiseUsers($tempPassword);
+        $password = password_hash($password, PASSWORD_DEFAULT);
+
+        if (file_exists($this->usersFile)) {
+            $usersFile = file_get_contents($this->usersFile);
+            $data = json_decode($usersFile);
+
+            foreach ($data as $user) {
+                if ($user->user == $username) {
+                    return false;
+                }
+            }
+
+            $newUser = '{"user":"'.$username.'","pass":"'.$password.'"}';
+            $newUser = json_decode($newUser);
+
+            $data[] = $newUser;
+
+            $data = json_encode($data);
+        } else {
+            $data = '[{"user":"'.$username.'","pass":"'.$password.'"}]';
         }
 
-        if (!file_exists($this->defaultVault)) {
-            $this->initialiseVault($tempPassword);
-        }
+        $usersFile = fopen($this->usersFile, 'w');
+        fwrite($usersFile, $data);
+        fclose($usersFile);
+
+        return true;
     }
 
-    private function initialiseUsers($tempPassword): void
+    public function createVault(string $username, string $key): void
     {
-        $userFile = fopen($this->usersFile, 'w');
-        fwrite($userFile, '[{"user":"admin","passkey":"'.password_hash($tempPassword, PASSWORD_DEFAULT).'"}]');
-        fclose($userFile);
-    }
+        $file = $this->secureLocation.$username.'.vault';
 
-    private function initialiseVault(string $tempPassword): void
-    {
-        $vaultFile = fopen($this->defaultVault, 'w');
+        $vaultFile = fopen($file, 'w');
 
         $em = new EncryptionManager();
-        $encryptedData = $em->encrypt('[{}]', $em->generateKey($tempPassword));
+        $encryptedData = $em->encrypt('[{}]', $em->generateKey($key));
 
         fwrite($vaultFile, $encryptedData[0].FILE_SEPARATOR.$encryptedData[1]);
         fclose($vaultFile);
