@@ -16,6 +16,6 @@ class HashManager
 
     public function generateChecksum($string)
     {
-        return hash('sha1', $string);
+        return hash(CHECKSUM_HASH, $string);
     }
 }
