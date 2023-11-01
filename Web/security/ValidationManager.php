@@ -2,6 +2,9 @@
 
 namespace Vault\security;
 
+use Exception;
+use Vault\event\ErrorHandler;
+
 class ValidationManager
 {
     /**
@@ -30,7 +33,18 @@ class ValidationManager
     public function csrfToken(): string
     {
         $hm = new HashManager();
-        $token = $hm->hashString(uniqid(mt_rand(), true));
+        try {
+            $token = $hm->hashString(uniqid(random_bytes(1000), true));
+        } catch (Exception $e) {
+            $em = new ErrorHandler();
+            $em->error(
+                'security',
+                'ValidationManager',
+                'csrfToken',
+                'Unexpected error: '.$e,
+                '500'
+            );
+        }
 
         $_SESSION['csrf'] = $token;
         return $token;
