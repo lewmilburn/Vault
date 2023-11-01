@@ -36,6 +36,7 @@ class ValidationManager
     public function csrfToken(): string
     {
         $hm = new HashManager();
+
         try {
             $token = $hm->hashString(uniqid(random_bytes(1000), true));
         } catch (Exception $e) {
