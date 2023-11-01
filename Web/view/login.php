@@ -34,7 +34,13 @@ use Vault\security\ValidationManager;
 
         <main>
             <form action="/auth" method="post" class="text-center sm:w-1/2 md:w-1/3 lg:w-1/4 mx-auto">
-                <input id="csrf" name="csrf" class="hidden" value="<?php $vm = new ValidationManager(); echo $vm->csrfToken(); ?>">
+                <input
+                    id="csrf"
+                    name="csrf"
+                    class="hidden"
+                    value="<?php $vm = new ValidationManager(); echo $vm->csrfToken(); ?>"
+                    aria-hidden="true"
+                >
                 <div class="grid">
                     <label for="user">Username</label>
                     <input id="user" name="user">

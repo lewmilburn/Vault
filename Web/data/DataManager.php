@@ -8,6 +8,8 @@ use Vault\security\InputManager;
 
 class DataManager
 {
+    public string $invalidStorageError = 'Selected storage type is invalid, please use DATABASE or FILESYSTEM.';
+
     public function getUserData(string $username): object|null
     {
         $username = trim($username);
@@ -25,7 +27,7 @@ class DataManager
                 'data',
                 'DataManager',
                 'getUserData',
-                'Selected storage type is invalid, please use DATABASE or FILESYSTEM.',
+                $this->invalidStorageError,
                 '500'
             );
         }
@@ -54,7 +56,7 @@ class DataManager
                 'data',
                 'DataManager',
                 'createUser',
-                'Selected storage type is invalid, please use DATABASE or FILESYSTEM.',
+                $this->invalidStorageError,
                 '500'
             );
         }
@@ -81,7 +83,7 @@ class DataManager
                 'data',
                 'DataManager',
                 'createUser',
-                'Selected storage type is invalid, please use DATABASE or FILESYSTEM.',
+                $this->invalidStorageError,
                 '500'
             );
         }
