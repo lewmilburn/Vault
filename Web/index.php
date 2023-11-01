@@ -18,6 +18,7 @@ $auth = new AuthenticationManager();
 
 if ($auth->authenticated()) {
     $router->getRequest('/', 'view/dashboard.php');
+    $router->getRequest('/logout', 'event/logout.php');
 } else {
     $router->getRequest('/', 'view/login.php');
     $router->postRequest('/auth', 'event/login.php');
