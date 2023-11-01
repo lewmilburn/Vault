@@ -8,9 +8,11 @@ const STORAGE_TYPE = FILESYSTEM;
 
 // Filesystem storage settings
 const USERS_FILE = 'users.json';
-const DEFAULT_USER = 'admin';
 const SECURE_LOCATION = ''; // relative to this file.
 const FILE_SEPARATOR = '[SEP]';
+const DEFAULT_HASH = 'sha3-512';
+const USER_HASH = 'crc32';
+const CHECKSUM_HASH = 'sha1';
 
 // Database storage settings
 const DB_HOST = '';

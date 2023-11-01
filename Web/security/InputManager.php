@@ -1,10 +1,17 @@
 <?php
 
-namespace Vault;
+namespace Vault\security;
 
 class InputManager
 {
-    public function escapeString($string): string
+    /**
+     * Escapes a string.
+     *
+     * @param string $string
+     *
+     * @return string
+     */
+    public function escapeString(string $string): string
     {
         return htmlspecialchars($string);
     }

@@ -2,12 +2,13 @@
 
 use Vault\authentication\AuthenticationManager;
 use Vault\data\DataManager;
-use Vault\InputManager;
+use Vault\security\InputManager;
+use Vault\security\ValidationManager;
 
-$failLocation = 'Location: /';
+$homeLocation = 'Location: /';
 
 if (!isset($_POST['user']) || !isset($_POST['pass'])) {
-    header($failLocation);
+    header($homeLocation.'?lf=none');
     exit;
 }
 
@@ -17,13 +18,24 @@ $im = new InputManager();
 
 $user = $im->escapeString($_POST['user']);
 $pass = $im->escapeString($_POST['pass']);
+$token = $im->escapeString($_POST['csrf']);
 
-if ($user == null || $pass == null) {
-    header($failLocation);
+$vm = new ValidationManager();
+if (!$vm->csrfValidate($token)) {
+    header($homeLocation.'?lf=csrf');
     exit;
 }
 
-$am->login($user, $pass);
+if ($user == null || $pass == null) {
+    header($homeLocation.'?lf=none');
+    exit;
+}
 
-header($failLocation);
+if ($am->login($user, $pass)) {
+    header($homeLocation);
+} else {
+    header($homeLocation.'?lf=wrong');
+}
+
+header($homeLocation);
 exit;
