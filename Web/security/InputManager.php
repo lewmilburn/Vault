@@ -5,8 +5,10 @@ namespace Vault\security;
 class InputManager
 {
     /**
-     * Escapes a string
+     * Escapes a string.
+     *
      * @param string $string
+     *
      * @return string
      */
     public function escapeString(string $string): string

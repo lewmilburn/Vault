@@ -3,7 +3,6 @@
 namespace Vault\data;
 
 use Vault\security\EncryptionManager;
-use Vault\security\HashManager;
 
 class FileManager
 {
