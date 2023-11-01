@@ -1,4 +1,7 @@
-<!DOCTYPE html>
+<?php
+    use Vault\InputManager;
+    $im = new InputManager();
+?><!DOCTYPE html>
 <html lang="en">
     <head>
         <title>Vault</title>
@@ -6,6 +9,14 @@
     </head>
     <body>
         <?php require_once __DIR__.'/common/alerts.php'; ?>
-        Vault dashboard.
+
+        <header>
+            <h1>Dashboard</h1>
+        </header>
+
+        <main>
+            <p>Welcome back, <?= $im->escapeString($_SESSION['user']); ?></p>
+            <a class="btn-primary" href="/logout">Log out</a>
+        </main>
     </body>
 </html>
