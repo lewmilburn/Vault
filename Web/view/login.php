@@ -1,5 +1,5 @@
 <?php
-use Vault\InputManager;
+use Vault\security\InputManager;
 ?><!DOCTYPE html>
 <html lang="en">
     <head>

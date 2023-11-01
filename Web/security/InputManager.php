@@ -1,6 +1,6 @@
 <?php
 
-namespace Vault;
+namespace Vault\security;
 
 class InputManager
 {
