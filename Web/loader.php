@@ -19,6 +19,7 @@ if (ENV == DEV) {
 require_once __DIR__.'/security/EncryptionManager.php';
 require_once __DIR__.'/security/InputManager.php';
 require_once __DIR__.'/security/HashManager.php';
+require_once __DIR__.'/security/ValidationManager.php';
 
 require_once __DIR__.'/data/FileManager.php';
 require_once __DIR__.'/data/DatabaseManager.php';

@@ -1,12 +1,16 @@
 <?php
 
-use Vault\data\DataManager;use Vault\data\FileManager;use Vault\security\InputManager;
+use Vault\data\DataManager;
+use Vault\data\FileManager;
+use Vault\security\InputManager;
+use Vault\security\ValidationManager;
 
 require_once __DIR__ . '/../data/const.php';
 require_once __DIR__ . '/../Settings.php';
 require_once __DIR__ . '/../security/InputManager.php';
 require_once __DIR__ . '/../security/HashManager.php';
 require_once __DIR__ . '/../security/EncryptionManager.php';
+require_once __DIR__ . '/../security/ValidationManager.php';
 require_once __DIR__ . '/../data/DataManager.php';
 require_once __DIR__ . '/../data/FileManager.php';
 require_once __DIR__ . '/../data/DatabaseManager.php';
@@ -20,7 +24,8 @@ if (isset($_POST['user']) && isset($_POST['pass'])) {
     $user = trim($user);
     $pass = trim($pass);
 
-    if (!$im->validatePasswordStrength($pass)) {
+    $vm = new ValidationManager();
+    if (!$vm->validatePasswordStrength($pass)) {
         header('Location: /?sf=pass');
         exit;
     }

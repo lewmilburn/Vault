@@ -3,6 +3,7 @@
 use Vault\authentication\AuthenticationManager;
 use Vault\data\DataManager;
 use Vault\security\InputManager;
+use Vault\security\ValidationManager;
 
 $homeLocation = 'Location: /';
 
@@ -17,6 +18,13 @@ $im = new InputManager();
 
 $user = $im->escapeString($_POST['user']);
 $pass = $im->escapeString($_POST['pass']);
+$token = $im->escapeString($_POST['csrf']);
+
+$vm = new ValidationManager();
+if (!$vm->csrfValidate($token)) {
+    header($homeLocation.'?lf=csrf');
+    exit;
+}
 
 if ($user == null || $pass == null) {
     header($homeLocation.'?lf=none');
