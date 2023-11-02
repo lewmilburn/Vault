@@ -1,0 +1,15 @@
+on: pull_request
+
+jobs:
+  example_comment_pr:
+    runs-on: ubuntu-latest
+    name: An example job to comment a PR
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Comment PR
+        uses: thollander/actions-comment-pull-request@v2
+        with:
+          message: |
+            Please wait for SonarCloud scan to complete before merging, it may not initially show up in the tests. SonarCloud will add a comment to this pull request when it has completed the scan.
