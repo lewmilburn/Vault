@@ -21,7 +21,11 @@ class ValidationManager
         $number = preg_match('@\d@', $password);
         $specialChars = preg_match('@[^\w]@', $password);
 
-        return !$uppercase || !$lowercase || !$number || !$specialChars || strlen($password) < 8;
+        if (!$uppercase || !$lowercase || !$number || !$specialChars || strlen($password) < 8) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     /**
