@@ -14,6 +14,7 @@ class InputManager
     public function escapeString(string $string): string
     {
         $string = trim($string);
+
         return htmlspecialchars($string);
     }
 
@@ -27,6 +28,7 @@ class InputManager
     public function stripSlashes(string $string): string
     {
         $string = trim($string);
+
         return stripslashes($string);
     }
 }
