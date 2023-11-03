@@ -53,11 +53,13 @@ if (isset($_POST['user']) && isset($_POST['pass'])) {
             <div class="alert-red">
                 Setup failed, a user with this account name already exists.
             </div>
-        <?php } if (isset($_GET['sf']) && $_GET['sf'] == 'pass') { ?>
+        <?php } ?>
+        <?php if (isset($_GET['sf']) && $_GET['sf'] == 'pass') { ?>
             <div class="alert-red">
                 Your password must contain 8 characters, including at least 1 uppercase, 1 lowercase, 1 number, and 1 symbol.
             </div>
-        <?php } if (isset($_GET['sf']) && $_GET['sf'] == 'user') { ?>
+        <?php } ?>
+        <?php if (isset($_GET['sf']) && $_GET['sf'] == 'user') { ?>
             <div class="alert-red">
                 Your username must be at least 4 characters and can not include any symbols.
             </div>
