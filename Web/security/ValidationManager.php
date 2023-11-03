@@ -29,6 +29,24 @@ class ValidationManager
     }
 
     /**
+     * Validates a username.
+     *
+     * @param string $username
+     *
+     * @return bool
+     */
+    public function validateUsername(string $username): bool
+    {
+        $specialChars = preg_match('@[^\w]@', $username);
+
+        if ($specialChars || strlen($username) < 4) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    /**
      * Generates a CSRF token.
      *
      * @return string
