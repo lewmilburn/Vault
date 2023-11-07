@@ -15,7 +15,7 @@ class DataManager
         $username = trim($username);
 
         $hm = new HashManager();
-        $username = $hm->hashUser($username);
+        $user = $hm->hashUser($username);
 
         if (STORAGE_TYPE == DATABASE) {
             $dm = new DatabaseManager();
@@ -32,11 +32,12 @@ class DataManager
             );
         }
 
-        return $dm->getUserData($username);
+        return $dm->getUserData($user);
     }
 
     public function createUser(string $username, string $password): bool
     {
+        $password = password_hash($password, PASSWORD_DEFAULT);
         $username = trim($username);
 
         $hm = new HashManager();
@@ -75,8 +76,10 @@ class DataManager
 
         if (STORAGE_TYPE == DATABASE) {
             $dm = new DatabaseManager();
+            $dm->createVault();
         } elseif (STORAGE_TYPE == FILESYSTEM) {
-            $dm = new FileManager();
+            $fm = new FileManager();
+            $fm->createVault($username, $password);
         } else {
             $em = new ErrorHandler();
             $em->error(
@@ -87,7 +90,5 @@ class DataManager
                 '500'
             );
         }
-
-        $dm->createVault($username, $password);
     }
 }
