@@ -64,14 +64,11 @@ class DatabaseManager
         );
 
         if ($existingUser->num_rows == 0) {
-            if ($this->db->query(
-                'INSERT INTO `'.DB_PREFIX."users` (`id`, `user`, `pass`)
-                VALUES (NULL, '".$username."', '".$password."')"
-            )) {
-                return true;
-            } else {
-                return false;
-            }
+            return $this->db->query(
+                'INSERT INTO `'.DB_PREFIX."users`
+                    (`id`, `user`, `pass`)
+                    VALUES (NULL, '".$username."', '".$password."')"
+            );
         } else {
             return false;
         }
