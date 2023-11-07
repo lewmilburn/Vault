@@ -29,14 +29,16 @@ class DatabaseManager
                     'DatabaseManager',
                     '__construct()',
                     $e,
-                    '500');
+                    '500'
+                );
             } else {
                 $eh->error(
                     'data',
                     'DatabaseManager',
                     '__construct()',
                     '['.$e->getSqlState().'] '.$e->getMessage(),
-                    '500');
+                    '500'
+                );
             }
         }
     }
