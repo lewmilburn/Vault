@@ -30,8 +30,6 @@ class FileManager
 
     public function createUser(string $username, string $password): bool
     {
-        $password = password_hash($password, PASSWORD_DEFAULT);
-
         if (file_exists($this->usersFile)) {
             $usersFile = file_get_contents($this->usersFile);
             $data = json_decode($usersFile);

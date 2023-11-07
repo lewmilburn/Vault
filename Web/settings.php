@@ -4,7 +4,7 @@
 const ENV = DEV;
 
 // STORAGE_TYPE = DATABASE or FILESYSTEM
-const STORAGE_TYPE = FILESYSTEM;
+const STORAGE_TYPE = DATABASE;
 
 // Filesystem storage settings
 const USERS_FILE = 'users.json';
@@ -15,9 +15,10 @@ const USER_HASH = 'crc32';
 const CHECKSUM_HASH = 'sha1';
 
 // Database storage settings
-const DB_HOST = '';
-const DB_NAME = '';
-const DB_USER = '';
+const DB_HOST = '127.0.0.1';
+const DB_NAME = 'vault';
+const DB_USER = 'root';
 const DB_PASS = '';
 const DB_PORT = 3306;
+const DB_SOCKET = null;
 const DB_PREFIX = 'va_';
