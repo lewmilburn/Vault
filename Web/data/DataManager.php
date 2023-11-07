@@ -91,4 +91,28 @@ class DataManager
             );
         }
     }
+
+    public function getVault(string $user, string $key)
+    {
+        $im = new InputManager();
+        $user = $im->escapeString($user);
+        $key = $im->escapeString($key);
+
+        if (STORAGE_TYPE == DATABASE) {
+            $dm = new DatabaseManager();
+        } elseif (STORAGE_TYPE == FILESYSTEM) {
+            $dm = new FileManager();
+        } else {
+            $em = new ErrorHandler();
+            $em->error(
+                'data',
+                'DataManager',
+                'createUser',
+                $this->invalidStorageError,
+                '500'
+            );
+        }
+
+        $dm->getVault($user, $key);
+    }
 }

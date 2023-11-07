@@ -4,6 +4,7 @@ namespace Vault\authentication;
 
 use Vault\Data\DataManager;
 use Vault\Event\ErrorHandler;
+use Vault\security\EncryptionManager;
 
 class AuthenticationManager
 {
@@ -24,9 +25,14 @@ class AuthenticationManager
             if (password_verify($password, $user->pass)) {
                 $tm = new TokenManager();
                 $token = $tm->generateToken($user->user);
+
+                $em = new EncryptionManager();
+                $key = $em->generateKey($password);
+
                 $_SESSION['name'] = $username;
                 $_SESSION['user'] = $user->user;
                 $_SESSION['token'] = $token;
+                $_SESSION['key'] = $key;
 
                 $result = true;
             } else {

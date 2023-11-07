@@ -15,7 +15,11 @@ main {
 }
 
 header {
-    @apply bg-blue-500 text-white text-3xl text-center py-8 mb-6;
+    @apply bg-blue-500 text-white text-3xl text-center py-8;
+}
+
+nav {
+    @apply bg-neutral-200 dark:bg-neutral-800 dark:text-white py-1 px-2 flex;
 }
 
 form {
