@@ -24,9 +24,19 @@ class DatabaseManager
         } catch (mysqli_sql_exception $e) {
             $eh = new ErrorHandler();
             if (ENV == DEV) {
-                $eh->error('data', 'DatabaseManager', '__construct()', $e, '500');
+                $eh->error(
+                    'data',
+                    'DatabaseManager',
+                    '__construct()',
+                    $e,
+                    '500');
             } else {
-                $eh->error('data', 'DatabaseManager', '__construct()', '['.$e->getSqlState().'] '.$e->getMessage(), '500');
+                $eh->error(
+                    'data',
+                    'DatabaseManager',
+                    '__construct()',
+                    '['.$e->getSqlState().'] '.$e->getMessage(),
+                    '500');
             }
         }
     }
