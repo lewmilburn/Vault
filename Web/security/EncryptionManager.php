@@ -103,7 +103,7 @@ class EncryptionManager
         return str_pad(
             $user,
             SODIUM_CRYPTO_PWHASH_SALTBYTES,
-            "_",
+            '_',
             STR_PAD_RIGHT
         );
     }
