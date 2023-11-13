@@ -9,6 +9,11 @@ if (ENV == DEV) {
     error_reporting(-1);
 } elseif (ENV == PROD) {
     error_reporting(0);
+    if (empty($_SERVER['HTTPS']) || $_SERVER['HTTPS'] == "off") {
+        $redirect = 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+        header('Location: ' . $redirect);
+        exit();
+    }
 }
 
 require_once __DIR__.'/security/EncryptionManager.php';
