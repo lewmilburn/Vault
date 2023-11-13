@@ -6,6 +6,9 @@
 <?php } ?>
 <?php if (empty($_SERVER['HTTPS']) || $_SERVER['HTTPS'] == "off") { ?>
     <div class="alert-red">
-        You are using insecure HTTP. <a href="https://github.com/lewmilburn/Vault/wiki/Security#http-vs-https">Learn more here</a>.
+        You are using insecure HTTP!
+        <a href="https://github.com/lewmilburn/Vault/wiki/Security#http-vs-https">
+            Click here to learn more
+        </a>
     </div>
 <?php } ?>
