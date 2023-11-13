@@ -17,7 +17,14 @@
         <?php require_once __DIR__.'/common/nav.php';?>
 
         <main>
-            <div class="grid-std" x-data="{ open:false, newItem: false, pass: '', user: '', url: '', notes: '' }">
+            <div class="grid-std" x-data="{
+                open:false,
+                newItem: false,
+                pass: '',
+                user: '',
+                url: '',
+                notes: ''
+            }">
                 <div class="grid">
                     <div class="grid-item-password" x-on:click="open=true;newItem=true;">
                         Add a new password
@@ -26,7 +33,14 @@
                         $dm = new \Vault\data\DataManager();
                         $vault = $dm->getVault($_SESSION['user'], $_SESSION['key']);
                         foreach ($vault as $password) { ?>
-                    <div class="grid-item-password" x-on:click="open=true;newItem=false;pass='<?= $password->pass; ?>';user='<?= $password->user; ?>';url='<?= $password->url; ?>';notes='<?= $password->notes; ?>'">
+                    <div class="grid-item-password" x-on:click="
+                        open=true;
+                        newItem=false;
+                        pass='<?= $password->pass; ?>';
+                        user='<?= $password->user; ?>';
+                        url='<?= $password->url; ?>';
+                        notes='<?= $password->notes; ?>'
+                    ">
                         <?= $password->name; ?>
                     </div>
                     <?php } ?>
