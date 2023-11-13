@@ -77,6 +77,6 @@ class FileManager
         $em = new EncryptionManager();
         $data = file_get_contents($file);
 
-        return $em->decrypt($data,$key);
+        return $em->decrypt($data, $key);
     }
 }
