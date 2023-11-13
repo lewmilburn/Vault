@@ -57,16 +57,26 @@ class FileManager
         return true;
     }
 
-    public function createVault(string $username, string $key): void
+    public function createVault(string $user, string $key): void
     {
-        $file = $this->secureLocation.$username.'.vault';
+        $file = $this->secureLocation.$user.'.vault';
 
         $vaultFile = fopen($file, 'w');
 
         $em = new EncryptionManager();
-        $encryptedData = $em->encrypt('[{}]', $em->generateKey($key));
+        $encryptedData = $em->encrypt('[{}]', $em->generateKey($user, $key));
 
         fwrite($vaultFile, $encryptedData[0].FILE_SEPARATOR.$encryptedData[1]);
         fclose($vaultFile);
+    }
+
+    public function getVault(string $user, string $key): string|null
+    {
+        $file = $this->secureLocation.$user.'.vault';
+
+        $em = new EncryptionManager();
+        $data = file_get_contents($file);
+
+        return $em->decrypt($data,$key);
     }
 }
