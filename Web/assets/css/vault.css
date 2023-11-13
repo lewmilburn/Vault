@@ -567,6 +567,10 @@ video {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
+.gap-2 {
+  gap: 0.5rem;
+}
+
 .self-center {
   align-self: center;
 }
@@ -735,6 +739,10 @@ label {
     --tw-text-opacity: 1;
     color: rgb(255 255 255 / var(--tw-text-opacity));
   }
+}
+
+a {
+  text-decoration-line: underline;
 }
 
 @media (min-width: 640px) {
