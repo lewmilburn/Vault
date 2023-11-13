@@ -77,7 +77,7 @@ class FileManager
         $em = new EncryptionManager();
         $data = file_get_contents($file);
 
-        $vault = $em->decrypt($data,$key);
+        $vault = $em->decrypt($data, $key);
 
         return json_decode($vault);
     }
