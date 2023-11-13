@@ -4,7 +4,7 @@
 const ENV = DEV;
 
 // STORAGE_TYPE = DATABASE or FILESYSTEM
-const STORAGE_TYPE = DATABASE;
+const STORAGE_TYPE = FILESYSTEM;
 
 // Filesystem storage settings
 const USERS_FILE = 'users.json';

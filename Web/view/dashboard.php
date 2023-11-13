@@ -17,11 +17,13 @@
         <?php require_once __DIR__.'/common/nav.php';?>
 
         <main>
-            <div class="grid-cols-2">
-                <?php
+            <div class="grid grid-cols-2 gap-2">
+                <div>
+                    <?php
                     $dm = new \Vault\data\DataManager();
-                    $dm->getVault($_SESSION['user'], $_SESSION['key']);
-                ?>
+                        var_dump($dm->getVault($_SESSION['user'], $_SESSION['key']));exit;
+                    ?>
+                </div>
             </div>
         </main>
     </body>

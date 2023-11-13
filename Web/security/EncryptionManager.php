@@ -78,7 +78,7 @@ class EncryptionManager
             );
 
             // Overwriting memory to prevent data leakage
-            sodium_memzero($string);
+            sodium_memzero($encryptedData);
             sodium_memzero($nonce);
             sodium_memzero($key);
 

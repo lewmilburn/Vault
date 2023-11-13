@@ -27,7 +27,7 @@ class AuthenticationManager
                 $token = $tm->generateToken($user->user);
 
                 $em = new EncryptionManager();
-                $key = $em->generateKey($password);
+                $key = $em->generateKey($user->user, $password);
 
                 $_SESSION['name'] = $username;
                 $_SESSION['user'] = $user->user;
