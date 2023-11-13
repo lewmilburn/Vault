@@ -70,13 +70,15 @@ class FileManager
         fclose($vaultFile);
     }
 
-    public function getVault(string $user, string $key): string|null
+    public function getVault(string $user, string $key): array|null
     {
         $file = $this->secureLocation.$user.'.vault';
 
         $em = new EncryptionManager();
         $data = file_get_contents($file);
 
-        return $em->decrypt($data,$key);
+        $vault = $em->decrypt($data,$key);
+
+        return json_decode($vault);
     }
 }

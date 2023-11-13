@@ -4,9 +4,14 @@
 
 body {
     @apply dark:bg-neutral-900 dark:text-white text-lg;
+    @apply font-bold lg:text-lg;
 }
 
-input {
+h1, .h1 { @apply font-bold lg:text-3xl md:text-2xl text-xl sm:text-lg; }
+h2, .h2 { @apply font-bold lg:text-2xl md:text-xl text-lg; }
+h3, .h3 { @apply font-bold lg:text-xl md:text-lg; }
+
+input, textarea {
     @apply border px-2 py-1 dark:bg-black;
 }
 
@@ -28,7 +33,7 @@ form {
 
 label { @apply text-sm text-left; }
 
-.btn { @apply px-2 py-1 transition duration-200 cursor-pointer rounded; }
+.btn { @apply px-2 py-1 transition duration-200 cursor-pointer rounded appearance-none; }
 .btn-primary { @apply btn bg-blue-400 hover:bg-blue-300 dark:bg-blue-600 dark:hover:bg-blue-500 dark:text-white; }
 
 .alert-red {
@@ -36,3 +41,6 @@ label { @apply text-sm text-left; }
 }
 
 a { @apply underline; }
+
+.grid-item-password { @apply border px-4 py-2 cursor-pointer; }
+.grid-std { @apply grid grid-cols-2 gap-2; }

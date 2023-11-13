@@ -104,7 +104,7 @@ class DataManager
         }
     }
 
-    public function getVault(string $user, string $key): string
+    public function getVault(string $user, string $key): array|string|null
     {
         $vm = new ValidationManager();
         $vm->throwNull($user);
