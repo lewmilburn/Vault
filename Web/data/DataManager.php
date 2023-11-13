@@ -5,6 +5,7 @@ namespace Vault\data;
 use Vault\event\ErrorHandler;
 use Vault\security\HashManager;
 use Vault\security\InputManager;
+use Vault\security\ValidationManager;
 
 class DataManager
 {
@@ -12,6 +13,9 @@ class DataManager
 
     public function getUserData(string $username): object|null
     {
+        $vm = new ValidationManager();
+        $vm->throwNull($username);
+
         $username = trim($username);
 
         $hm = new HashManager();
@@ -37,6 +41,10 @@ class DataManager
 
     public function createUser(string $username, string $password): bool
     {
+        $vm = new ValidationManager();
+        $vm->throwNull($username);
+        $vm->throwNull($password);
+
         $password = password_hash($password, PASSWORD_DEFAULT);
         $username = trim($username);
 
@@ -67,6 +75,10 @@ class DataManager
 
     public function createVault(string $username, string $password): void
     {
+        $vm = new ValidationManager();
+        $vm->throwNull($username);
+        $vm->throwNull($password);
+
         $hm = new HashManager();
         $username = $hm->hashUser($username);
 
@@ -92,11 +104,14 @@ class DataManager
         }
     }
 
-    public function getVault(string $user, string $key)
+    public function getVault(string $user, string $key): string
     {
+        $vm = new ValidationManager();
+        $vm->throwNull($user);
+        $vm->throwNull($key);
+
         $im = new InputManager();
         $user = $im->escapeString($user);
-        $key = $im->escapeString($key);
 
         if (STORAGE_TYPE == DATABASE) {
             $dm = new DatabaseManager();
@@ -107,12 +122,12 @@ class DataManager
             $em->error(
                 'data',
                 'DataManager',
-                'createUser',
+                'getVault',
                 $this->invalidStorageError,
                 '500'
             );
         }
 
-        $dm->getVault($user, $key);
+        return $dm->getVault($user, $key);
     }
 }
