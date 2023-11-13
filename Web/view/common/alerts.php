@@ -1,5 +1,5 @@
 <?php if (ENV == DEV) { ?>
-<div class="alert-red">
+<div class="alert-yellow">
     Vault is in development mode.
     You should set ENV to PROD if you're running this in a production environment.
 </div>
