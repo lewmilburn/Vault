@@ -26,7 +26,14 @@
                 notes: ''
             }">
                 <div class="grid">
-                    <div class="grid-item-password" x-on:click="open=true;newItem=true;">
+                    <div class="grid-item-password" x-on:click="
+                        open=true;
+                        newItem=true;
+                        pass='';
+                        user='';
+                        url='';
+                        notes=''
+                    ">
                         Add a new password
                     </div>
                     <?php
@@ -64,7 +71,19 @@
                             <label for="notes" class="h3 text-center w-full">Notes</label><br>
                             <textarea type="text" id="notes" x-text="notes" class="w-full"></textarea>
                         </div>
-                        <button type="submit" x-show="newItem" class="btn-primary col-span-2">Add to Vault</button>
+                        <div class="col-span-2 flex space-x-2">
+                            <button type="button" class="inline btn-primary" x-on:click="
+                                open=false;
+                                newItem=false;
+                                pass='';
+                                user='';
+                                url='';
+                                notes=''
+                            ">Close</button>
+                            <button type="submit" x-show="newItem" class="btn-green flex-grow">Add to Vault</button>
+                            <button type="submit" x-show="!newItem" class="btn-green flex-grow">Save changes</button>
+                            <button type="submit" x-show="!newItem" class="btn-red">Delete</button>
+                        </div>
                     </form>
                 </div>
             </div>
