@@ -56,7 +56,8 @@
                     <?php }} ?>
                 </div>
                 <div class="border p-2" x-show="open">
-                    <h2 class="text-center">Add a new password</h2>
+                    <h2 class="text-center" x-show="!newItem" x-text="name"></h2>
+                    <h2 class="text-center" x-show="newItem">Add a new password</h2>
                     <form class="grid-std" action="/api/password/create" method="post">
                         <div>
                             <label for="user" class="h3 text-center w-full">Username</label><br>
@@ -88,9 +89,9 @@
                                 url='';
                                 notes='';
                             ">Close</button>
-                            <button type="submit" x-show="newItem" class="btn-green flex-grow" value="create">Add to Vault</button>
-                            <button type="submit" x-show="!newItem" class="btn-green flex-grow" value="save">Save changes</button>
-                            <button type="submit" x-show="!newItem" class="btn-red" value="delete">Delete</button>
+                            <button type="submit" x-show="newItem" class="btn-green flex-grow" name="type" value="create">Add to Vault</button>
+                            <!--<button type="submit" x-show="!newItem" class="btn-green flex-grow" name="type" value="save">Save changes</button>-->
+                            <!--<button type="submit" x-show="!newItem" class="btn-red" name="type" value="delete">Delete</button>-->
                         </div>
                     </form>
                 </div>
