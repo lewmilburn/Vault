@@ -138,7 +138,8 @@ class DataManager
         string $pass,
         string $name,
         string $url,
-        string $notes)
+        string $notes
+    )
     {
         $im = new InputManager();
         $username = $im->escapeString($username);
