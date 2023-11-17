@@ -8,6 +8,7 @@ class FileManager
 {
     private string $usersFile;
     private string $secureLocation;
+    private string $vaultExt = '.vault';
 
     public function __construct()
     {
@@ -59,7 +60,7 @@ class FileManager
 
     public function createVault(string $user, string $key): void
     {
-        $file = $this->secureLocation.$user.'.vault';
+        $file = $this->secureLocation.$user.$this->vaultExt;
 
         $vaultFile = fopen($file, 'w');
 
@@ -72,7 +73,7 @@ class FileManager
 
     public function getVault(string $user, string $key): array|null
     {
-        $file = $this->secureLocation.$user.'.vault';
+        $file = $this->secureLocation.$user.$this->vaultExt;
 
         $em = new EncryptionManager();
         $data = file_get_contents($file);
@@ -82,9 +83,9 @@ class FileManager
         return json_decode($vault);
     }
 
-    public function saveVault(string $user, string $key, mixed $data)
+    public function saveVault(string $user, string $key, mixed $data): void
     {
-        $file = $this->secureLocation.$user.'.vault';
+        $file = $this->secureLocation.$user.$this->vaultExt;
 
         $vaultFile = fopen($file, 'w');
 

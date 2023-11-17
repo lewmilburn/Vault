@@ -131,8 +131,22 @@ class DataManager
         return $dm->getVault($user, $key);
     }
 
-    public function addPassword(string $user, string $key, string $username, string $pass, string $name, string $url, string $notes)
+    public function addPassword(
+        string $user,
+        string $key,
+        string $username,
+        string $pass,
+        string $name,
+        string $url,
+        string $notes)
     {
+        $im = new InputManager();
+        $username = $im->escapeString($username);
+        $pass = $im->escapeString($pass);
+        $name = $im->escapeString($name);
+        $url = $im->escapeString($url);
+        $notes = $im->escapeString($notes);
+
         $vault = $this->getVault($user, $key);
 
         $data = '{"user":"'.$username.'","pass":"'.$pass.'","name":"'.$name.'","url":"'.$url.'","notes":"'.$notes.'"}';

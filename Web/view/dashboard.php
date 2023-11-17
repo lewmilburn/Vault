@@ -53,7 +53,10 @@
                     ">
                         <?= $password->name; ?>
                     </div>
-                    <?php }} ?>
+                    <?php
+                        }
+                        }
+                    ?>
                 </div>
                 <div class="border p-2" x-show="open">
                     <h2 class="text-center" x-show="!newItem" x-text="name"></h2>
@@ -89,9 +92,33 @@
                                 url='';
                                 notes='';
                             ">Close</button>
-                            <button type="submit" x-show="newItem" class="btn-green flex-grow" name="type" value="create">Add to Vault</button>
-                            <!--<button type="submit" x-show="!newItem" class="btn-green flex-grow" name="type" value="save">Save changes</button>-->
-                            <!--<button type="submit" x-show="!newItem" class="btn-red" name="type" value="delete">Delete</button>-->
+                            <button
+                                type="submit"
+                                x-show="newItem"
+                                class="btn-green flex-grow"
+                                name="type"
+                                value="create"
+                            >
+                                Add to Vault
+                            </button>
+                            <button
+                                type="submit"
+                                x-show="!newItem"
+                                class="btn-green flex-grow"
+                                name="type"
+                                value="save"
+                            >
+                                Save changes
+                            </button>
+                            <button
+                                type="submit"
+                                x-show="!newItem"
+                                class="btn-red"
+                                name="type"
+                                value="delete"
+                            >
+                                Delete
+                            </button>
                         </div>
                     </form>
                 </div>
