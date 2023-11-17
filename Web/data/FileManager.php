@@ -8,6 +8,7 @@ class FileManager
 {
     private string $usersFile;
     private string $secureLocation;
+    private string $vaultExt = '.vault';
 
     public function __construct()
     {
@@ -57,14 +58,39 @@ class FileManager
         return true;
     }
 
-    public function createVault(string $username, string $key): void
+    public function createVault(string $user, string $key): void
     {
-        $file = $this->secureLocation.$username.'.vault';
+        $file = $this->secureLocation.$user.$this->vaultExt;
 
         $vaultFile = fopen($file, 'w');
 
         $em = new EncryptionManager();
-        $encryptedData = $em->encrypt('[{}]', $em->generateKey($key));
+        $encryptedData = $em->encrypt('[]', $em->generateKey($user, $key));
+
+        fwrite($vaultFile, $encryptedData[0].FILE_SEPARATOR.$encryptedData[1]);
+        fclose($vaultFile);
+    }
+
+    public function getVault(string $user, string $key): array|null
+    {
+        $file = $this->secureLocation.$user.$this->vaultExt;
+
+        $em = new EncryptionManager();
+        $data = file_get_contents($file);
+
+        $vault = $em->decrypt($data, $key);
+
+        return json_decode($vault);
+    }
+
+    public function saveVault(string $user, string $key, mixed $data): void
+    {
+        $file = $this->secureLocation.$user.$this->vaultExt;
+
+        $vaultFile = fopen($file, 'w');
+
+        $em = new EncryptionManager();
+        $encryptedData = $em->encrypt($data, $key);
 
         fwrite($vaultFile, $encryptedData[0].FILE_SEPARATOR.$encryptedData[1]);
         fclose($vaultFile);

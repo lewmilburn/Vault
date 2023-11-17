@@ -28,7 +28,7 @@ use Vault\security\ValidationManager;
             <?php } ?>
         <?php } ?>
 
-        <header>
+        <header class="mb-6">
             <h1>Login to Vault.</h1>
         </header>
 
