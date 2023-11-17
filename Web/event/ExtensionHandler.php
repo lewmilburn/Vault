@@ -2,7 +2,8 @@
 
 namespace Vault\event;
 
-class ExtensionHandler {
+class ExtensionHandler
+{
     public function vaultStartup(): void
     {
         $this->sodium();
