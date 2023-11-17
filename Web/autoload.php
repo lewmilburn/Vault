@@ -30,13 +30,12 @@ require_once __DIR__.'/authentication/TokenManager.php';
 require_once __DIR__.'/authentication/SessionManager.php';
 
 require_once __DIR__.'/event/ErrorHandler.php';
+require_once __DIR__.'/event/ExtensionHandler.php';
 
 require_once __DIR__.'/event/RouteHandler.php';
 
-if (!extension_loaded('sodium')) {
-    $eh = new ErrorHandler();
-    $eh->error(null, null, null, 'Sodium not installed.', '500');
-}
+$ext = new \Vault\event\ExtensionHandler();
+$ext->vaultStartup();
 
 if (!file_exists(__DIR__.'/run.json') && !isset($setup)) {
     require_once __DIR__.'/event/setup.php';
