@@ -130,4 +130,31 @@ class DataManager
 
         return $dm->getVault($user, $key);
     }
+
+    public function addPassword(string $user, string $key, string $username, string $pass, string $name, string $url, string $notes)
+    {
+        $vault = $this->getVault($user, $key);
+
+        $data = '{"user":"'.$username.'","pass":"'.$pass.'","name":"'.$name.'","url":"'.$url.'","notes":"'.$notes.'"}';
+        $tempArray = json_decode($data, true);
+        array_push($vault, $tempArray);
+
+        $vault = json_encode($vault);
+
+        if (STORAGE_TYPE == DATABASE) {
+            $dm = new DatabaseManager();
+        } elseif (STORAGE_TYPE == FILESYSTEM) {
+            $dm = new FileManager();
+        } else {
+            $em = new ErrorHandler();
+            $em->error(
+                'data',
+                'DataManager',
+                'getVault',
+                $this->invalidStorageError,
+                '500'
+            );
+        }
+        $dm->saveVault($user, $key, $vault);
+    }
 }

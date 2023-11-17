@@ -64,7 +64,7 @@ class FileManager
         $vaultFile = fopen($file, 'w');
 
         $em = new EncryptionManager();
-        $encryptedData = $em->encrypt('[{}]', $em->generateKey($user, $key));
+        $encryptedData = $em->encrypt('[]', $em->generateKey($user, $key));
 
         fwrite($vaultFile, $encryptedData[0].FILE_SEPARATOR.$encryptedData[1]);
         fclose($vaultFile);
@@ -80,5 +80,18 @@ class FileManager
         $vault = $em->decrypt($data, $key);
 
         return json_decode($vault);
+    }
+
+    public function saveVault(string $user, string $key, mixed $data)
+    {
+        $file = $this->secureLocation.$user.'.vault';
+
+        $vaultFile = fopen($file, 'w');
+
+        $em = new EncryptionManager();
+        $encryptedData = $em->encrypt($data, $key);
+
+        fwrite($vaultFile, $encryptedData[0].FILE_SEPARATOR.$encryptedData[1]);
+        fclose($vaultFile);
     }
 }
