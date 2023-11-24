@@ -11,7 +11,7 @@ use Vault\event\RouteHandler;
 ob_start();
 session_start();
 
-require_once __DIR__ . '/autoload.php';
+require_once __DIR__.'/autoload.php';
 
 $router = new RouteHandler();
 $auth = new AuthenticationManager();

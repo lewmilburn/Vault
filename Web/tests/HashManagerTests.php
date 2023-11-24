@@ -1,6 +1,8 @@
-<?php declare(strict_types=1);
-require __DIR__ . '/../vendor/autoload.php';
-require __DIR__ . '/../security/ValidationManager.php';
+<?php
+
+declare(strict_types=1);
+require __DIR__.'/../vendor/autoload.php';
+require __DIR__.'/../security/ValidationManager.php';
 use PHPUnit\Framework\TestCase;
 use Vault\security\ValidationManager;
 
