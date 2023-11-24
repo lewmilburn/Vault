@@ -134,6 +134,7 @@ class DataManager
     public function addPassword(
         string $user,
         string $key,
+        string $uniqueID,
         string $username,
         string $pass,
         string $name,
@@ -143,13 +144,14 @@ class DataManager
         $im = new InputManager();
         $username = $im->escapeString($username);
         $pass = $im->escapeString($pass);
+        $uniqueID = $im->escapeString($uniqueID);
         $name = $im->escapeString($name);
         $url = $im->escapeString($url);
         $notes = $im->escapeString($notes);
 
         $vault = $this->getVault($user, $key);
 
-        $data = '{"user":"'.$username.'","pass":"'.$pass.'","name":"'.$name.'","url":"'.$url.'","notes":"'.$notes.'"}';
+        $data = '{"id":"'.$uniqueID.'","user":"'.$username.'","pass":"'.$pass.'","name":"'.$name.'","url":"'.$url.'","notes":"'.$notes.'"}';
         $tempArray = json_decode($data, true);
         array_push($vault, $tempArray);
 

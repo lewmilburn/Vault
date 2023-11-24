@@ -1,5 +1,4 @@
 <?php
-
 require_once __DIR__.'/data/const.php';
 require_once __DIR__.'/settings.php';
 
@@ -35,7 +34,8 @@ require_once __DIR__.'/event/RouteHandler.php';
 $ext = new \Vault\event\ExtensionHandler();
 $ext->vaultStartup();
 
-if (!file_exists(__DIR__.'/run.json') && !isset($setup)) {
+global $testing;
+if (!$testing && !file_exists(__DIR__.'/run.json') && !isset($setup)) {
     require_once __DIR__.'/event/setup.php';
     exit;
 }
