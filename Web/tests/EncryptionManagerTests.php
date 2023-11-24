@@ -11,6 +11,9 @@ use Vault\security\EncryptionManager;
 
 final class EncryptionManagerTests extends TestCase
 {
+    /**
+     * @test Encryption test
+    */
     public function testEncryption(): void
     {
         $string = 'Hello there!';

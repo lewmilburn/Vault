@@ -3,4 +3,11 @@
 /Web/*.vault
 /Web/run.json
 /Web/node_modules/
-/Web/vendor
+/Web/vendor/bin
+/Web/vendor/composer
+/Web/vendor/myclabs
+/Web/vendor/nikic
+/Web/vendor/phar-io
+/Web/vendor/phpunit
+/Web/vendor/sebastian
+/Web/vendor/theseer
