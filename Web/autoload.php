@@ -1,4 +1,5 @@
 <?php
+
 require_once __DIR__.'/data/const.php';
 require_once __DIR__.'/settings.php';
 
