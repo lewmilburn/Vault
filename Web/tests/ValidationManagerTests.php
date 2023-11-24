@@ -4,9 +4,9 @@ declare(strict_types=1);
 use PHPUnit\Framework\TestCase;
 use Vault\security\HashManager;
 
-require __DIR__.'/../vendor/autoload.php';
-require __DIR__.'/../data/const.php';
-require __DIR__.'/../settings.php';
+require_once __DIR__.'/../vendor/autoload.php';
+require_once __DIR__.'/../data/const.php';
+require_once __DIR__.'/../settings.php';
 require __DIR__.'/../security/HashManager.php';
 
 final class ValidationManagerTests extends TestCase

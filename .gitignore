@@ -3,3 +3,4 @@
 /Web/*.vault
 /Web/run.json
 /Web/node_modules/
+/Web/vendor
