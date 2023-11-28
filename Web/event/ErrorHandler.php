@@ -43,10 +43,6 @@ class ErrorHandler
                         <th scope="row">Error</th>
                         <td>'.$message.'</td>
                     </tr>
-                    <tr>
-                        <th scope="row">Trace</th>
-                        <td>'.debug_print_backtrace().'</td>
-                    </tr>
                 </table>
             </body>
         </html>';
