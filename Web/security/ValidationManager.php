@@ -91,7 +91,7 @@ class ValidationManager
         }
     }
 
-    public function throwNull($string): void
+    public function throwNull($string, $function): void
     {
         if ($string == null) {
             $em = new ErrorHandler();
@@ -99,7 +99,7 @@ class ValidationManager
                 'security',
                 'ValidationManager',
                 'throwNull',
-                'Function requires non-null string, null string provided.',
+                'Function requires non-null string, null string provided in function "'.$function.'".',
                 '500'
             );
         }

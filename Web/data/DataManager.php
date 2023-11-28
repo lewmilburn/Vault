@@ -14,7 +14,7 @@ class DataManager
     public function getUserData(string $username): object|null
     {
         $vm = new ValidationManager();
-        $vm->throwNull($username);
+        $vm->throwNull($username, 'getUserData');
 
         $username = trim($username);
 
@@ -42,8 +42,8 @@ class DataManager
     public function createUser(string $username, string $password): bool
     {
         $vm = new ValidationManager();
-        $vm->throwNull($username);
-        $vm->throwNull($password);
+        $vm->throwNull($username, 'createUser');
+        $vm->throwNull($password, 'createUser');
 
         $password = password_hash($password, PASSWORD_DEFAULT);
         $username = trim($username);
@@ -76,8 +76,8 @@ class DataManager
     public function createVault(string $username, string $password): void
     {
         $vm = new ValidationManager();
-        $vm->throwNull($username);
-        $vm->throwNull($password);
+        $vm->throwNull($username, 'createVault');
+        $vm->throwNull($password, 'createVault');
 
         $hm = new HashManager();
         $username = $hm->hashUser($username);
@@ -104,11 +104,11 @@ class DataManager
         }
     }
 
-    public function getVault(string $user, string $key): array|string|null
+    public function getVault(string $user, string $key): null|object|array
     {
         $vm = new ValidationManager();
-        $vm->throwNull($user);
-        $vm->throwNull($key);
+        $vm->throwNull($user, 'getVault');
+        $vm->throwNull($key, 'getVault');
 
         $im = new InputManager();
         $user = $im->escapeString($user);
@@ -134,6 +134,7 @@ class DataManager
     public function addPassword(
         string $user,
         string $key,
+        string $uniqueID,
         string $username,
         string $pass,
         string $name,
@@ -143,15 +144,64 @@ class DataManager
         $im = new InputManager();
         $username = $im->escapeString($username);
         $pass = $im->escapeString($pass);
+        $uniqueID = $im->escapeString($uniqueID);
+        $name = $im->escapeString($name);
+        $url = $im->escapeString($url);
+        $notes = $im->escapeString($notes);
+        $vault = $this->getVault($user, $key);
+
+        $data = '{"pid":"'.$uniqueID.'","user":"'.$username.'","pass":"'.$pass.'","name":"'.$name.'","url":"'.$url.'","notes":"'.$notes.'"}';
+        $tempArray = json_decode($data, true);
+        array_push($vault, $tempArray);
+
+        $vault = json_encode($vault);
+
+        if (STORAGE_TYPE == DATABASE) {
+            $dm = new DatabaseManager();
+        } elseif (STORAGE_TYPE == FILESYSTEM) {
+            $dm = new FileManager();
+        } else {
+            $em = new ErrorHandler();
+            $em->error(
+                'data',
+                'DataManager',
+                'getVault',
+                $this->invalidStorageError,
+                '500'
+            );
+        }
+        $dm->saveVault($user, $key, $vault);
+    }
+
+    public function updatePassword(
+        string $user,
+        string $key,
+        string $uniqueID,
+        string $username,
+        string $pass,
+        string $name,
+        string $url,
+        string $notes
+    ) {
+        $im = new InputManager();
+        $username = $im->escapeString($username);
+        $pass = $im->escapeString($pass);
+        $uniqueID = $im->escapeString($uniqueID);
         $name = $im->escapeString($name);
         $url = $im->escapeString($url);
         $notes = $im->escapeString($notes);
 
         $vault = $this->getVault($user, $key);
 
-        $data = '{"user":"'.$username.'","pass":"'.$pass.'","name":"'.$name.'","url":"'.$url.'","notes":"'.$notes.'"}';
-        $tempArray = json_decode($data, true);
-        array_push($vault, $tempArray);
+        foreach ($vault as $itemKey => $password) {
+            if ($password->pid == $uniqueID) {
+                unset($vault[$itemKey]);
+            }
+        }
+
+        $data = '{"pid":"'.$uniqueID.'","user":"'.$username.'","pass":"'.$pass.'","name":"'.$name.'","url":"'.$url.'","notes":"'.$notes.'"}';
+        $tempArray = json_decode($data);
+        $vault[count($vault)] = $tempArray;
 
         $vault = json_encode($vault);
 

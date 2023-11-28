@@ -71,7 +71,7 @@ class FileManager
         fclose($vaultFile);
     }
 
-    public function getVault(string $user, string $key): array|null
+    public function getVault(string $user, string $key): array|null|object
     {
         $file = $this->secureLocation.$user.$this->vaultExt;
 
