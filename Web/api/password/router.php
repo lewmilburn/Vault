@@ -13,3 +13,7 @@ if ($_POST['type'] == 'create') {
 if ($_POST['type'] == 'update') {
     $PAPI->update();
 }
+
+if ($_POST['type'] == 'delete') {
+    $PAPI->delete();
+}

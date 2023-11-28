@@ -44,4 +44,17 @@ class PasswordAPI
         header('Location: /');
         exit;
     }
+
+    public function delete(): void
+    {
+        $dm = new DataManager();
+        $dm->deletePassword(
+            $_SESSION['user'],
+            $_SESSION['key'],
+            $_POST['pid'],
+        );
+
+        header('Location: /');
+        exit;
+    }
 }
