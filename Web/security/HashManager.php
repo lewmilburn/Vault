@@ -17,10 +17,10 @@ class HashManager
         return hash(USER_HASH, $string);
     }
 
-    public function generateUniqueHash($string)
+    public function generateUniqueId()
     {
         try {
-            return hash(USER_HASH, $string.random_bytes(16));
+            return hash(USER_HASH, random_bytes(16));
         } catch (Exception $e) {
             $eh = new ErrorHandler();
             $eh->error(
