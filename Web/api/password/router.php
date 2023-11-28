@@ -1,9 +1,15 @@
 <?php
 
+use Vault\api\password\PasswordAPI;
+
+require_once 'PasswordAPI.php';
+
+$PAPI = new PasswordAPI();
+
 if ($_POST['type'] == 'create') {
-    require_once 'create.php';
+    $PAPI->create();
 }
 
 if ($_POST['type'] == 'update') {
-    require_once 'update.php';
+    $PAPI->update();
 }
