@@ -10,8 +10,8 @@ class EncryptionManager
     public function generateKey($user, $password): string
     {
         $vm = new ValidationManager();
-        $vm->throwNull($user);
-        $vm->throwNull($password);
+        $vm->throwNull($user, 'generateKey');
+        $vm->throwNull($password, 'generateKey');
 
         try {
             return sodium_crypto_pwhash(
@@ -30,8 +30,8 @@ class EncryptionManager
     public function encrypt($string, $key): array
     {
         $vm = new ValidationManager();
-        $vm->throwNull($string);
-        $vm->throwNull($key);
+        $vm->throwNull($string, 'encrypt');
+        $vm->throwNull($key, 'encrypt');
 
         try {
             $nonce = random_bytes(SODIUM_CRYPTO_AEAD_XCHACHA20POLY1305_IETF_NPUBBYTES);
@@ -62,8 +62,8 @@ class EncryptionManager
     public function decrypt(string $data, string $key): string|null
     {
         $vm = new ValidationManager();
-        $vm->throwNull($data);
-        $vm->throwNull($key);
+        $vm->throwNull($data, 'decrypt');
+        $vm->throwNull($key, 'decrypt');
 
         $data = explode(FILE_SEPARATOR, $data);
         $encryptedData = $data[0];
@@ -98,7 +98,7 @@ class EncryptionManager
     private function generateSalt($user): string
     {
         $vm = new ValidationManager();
-        $vm->throwNull($user);
+        $vm->throwNull($user, 'generateSalt');
 
         return str_pad(
             $user,

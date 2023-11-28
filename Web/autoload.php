@@ -4,7 +4,7 @@ require_once __DIR__.'/data/const.php';
 require_once __DIR__.'/settings.php';
 
 if (ENV == DEV) {
-    error_reporting(-1);
+    error_reporting(E_ALL);
 } elseif (ENV == PROD) {
     error_reporting(0);
     if (empty($_SERVER['HTTPS']) || $_SERVER['HTTPS'] == 'off') {

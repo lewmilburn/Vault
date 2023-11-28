@@ -14,7 +14,7 @@ class DataManager
     public function getUserData(string $username): object|null
     {
         $vm = new ValidationManager();
-        $vm->throwNull($username);
+        $vm->throwNull($username, 'getUserData');
 
         $username = trim($username);
 
@@ -42,8 +42,8 @@ class DataManager
     public function createUser(string $username, string $password): bool
     {
         $vm = new ValidationManager();
-        $vm->throwNull($username);
-        $vm->throwNull($password);
+        $vm->throwNull($username, 'createUser');
+        $vm->throwNull($password, 'createUser');
 
         $password = password_hash($password, PASSWORD_DEFAULT);
         $username = trim($username);
@@ -76,8 +76,8 @@ class DataManager
     public function createVault(string $username, string $password): void
     {
         $vm = new ValidationManager();
-        $vm->throwNull($username);
-        $vm->throwNull($password);
+        $vm->throwNull($username, 'createVault');
+        $vm->throwNull($password, 'createVault');
 
         $hm = new HashManager();
         $username = $hm->hashUser($username);
@@ -107,8 +107,8 @@ class DataManager
     public function getVault(string $user, string $key): array|string|null
     {
         $vm = new ValidationManager();
-        $vm->throwNull($user);
-        $vm->throwNull($key);
+        $vm->throwNull($user, 'getVault');
+        $vm->throwNull($key, 'getVault');
 
         $im = new InputManager();
         $user = $im->escapeString($user);
@@ -151,7 +151,7 @@ class DataManager
 
         $vault = $this->getVault($user, $key);
 
-        $data = '{"id":"'.$uniqueID.'","user":"'.$username.'","pass":"'.$pass.'","name":"'.$name.'","url":"'.$url.'","notes":"'.$notes.'"}';
+        $data = '{"pid":"'.$uniqueID.'","user":"'.$username.'","pass":"'.$pass.'","name":"'.$name.'","url":"'.$url.'","notes":"'.$notes.'"}';
         $tempArray = json_decode($data, true);
         array_push($vault, $tempArray);
 
