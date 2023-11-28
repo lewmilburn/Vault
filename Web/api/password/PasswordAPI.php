@@ -1,10 +1,12 @@
 <?php
+
 namespace Vault\api\password;
 
 use Vault\data\DataManager;
 use Vault\security\HashManager;
 
-class PasswordAPI {
+class PasswordAPI
+{
     public function create(): void
     {
         $hm = new HashManager();
