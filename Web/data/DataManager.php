@@ -221,4 +221,37 @@ class DataManager
         }
         $dm->saveVault($user, $key, $vault);
     }
+
+    public function deletePassword(mixed $user, mixed $key, mixed $uniqueID)
+    {
+        $im = new InputManager();
+        $uniqueID = $im->escapeString($uniqueID);
+
+        $vault = $this->getVault($user, $key);
+
+        foreach ($vault as $itemKey => $password) {
+            if ($password->pid == $uniqueID) {
+                unset($vault[$itemKey]);
+                $vault = array_values($vault);
+            }
+        }
+
+        $vault = json_encode($vault);
+
+        if (STORAGE_TYPE == DATABASE) {
+            $dm = new DatabaseManager();
+        } elseif (STORAGE_TYPE == FILESYSTEM) {
+            $dm = new FileManager();
+        } else {
+            $em = new ErrorHandler();
+            $em->error(
+                'data',
+                'DataManager',
+                'getVault',
+                $this->invalidStorageError,
+                '500'
+            );
+        }
+        $dm->saveVault($user, $key, $vault);
+    }
 }
