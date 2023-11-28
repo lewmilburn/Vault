@@ -7,6 +7,8 @@ use Vault\security\HashManager;
 
 class PasswordAPI
 {
+    private string $endHeaders = 'Location: /';
+
     public function create(): void
     {
         $hm = new HashManager();
@@ -23,7 +25,7 @@ class PasswordAPI
             $_POST['notes']
         );
 
-        header('Location: /');
+        header($this->endHeaders);
         exit;
     }
 
@@ -41,7 +43,7 @@ class PasswordAPI
             $_POST['notes']
         );
 
-        header('Location: /');
+        header($this->endHeaders);
         exit;
     }
 
@@ -54,7 +56,7 @@ class PasswordAPI
             $_POST['pid'],
         );
 
-        header('Location: /');
+        header($this->endHeaders);
         exit;
     }
 }
