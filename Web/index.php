@@ -20,7 +20,7 @@ if ($auth->authenticated()) {
     $router->getRequest('/', 'view/dashboard.php');
     $router->getRequest('/logout', 'event/logout.php');
 
-    $router->postRequest('/api/password/create', 'api/password/create.php');
+    $router->postRequest('/api/password', 'api/password/router.php');
 } else {
     $router->getRequest('/', 'view/login.php');
     $router->postRequest('/auth', 'event/login.php');

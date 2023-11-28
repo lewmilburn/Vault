@@ -20,6 +20,7 @@
             <div class="grid-std" x-data="{
                 open:false,
                 newItem: false,
+                pid: '',
                 pass: '',
                 user: '',
                 name: '',
@@ -30,6 +31,7 @@
                     <div class="grid-item-password" x-on:click="
                         open=true;
                         newItem=true;
+                        pid='';
                         pass='';
                         user='';
                         name='';
@@ -45,6 +47,7 @@
                     <div class="grid-item-password" x-on:click="
                         open=true;
                         newItem=false;
+                        pid='<?= $password->pid; ?>';
                         pass='<?= $password->pass; ?>';
                         user='<?= $password->user; ?>';
                         name='<?= $password->name; ?>';
@@ -61,7 +64,11 @@
                 <div class="border p-2" x-show="open">
                     <h2 class="text-center" x-show="!newItem" x-text="name"></h2>
                     <h2 class="text-center" x-show="newItem">Add a new password</h2>
-                    <form class="grid-std" action="/api/password/create" method="post">
+                    <form class="grid-std" action="/api/password" method="post">
+                        <div class="hidden" aria-hidden="true">
+                            <label for="pid" class="h3 text-center w-full" aria-hidden="true">PID</label><br>
+                            <input type="text" id="pid" name="pid" x-model="pid" class="w-full" aria-hidden="true">
+                        </div>
                         <div>
                             <label for="user" class="h3 text-center w-full">Username</label><br>
                             <input type="text" id="user" name="user" x-model="user" class="w-full">
@@ -106,7 +113,7 @@
                                 x-show="!newItem"
                                 class="btn-green flex-grow"
                                 name="type"
-                                value="save"
+                                value="update"
                             >
                                 Save changes
                             </button>
