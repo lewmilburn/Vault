@@ -64,7 +64,7 @@
                 <div class="border p-2" x-show="open">
                     <h2 class="text-center" x-show="!newItem" x-text="name"></h2>
                     <h2 class="text-center" x-show="newItem">Add a new password</h2>
-                    <form class="grid-std" action="/api/password" method="post">
+                    <form class="grid-std" action="/api/password/" method="post">
                         <div class="hidden" aria-hidden="true">
                             <label for="pid" class="h3 text-center w-full" aria-hidden="true">PID</label><br>
                             <input type="text" id="pid" name="pid" x-model="pid" class="w-full" aria-hidden="true">

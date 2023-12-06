@@ -101,8 +101,9 @@ class DatabaseManager
                     `data` MEDIUMBLOB NOT NULL ,
                     PRIMARY KEY (`id`)) ENGINE = InnoDB;'
             );
+            $data = urlencode($encryptedData[0].FILE_SEPARATOR.$encryptedData[1]);
             $this->db->query(
-                'INSERT INTO `'.DB_PREFIX."vault` (`id`, `user`, `data`) VALUES (NULL, '".$user."', '".$encryptedData[0].FILE_SEPARATOR.$encryptedData[1]."')"
+                'INSERT INTO `'.DB_PREFIX."vault` (`id`, `user`, `data`) VALUES (NULL, '".$user."', '".$data."')"
             );
         }
 
@@ -120,12 +121,21 @@ class DatabaseManager
             );
             if ($rs->num_rows != 0) {
                 $data = $rs->fetch_assoc();
-                $vault = $em->decrypt($data['data'], $key);
+                $vault = $em->decrypt(urldecode($data['data']), $key);
 
                 return json_decode($vault);
             }
         }
 
         return null;
+    }
+
+    public function saveVault(string $user, string $key, mixed $data): void
+    {
+        $em = new EncryptionManager();
+        $encryptedData = $em->encrypt($data, $key);
+        $data = urlencode($encryptedData[0].FILE_SEPARATOR.$encryptedData[1]);
+
+        $this->db->query("UPDATE `".DB_PREFIX."vault` SET `data` = '".$data."' WHERE `user` = '".$user."';");
     }
 }

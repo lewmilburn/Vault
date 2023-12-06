@@ -152,6 +152,11 @@ class DataManager
 
         $data = '{"pid":"'.$uniqueID.'","user":"'.$username.'","pass":"'.$pass.'","name":"'.$name.'","url":"'.$url.'","notes":"'.$notes.'"}';
         $tempArray = json_decode($data, true);
+
+        if (is_object($vault)) {
+            $vault = (array) $vault;
+        }
+
         array_push($vault, $tempArray);
 
         $vault = json_encode($vault);
@@ -228,6 +233,10 @@ class DataManager
         $uniqueID = $im->escapeString($uniqueID);
 
         $vault = $this->getVault($user, $key);
+
+        if (is_object($vault)) {
+            $vault = (array) $vault;
+        }
 
         foreach ($vault as $itemKey => $password) {
             if ($password->pid == $uniqueID) {
