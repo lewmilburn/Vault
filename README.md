@@ -32,3 +32,10 @@ The below badges will automatically update, you can also see all information abo
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=lewmilburn_Vault&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=lewmilburn_Vault)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=lewmilburn_Vault&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=lewmilburn_Vault)
 [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=lewmilburn_Vault&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=lewmilburn_Vault)
+
+### Theoretical Limits
+## FILESYSTEM storage.
+Filesystem storage has no real limit, you can store as many passwords as you'd like, it just may slow down the more you add.
+
+## DATABASE storage.
+Database storage can hold up to 16 Megabytes of data, which is estimated to be over 1,000 passwords.
