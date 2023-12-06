@@ -27,44 +27,12 @@
                 url: '',
                 notes: ''
             }">
-                <div class="grid">
-                    <div class="grid-item-password" x-on:click="
-                        open=true;
-                        newItem=true;
-                        pid='';
-                        pass='';
-                        user='';
-                        name='';
-                        url='';
-                        notes='';
-                    ">
-                        Add a new password
-                    </div>
-                    <?php
-                        $dm = new \Vault\data\DataManager();
-                        $vault = $dm->getVault($_SESSION['user'], $_SESSION['key']);
-                        foreach ($vault as $password) { if (isset($password->name)) { ?>
-                    <div class="grid-item-password" x-on:click="
-                        open=true;
-                        newItem=false;
-                        pid='<?= $password->pid; ?>';
-                        pass='<?= $password->pass; ?>';
-                        user='<?= $password->user; ?>';
-                        name='<?= $password->name; ?>';
-                        url='<?= $password->url; ?>';
-                        notes='<?= $password->notes; ?>';
-                    ">
-                        <?= $password->name; ?>
-                    </div>
-                    <?php
-                        }
-                        }
-                    ?>
+                <div class="grid" id="passwordGrid">
                 </div>
                 <div class="border p-2" x-show="open">
                     <h2 class="text-center" x-show="!newItem" x-text="name"></h2>
                     <h2 class="text-center" x-show="newItem">Add a new password</h2>
-                    <form class="grid-std" action="/api/password/" method="post">
+                    <div class="grid-std">
                         <div class="hidden" aria-hidden="true">
                             <label for="pid" class="h3 text-center w-full" aria-hidden="true">PID</label><br>
                             <input type="text" id="pid" name="pid" x-model="pid" class="w-full" aria-hidden="true">
@@ -114,6 +82,7 @@
                                 class="btn-green flex-grow"
                                 name="type"
                                 value="update"
+                                :id="pid"
                             >
                                 Save changes
                             </button>
@@ -127,9 +96,12 @@
                                 Delete
                             </button>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </main>
+        <script src="/assets/js/jquery.js"></script>
+        <script src="/assets/js/api.js"></script>
+        <script src="/assets/js/dashboard.js"></script>
     </body>
 </html>
