@@ -18,10 +18,16 @@ class RouteHandler
         return;
     }
 
+    public function putRequest(string $url, string $file): void
+    {
+        $this->request($url, $file, 'PUT');
+        return;
+    }
+
     public function request(string $url, string $file, string $method): void
     {
-        $request = rtrim(strtok($_SERVER['REQUEST_URI'], '?'), '/\\');
-        if ($request === $url && $_SERVER['REQUEST_METHOD'] === $method) {
+        $request = rtrim(strtok($_SERVER['REQUEST_URI'], '?'), '/');
+        if ($request == $url && $_SERVER['REQUEST_METHOD'] == $method) {
             $this->runFile($file);
         }
         return;
@@ -30,8 +36,16 @@ class RouteHandler
     #[NoReturn]
     public function endRouter(): void
     {
-        $eh = new ErrorHandler();
-        $eh->fileNotFound('event', 'routeHandler', 'endRouter');
+        if (str_contains($_SERVER['REQUEST_URI'], 'api')) {
+
+            $data = '{"status": 404}';
+            http_response_code(404);
+            echo $data;
+            exit;
+        } else {
+            $eh = new ErrorHandler();
+            $eh->fileNotFound('event', 'routeHandler', 'endRouter');
+        }
     }
 
     #[NoReturn]

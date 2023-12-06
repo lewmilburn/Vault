@@ -21,8 +21,11 @@ if ($auth->authenticated()) {
     $router->getRequest('/logout', 'event/logout.php');
 
     $router->postRequest('/api/password', 'api/password/router.php');
+
+    $router->getRequest('/api/vault', 'api/vault/get.php');
+    $router->putRequest('/api/vault', 'api/vault/put.php');
 } else {
-    $router->getRequest('/', 'view/login.php');
+    $router->getRequest('', 'view/login.php');
     $router->postRequest('/auth', 'event/login.php');
 
     $router->postRequest('/api/password', 'event/unauthorised.php');

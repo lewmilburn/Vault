@@ -198,6 +198,10 @@ class DataManager
 
         $vault = $this->getVault($user, $key);
 
+        if (is_object($vault)) {
+            $vault = (array) $vault;
+        }
+
         foreach ($vault as $itemKey => $password) {
             if ($password->pid == $uniqueID) {
                 unset($vault[$itemKey]);
