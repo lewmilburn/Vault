@@ -98,7 +98,7 @@ class DatabaseManager
                 'CREATE TABLE `'.DB_NAME.'`.`'.DB_PREFIX.'vault` (
                     `id` INT NOT NULL AUTO_INCREMENT ,
                     `user` VARCHAR(8) NOT NULL ,
-                    `data` BLOB NOT NULL ,
+                    `data` MEDIUMBLOB NOT NULL ,
                     PRIMARY KEY (`id`)) ENGINE = InnoDB;'
             );
             $this->db->query(
