@@ -102,7 +102,7 @@ class DatabaseManager
                     PRIMARY KEY (`id`)) ENGINE = InnoDB;'
             );
             $this->db->query(
-                "INSERT INTO `".DB_PREFIX."vault` (`id`, `user`, `data`) VALUES (NULL, '".$user."', '".$encryptedData[0].FILE_SEPARATOR.$encryptedData[1]."')"
+                'INSERT INTO `'.DB_PREFIX."vault` (`id`, `user`, `data`) VALUES (NULL, '".$user."', '".$encryptedData[0].FILE_SEPARATOR.$encryptedData[1]."')"
             );
         }
 
@@ -116,7 +116,7 @@ class DatabaseManager
         $tableSearch = $this->db->query("SHOW TABLES LIKE '".DB_PREFIX."vault'; ");
         if ($tableSearch->num_rows != 0) {
             $rs = $this->db->query(
-                "SELECT `data` FROM `".DB_PREFIX."vault` WHERE `user` = '".$user."'"
+                'SELECT `data` FROM `'.DB_PREFIX."vault` WHERE `user` = '".$user."'"
             );
             if ($rs->num_rows != 0) {
                 $data = $rs->fetch_assoc();
@@ -125,6 +125,7 @@ class DatabaseManager
                 return json_decode($vault);
             }
         }
+
         return null;
     }
 }
