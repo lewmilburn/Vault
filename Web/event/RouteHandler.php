@@ -6,25 +6,25 @@ use JetBrains\PhpStorm\NoReturn;
 
 class RouteHandler
 {
-    #[NoReturn]
     public function getRequest($url, $file): void
     {
         $this->request($url, $file, 'GET');
+        return;
     }
 
-    #[NoReturn]
     public function postRequest(string $url, string $file): void
     {
         $this->request($url, $file, 'POST');
+        return;
     }
 
-    #[NoReturn]
     public function request(string $url, string $file, string $method): void
     {
-        $request = strtok($_SERVER['REQUEST_URI'], '?');
+        $request = rtrim(strtok($_SERVER['REQUEST_URI'], '?'), '/\\');
         if ($request === $url && $_SERVER['REQUEST_METHOD'] === $method) {
             $this->runFile($file);
         }
+        return;
     }
 
     #[NoReturn]

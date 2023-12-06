@@ -42,8 +42,20 @@ class ErrorHandler
                     <tr>
                         <th scope="row">Error</th>
                         <td>'.$message.'</td>
+                    </tr>';
+        if (ENV == DEV) {
+                    echo '<tr>
+                        <th scope="row" colspan="2" style="text-align:center;">Debug information</th>
                     </tr>
-                </table>
+                    <tr>
+                        <th scope="row">Request URI</th>
+                        <td>'.$_SERVER['REQUEST_URI'].'</td>
+                    </tr
+                    <tr>
+                        <th scope="row">Request Method</th>
+                        <td>'.$_SERVER['REQUEST_METHOD'].'</td>
+                    </tr>'; }
+                echo '</table>
             </body>
         </html>';
         exit;
