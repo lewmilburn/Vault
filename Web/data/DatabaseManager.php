@@ -5,6 +5,7 @@ namespace Vault\data;
 use mysqli;
 use mysqli_sql_exception;
 use Vault\event\ErrorHandler;
+use Vault\security\EncryptionManager;
 
 class DatabaseManager
 {
@@ -86,8 +87,11 @@ class DatabaseManager
         }
     }
 
-    public function createVault(): bool
+    public function createVault(string $user, string $key): bool
     {
+        $em = new EncryptionManager();
+        $encryptedData = $em->encrypt('[]', $em->generateKey($user, $key));
+
         $tableSearch = $this->db->query("SHOW TABLES LIKE '".DB_PREFIX."vault'; ");
         if ($tableSearch->num_rows == 0) {
             $this->db->query(
@@ -97,8 +101,30 @@ class DatabaseManager
                     `data` BLOB NOT NULL ,
                     PRIMARY KEY (`id`)) ENGINE = InnoDB;'
             );
+            $this->db->query(
+                "INSERT INTO `".DB_PREFIX."vault` (`id`, `user`, `data`) VALUES (NULL, '".$user."', '".$encryptedData[0].FILE_SEPARATOR.$encryptedData[1]."')"
+            );
         }
 
         return true;
+    }
+
+    public function getVault(string $user, string $key): array|null|object
+    {
+        $em = new EncryptionManager();
+
+        $tableSearch = $this->db->query("SHOW TABLES LIKE '".DB_PREFIX."vault'; ");
+        if ($tableSearch->num_rows != 0) {
+            $rs = $this->db->query(
+                "SELECT `data` FROM `".DB_PREFIX."vault` WHERE `user` = '".$user."'"
+            );
+            if ($rs->num_rows != 0) {
+                $data = $rs->fetch_assoc();
+                $vault = $em->decrypt($data['data'], $key);
+
+                return json_decode($vault);
+            }
+        }
+        return null;
     }
 }

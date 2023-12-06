@@ -80,18 +80,18 @@ class DataManager
         $vm->throwNull($password, 'createVault');
 
         $hm = new HashManager();
-        $username = $hm->hashUser($username);
+        $user = $hm->hashUser($username);
 
         $im = new InputManager();
-        $username = $im->escapeString($username);
+        $user = $im->escapeString($user);
         $password = $im->escapeString($password);
 
         if (STORAGE_TYPE == DATABASE) {
             $dm = new DatabaseManager();
-            $dm->createVault();
+            $dm->createVault($user, $password);
         } elseif (STORAGE_TYPE == FILESYSTEM) {
             $fm = new FileManager();
-            $fm->createVault($username, $password);
+            $fm->createVault($user, $password);
         } else {
             $em = new ErrorHandler();
             $em->error(
