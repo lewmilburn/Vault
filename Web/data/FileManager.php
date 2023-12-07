@@ -80,7 +80,7 @@ class FileManager
 
         $vault = $em->decrypt($data, $key);
 
-        return (array) json_decode($em->decrypt(urldecode($vault), $key));
+        return (array) json_decode(urldecode($vault), $key);
     }
 
     public function saveVault(string $user, string $key, mixed $data): bool
