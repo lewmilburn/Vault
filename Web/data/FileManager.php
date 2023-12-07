@@ -78,9 +78,7 @@ class FileManager
         $em = new EncryptionManager();
         $data = file_get_contents($file);
 
-        $vault = $em->decrypt($data, $key);
-
-        return (array) json_decode(urldecode($vault), $key);
+        return (array) json_decode($em->decrypt($data, $key));
     }
 
     public function saveVault(string $user, string $key, mixed $data): bool
