@@ -29,7 +29,7 @@ require_once __DIR__.'/authentication/SessionManager.php';
 
 require_once __DIR__.'/event/ErrorHandler.php';
 require_once __DIR__.'/event/ExtensionHandler.php';
-
+require_once __DIR__.'/event/RequestHandler.php';
 require_once __DIR__.'/event/RouteHandler.php';
 
 $ext = new \Vault\event\ExtensionHandler();

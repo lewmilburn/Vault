@@ -20,7 +20,7 @@ class ErrorHandler
             header_remove();
             header('Content-Type: application/json; charset=utf-8', true, $code);
             $data = '{"status": '.$code.', "error": "'.$message.'"}';
-            echo json_encode($data);
+            echo $data;
         } else {
             echo ' <!DOCTYPE html>
         <html lang="en">

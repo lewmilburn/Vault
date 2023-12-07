@@ -29,6 +29,8 @@ if ($auth->authenticated()) {
     $router->postRequest('/auth', 'event/login.php');
 
     $router->postRequest('/api/password', 'event/unauthorised.php');
+    $router->getRequest('/api/vault', 'event/unauthorised.php');
+    $router->putRequest('/api/vault', 'event/unauthorised.php');
 }
 
 $router->endRouter();

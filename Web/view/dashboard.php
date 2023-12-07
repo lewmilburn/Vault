@@ -17,6 +17,8 @@
         <?php require_once __DIR__.'/common/nav.php';?>
 
         <main>
+            <div class="alert-red mb-6 hidden" id="error"></div>
+            <div class="alert-green mb-6 hidden" id="success"></div>
             <div class="grid-std" x-data="{
                 open:false,
                 newItem: false,
