@@ -94,6 +94,7 @@
                                 class="btn-red"
                                 name="type"
                                 value="delete"
+                                :id="pid"
                             >
                                 Delete
                             </button>

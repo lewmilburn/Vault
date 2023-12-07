@@ -64,7 +64,7 @@ function updatePassword (id) {
 
 function deletePassword (id) {
     $(document).ready(function() {
-        let password = {pid: '396da119'};
+        let password = {pid: id};
         $.ajax({
             url: '/api/vault/',
             type: 'DELETE',
