@@ -71,7 +71,7 @@ class FileManager
         fclose($vaultFile);
     }
 
-    public function getVault(string $user, string $key): array|null|object
+    public function getVault(string $user, string $key): array|null
     {
         $file = $this->secureLocation.$user.$this->vaultExt;
 
@@ -80,7 +80,7 @@ class FileManager
 
         $vault = $em->decrypt($data, $key);
 
-        return json_decode($vault);
+        return (array) json_decode($em->decrypt(urldecode($vault), $key));
     }
 
     public function saveVault(string $user, string $key, mixed $data): bool

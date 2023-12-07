@@ -13,8 +13,9 @@ if ($am->authenticated() && isset($_SESSION['user']) && isset($_SESSION['key']))
     $im = new InputManager();
     $user = $im->escapeString($_SESSION['user']);
     $key = $_SESSION['key'];
+    $data = $dm->getVault($user, $key);
 
-    echo json_encode($dm->getVault($user, $key));
+    echo json_encode($data);
 } else {
     $eh = new ErrorHandler();
     $eh->unauthorised();

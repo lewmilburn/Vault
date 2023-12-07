@@ -110,7 +110,7 @@ class DatabaseManager
         return true;
     }
 
-    public function getVault(string $user, string $key): array|null|object
+    public function getVault(string $user, string $key): array|null
     {
         $em = new EncryptionManager();
 
@@ -121,9 +121,7 @@ class DatabaseManager
             );
             if ($rs->num_rows != 0) {
                 $data = $rs->fetch_assoc();
-                $vault = $em->decrypt(urldecode($data['data']), $key);
-
-                return json_decode($vault);
+                return (array) json_decode($em->decrypt(urldecode($data['data']), $key));
             }
         }
 
