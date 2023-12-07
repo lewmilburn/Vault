@@ -202,7 +202,7 @@ class DataManager
 
         $data = '{"pid":"'.$uniqueID.'","user":"'.$username.'","pass":"'.$pass.'","name":"'.$name.'","url":"'.$url.'","notes":"'.$notes.'"}';
         $tempArray = json_decode($data);
-        $vault[count($vault)] = $tempArray;
+        $vault[] = $tempArray;
 
         $vault = json_encode($vault);
 
