@@ -20,8 +20,6 @@ if ($auth->authenticated()) {
     $router->getRequest('', 'view/dashboard.php');
     $router->getRequest('/logout', 'event/logout.php');
 
-    $router->postRequest('/api/password', 'api/password/router.php');
-
     $router->getRequest('/api/vault', 'api/vault/get.php');
     $router->putRequest('/api/vault', 'api/vault/update.php');
     $router->postRequest('/api/vault', 'api/vault/create.php');
@@ -29,8 +27,6 @@ if ($auth->authenticated()) {
 } else {
     $router->getRequest('', 'view/login.php');
     $router->postRequest('/auth', 'event/login.php');
-
-    $router->postRequest('/api/password', 'event/unauthorised.php');
 
     $router->anyRequest('/api/vault', 'event/unauthorised.php');
 }
