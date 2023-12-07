@@ -2,6 +2,7 @@
 
 use Vault\authentication\AuthenticationManager;
 use Vault\data\DataManager;
+use Vault\event\ErrorHandler;
 use Vault\security\InputManager;
 
 header('Content-Type: application/json; charset=utf-8');
@@ -15,8 +16,8 @@ if ($am->authenticated() && isset($_SESSION['user'])) {
 
     $data = json_encode($dm->getVault($user, $key));
 } else {
-    $data = '{"status": 403}';
-    http_response_code(403);
+    $eh = new ErrorHandler();
+    $eh->unauthorised();
 }
 
 echo $data;

@@ -36,16 +36,8 @@ class RouteHandler
     #[NoReturn]
     public function endRouter(): void
     {
-        if (str_contains($_SERVER['REQUEST_URI'], 'api')) {
-
-            $data = '{"status": 404}';
-            http_response_code(404);
-            echo $data;
-            exit;
-        } else {
-            $eh = new ErrorHandler();
-            $eh->fileNotFound('event', 'routeHandler', 'endRouter');
-        }
+        $eh = new ErrorHandler();
+        $eh->fileNotFound('event', 'routeHandler', 'endRouter');
     }
 
     #[NoReturn]
