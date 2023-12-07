@@ -104,4 +104,13 @@ class ValidationManager
             );
         }
     }
+
+    public function isEmpty($string): bool
+    {
+        if ($string === null || trim($string) === '') {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

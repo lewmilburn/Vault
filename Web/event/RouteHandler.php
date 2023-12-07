@@ -24,6 +24,21 @@ class RouteHandler
         return;
     }
 
+    public function deleteRequest(string $url, string $file): void
+    {
+        $this->request($url, $file, 'DELETE');
+        return;
+    }
+
+    public function anyRequest(string $url, string $file)
+    {
+        $request = rtrim(strtok($_SERVER['REQUEST_URI'], '?'), '/');
+        if ($request == $url) {
+            $this->runFile($file);
+        }
+        return;
+    }
+
     public function request(string $url, string $file, string $method): void
     {
         $request = rtrim(strtok($_SERVER['REQUEST_URI'], '?'), '/');

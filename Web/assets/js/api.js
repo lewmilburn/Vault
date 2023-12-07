@@ -11,6 +11,31 @@ function getVault (id) {
     });
 }
 
+function createPassword () {
+    let password = {
+        pass: $('#pass').val(),
+        user: $('#user').val(),
+        name: $('#name').val(),
+        url: $('#url').val(),
+        notes: $('#notes').val()
+    };
+
+    $.ajax({
+        url: '/api/vault/',
+        type: 'POST',
+        dataType: 'json',
+        data: JSON.stringify(password),
+        contentType: "application/json; charset=utf-8",
+        success: function (data, textStatus, xhr) {
+            reloadVault();
+            displaySuccess('Password added.');
+        },
+        error: function (xhr, textStatus, errorThrown) {
+            displayError('Unable to add password', xhr.responseText);
+        }
+    });
+}
+
 function updatePassword (id) {
     let password = {
         pid: id,
@@ -32,7 +57,6 @@ function updatePassword (id) {
             displaySuccess('Password saved.');
         },
         error: function (xhr, textStatus, errorThrown) {
-            console.log(password);
             displayError('Unable to update password', xhr.responseText);
         }
     });
@@ -45,7 +69,7 @@ function deletePassword (id) {
             url: '/api/vault/',
             type: 'DELETE',
             dataType: 'json',
-            data: password,
+            data: JSON.stringify(password),
             success: function (data, textStatus, xhr) {
                 reloadVault();
                 displaySuccess('Password deleted.');

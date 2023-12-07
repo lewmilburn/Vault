@@ -63,6 +63,8 @@ $(document).ready(function() {
             updatePassword(e.target.id);
         } else if (e.target.value === 'delete') {
             deletePassword(e.target.id);
+        } else if (e.target.value === 'create') {
+            createPassword();
         }
     });
 });

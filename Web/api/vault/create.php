@@ -4,6 +4,8 @@ use event\RequestHandler;
 use Vault\authentication\AuthenticationManager;
 use Vault\data\DataManager;
 use Vault\event\ErrorHandler;
+use Vault\security\HashManager;
+use Vault\security\ValidationManager;
 
 header('Content-Type: application/json; charset=utf-8');
 
@@ -12,15 +14,17 @@ if ($am->authenticated() && isset($_SESSION['user'])) {
     $rh = new RequestHandler();
     $sentData = $rh->getJSONBody();
 
+    $vm = new ValidationManager();
+
     if ($sentData == null | $sentData == false) {
         $eh = new ErrorHandler();
-        $eh->error('', '', '', 'Missing required data.', 400);
+        $eh->error('', '', '', 'Required data not recieved.', 400);
     } elseif (
-        !isset($sentData->pid) ||
-        !isset($sentData->user) ||
-        !isset($sentData->pass) ||
-        !isset($sentData->name) ||
-        !isset($sentData->url))
+        (!isset($sentData->user) || $vm->isEmpty($sentData->user)) ||
+        (!isset($sentData->pass) || $vm->isEmpty($sentData->pass)) ||
+        (!isset($sentData->name) || $vm->isEmpty($sentData->name)) ||
+        (!isset($sentData->url) || $vm->isEmpty($sentData->url))
+    )
     {
         $eh = new ErrorHandler();
         $eh->error('', '', '', 'Missing required data.', 400);
@@ -29,11 +33,13 @@ if ($am->authenticated() && isset($_SESSION['user'])) {
             $sentData->notes = null;
         }
 
+        $hm = new HashManager();
+
         $dm = new DataManager();
-        $dm->updatePassword(
+        $dm->addPassword(
             $_SESSION['user'],
             $_SESSION['key'],
-            $sentData->pid,
+            $hm->generateUniqueId(),
             $sentData->user,
             $sentData->pass,
             $sentData->name,
@@ -41,11 +47,9 @@ if ($am->authenticated() && isset($_SESSION['user'])) {
             $sentData->notes
         );
 
-        $data = '{"status": 200}';
+        echo '{"status": 200}';
     }
 } else {
     $eh = new ErrorHandler();
     $eh->unauthorised();
 }
-
-echo $data;
