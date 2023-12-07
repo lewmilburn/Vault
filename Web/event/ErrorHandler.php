@@ -13,10 +13,16 @@ class ErrorHandler
         string|null $function,
         string $message,
         string $code
-    ): void {
-        http_response_code($code);
+    ): void
+    {
         ob_end_clean();
-        echo' <!DOCTYPE html>
+        if (str_contains($_SERVER['REQUEST_URI'], 'api')) {
+            header_remove();
+            header('Content-Type: application/json; charset=utf-8', true, $code);
+            $data = '{"status": '.$code.', "error": "'.$message.'"}';
+            echo json_encode($data);
+        } else {
+            echo ' <!DOCTYPE html>
         <html lang="en">
             <head>
                 <meta charset="utf-8">
@@ -32,32 +38,34 @@ class ErrorHandler
             <body class="p-4">
                 <div class="text-center">
                     <img src="/assets/images/vault.png" alt="Vault" style="width:4rem">
-                    <h1>Error '.$code.'</h1>
+                    <h1>Error ' . $code . '</h1>
                 </div>
                 <table class="table">
                     <tr>
                         <th scope="row">Function</th>
-                        <td>Vault\\'.$namespace.'\\'.$class.'::'.$function.'</td>
+                        <td>Vault\\' . $namespace . '\\' . $class . '::' . $function . '</td>
                     </tr>
                     <tr>
                         <th scope="row">Error</th>
-                        <td>'.$message.'</td>
+                        <td>' . $message . '</td>
                     </tr>';
-        if (ENV == DEV) {
-                    echo '<tr>
+            if (ENV == DEV) {
+                echo '<tr>
                         <th scope="row" colspan="2" style="text-align:center;">Debug information</th>
                     </tr>
                     <tr>
                         <th scope="row">Request URI</th>
-                        <td>'.$_SERVER['REQUEST_URI'].'</td>
+                        <td>' . htmlspecialchars($_SERVER['REQUEST_URI']) . '</td>
                     </tr
                     <tr>
                         <th scope="row">Request Method</th>
-                        <td>'.$_SERVER['REQUEST_METHOD'].'</td>
-                    </tr>'; }
-                echo '</table>
+                        <td>' . htmlspecialchars($_SERVER['REQUEST_METHOD']) . '</td>
+                    </tr>';
+            }
+            echo '</table>
             </body>
         </html>';
+        }
         exit;
     }
 
@@ -82,6 +90,17 @@ class ErrorHandler
             $function,
             'File Not Found - The requested file could not be found.',
             404
+        );
+    }
+
+    public function unauthorised(string $namespace = '', string $class = '', string $function = ''): void
+    {
+        $this->error(
+            $namespace,
+            $class,
+            $function,
+            'Unauthorised.',
+            401
         );
     }
 }
