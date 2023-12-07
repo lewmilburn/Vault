@@ -5,20 +5,22 @@ function reloadVault() {
 }
 
 function displayPasswords(data) {
-    Object.values(data).forEach((item) => {
-        let child = '<div class="grid-item-password" x-on:click="\n' +
-            '                        open=true;\n' +
-            '                        newItem=false;\n' +
-            '                        pid=\''+item.pid+'\';\n' +
-            '                        pass=\''+item.pass+'\';\n' +
-            '                        user=\''+item.user+'\';\n' +
-            '                        name=\''+item.name+'\';\n' +
-            '                        url=\''+item.url+'\';\n' +
-            '                        notes=\''+item.notes+'\';\n' +
-            '                    ">'+item.name+'</div>';
+    if (data !== undefined && data !== null) {
+        Object.values(data).forEach((item) => {
+            let child = '<div class="grid-item-password" x-on:click="\n' +
+                '                        open=true;\n' +
+                '                        newItem=false;\n' +
+                '                        pid=\'' + item.pid + '\';\n' +
+                '                        pass=\'' + item.pass + '\';\n' +
+                '                        user=\'' + item.user + '\';\n' +
+                '                        name=\'' + item.name + '\';\n' +
+                '                        url=\'' + item.url + '\';\n' +
+                '                        notes=\'' + item.notes + '\';\n' +
+                '                    ">' + item.name + '</div>';
 
-        $('#passwordGrid').append(child);
-    })
+            $('#passwordGrid').append(child);
+        })
+    }
 }
 
 function addNewPasswordButton() {
