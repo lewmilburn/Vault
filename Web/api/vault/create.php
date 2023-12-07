@@ -36,7 +36,7 @@ if ($am->authenticated() && isset($_SESSION['user'])) {
         $hm = new HashManager();
 
         $dm = new DataManager();
-        $dm->addPassword(
+        if ($dm->addPassword(
             $_SESSION['user'],
             $_SESSION['key'],
             $hm->generateUniqueId(),
@@ -45,9 +45,13 @@ if ($am->authenticated() && isset($_SESSION['user'])) {
             $sentData->name,
             $sentData->url,
             $sentData->notes
-        );
+        )) {
+            echo '{"status": 200}';
+        } else {
+            $eh = new ErrorHandler();
+            $eh->error('', '', '', 'Internal Server Error.', 500);
+        }
 
-        echo '{"status": 200}';
     }
 } else {
     $eh = new ErrorHandler();

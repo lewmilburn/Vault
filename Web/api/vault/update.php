@@ -34,7 +34,7 @@ if ($am->authenticated() && isset($_SESSION['user'])) {
         }
 
         $dm = new DataManager();
-        $dm->updatePassword(
+        if ($dm->updatePassword(
             $_SESSION['user'],
             $_SESSION['key'],
             $sentData->pid,
@@ -43,9 +43,12 @@ if ($am->authenticated() && isset($_SESSION['user'])) {
             $sentData->name,
             $sentData->url,
             $sentData->notes
-        );
-
-        echo '{"status": 200}';
+        )) {
+            echo '{"status": 200}';
+        } else {
+            $eh = new ErrorHandler();
+            $eh->error('', '', '', 'Internal Server Error.', 500);
+        }
     }
 } else {
     $eh = new ErrorHandler();

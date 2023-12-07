@@ -130,12 +130,18 @@ class DatabaseManager
         return null;
     }
 
-    public function saveVault(string $user, string $key, mixed $data): void
+    public function saveVault(string $user, string $key, mixed $data): bool
     {
         $em = new EncryptionManager();
         $encryptedData = $em->encrypt($data, $key);
         $data = urlencode($encryptedData[0].FILE_SEPARATOR.$encryptedData[1]);
 
         $this->db->query("UPDATE `".DB_PREFIX."vault` SET `data` = '".$data."' WHERE `user` = '".$user."';");
+
+        if ($this->db->error == null) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

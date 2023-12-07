@@ -175,7 +175,7 @@ class DataManager
                 '500'
             );
         }
-        $dm->saveVault($user, $key, $vault);
+        return $dm->saveVault($user, $key, $vault);
     }
 
     public function updatePassword(
@@ -228,7 +228,7 @@ class DataManager
                 '500'
             );
         }
-        $dm->saveVault($user, $key, $vault);
+        return $dm->saveVault($user, $key, $vault);
     }
 
     public function deletePassword(mixed $user, mixed $key, mixed $uniqueID)
@@ -265,6 +265,6 @@ class DataManager
                 '500'
             );
         }
-        $dm->saveVault($user, $key, $vault);
+        return $dm->saveVault($user, $key, $vault);
     }
 }

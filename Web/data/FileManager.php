@@ -83,7 +83,7 @@ class FileManager
         return json_decode($vault);
     }
 
-    public function saveVault(string $user, string $key, mixed $data): void
+    public function saveVault(string $user, string $key, mixed $data): bool
     {
         $file = $this->secureLocation.$user.$this->vaultExt;
 
@@ -92,7 +92,12 @@ class FileManager
         $em = new EncryptionManager();
         $encryptedData = $em->encrypt($data, $key);
 
-        fwrite($vaultFile, $encryptedData[0].FILE_SEPARATOR.$encryptedData[1]);
-        fclose($vaultFile);
+        if (!fwrite($vaultFile, $encryptedData[0] . FILE_SEPARATOR . $encryptedData[1])) {
+            fclose($vaultFile);
+            return false;
+        } else {
+            fclose($vaultFile);
+            return true;
+        }
     }
 }
