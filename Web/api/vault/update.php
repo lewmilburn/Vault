@@ -4,6 +4,7 @@ use event\RequestHandler;
 use Vault\authentication\AuthenticationManager;
 use Vault\data\DataManager;
 use Vault\event\ErrorHandler;
+use Vault\security\InputManager;
 use Vault\security\ValidationManager;
 
 header('Content-Type: application/json; charset=utf-8');
@@ -34,15 +35,17 @@ if ($am->authenticated() && isset($_SESSION['user'])) {
         }
 
         $dm = new DataManager();
+        $im = new InputManager();
+
         if ($dm->updatePassword(
             $_SESSION['user'],
             $_SESSION['key'],
-            $sentData->pid,
-            $sentData->user,
-            $sentData->pass,
-            $sentData->name,
-            $sentData->url,
-            $sentData->notes
+            $im->escapeString($sentData->pid),
+            $im->escapeString($sentData->user),
+            $im->escapeString($sentData->pass),
+            $im->escapeString($sentData->name),
+            $im->escapeString($sentData->url),
+            $im->escapeString($sentData->notes)
         )) {
             echo '{"status": 200}';
         } else {

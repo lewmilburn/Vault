@@ -4,6 +4,7 @@ use event\RequestHandler;
 use Vault\authentication\AuthenticationManager;
 use Vault\data\DataManager;
 use Vault\event\ErrorHandler;
+use Vault\security\InputManager;
 use Vault\security\ValidationManager;
 
 header('Content-Type: application/json; charset=utf-8');
@@ -27,10 +28,12 @@ if ($am->authenticated() && isset($_SESSION['user'])) {
         }
 
         $dm = new DataManager();
+        $im = new InputManager();
+
         if ($dm->deletePassword(
             $_SESSION['user'],
             $_SESSION['key'],
-            $sentData->pid
+            $im->escapeString($sentData->pid)
         )) {
             echo '{"status": 200}';
         } else {
