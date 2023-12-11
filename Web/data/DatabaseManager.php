@@ -121,6 +121,7 @@ class DatabaseManager
             );
             if ($rs->num_rows != 0) {
                 $data = $rs->fetch_assoc();
+
                 return (array) json_decode($em->decrypt(urldecode($data['data']), $key));
             }
         }
@@ -134,7 +135,7 @@ class DatabaseManager
         $encryptedData = $em->encrypt($data, $key);
         $data = urlencode($encryptedData[0].FILE_SEPARATOR.$encryptedData[1]);
 
-        $this->db->query("UPDATE `".DB_PREFIX."vault` SET `data` = '".$data."' WHERE `user` = '".$user."';");
+        $this->db->query('UPDATE `'.DB_PREFIX."vault` SET `data` = '".$data."' WHERE `user` = '".$user."';");
 
         if ($this->db->error == null) {
             return true;

@@ -171,6 +171,7 @@ class DataManager
                 '500'
             );
         }
+
         return $dm->saveVault($user, $key, $vault);
     }
 
@@ -220,6 +221,7 @@ class DataManager
                 '500'
             );
         }
+
         return $dm->saveVault($user, $key, $vault);
     }
 
@@ -253,6 +255,7 @@ class DataManager
                 '500'
             );
         }
+
         return $dm->saveVault($user, $key, $vault);
     }
 }

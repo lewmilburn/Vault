@@ -90,11 +90,13 @@ class FileManager
         $em = new EncryptionManager();
         $encryptedData = $em->encrypt($data, $key);
 
-        if (!fwrite($vaultFile, $encryptedData[0] . FILE_SEPARATOR . $encryptedData[1])) {
+        if (!fwrite($vaultFile, $encryptedData[0].FILE_SEPARATOR.$encryptedData[1])) {
             fclose($vaultFile);
+
             return false;
         } else {
             fclose($vaultFile);
+
             return true;
         }
     }

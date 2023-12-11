@@ -13,8 +13,7 @@ class ErrorHandler
         string|null $function,
         string $message,
         string $code
-    ): void
-    {
+    ): void {
         ob_end_clean();
         if (str_contains($_SERVER['REQUEST_URI'], 'api')) {
             header_remove();
@@ -38,16 +37,16 @@ class ErrorHandler
             <body class="p-4">
                 <div class="text-center">
                     <img src="/assets/images/vault.png" alt="Vault" style="width:4rem">
-                    <h1>Error ' . htmlspecialchars($code) . '</h1>
+                    <h1>Error '.htmlspecialchars($code).'</h1>
                 </div>
                 <table class="table">
                     <tr>
                         <th scope="row">Function</th>
-                        <td>Vault\\' . htmlspecialchars($namespace) . '\\' . htmlspecialchars($class) . '::' . htmlspecialchars($function) . '</td>
+                        <td>Vault\\'.htmlspecialchars($namespace).'\\'.htmlspecialchars($class).'::'.htmlspecialchars($function).'</td>
                     </tr>
                     <tr>
                         <th scope="row">Error</th>
-                        <td>' . htmlspecialchars($message) . '</td>
+                        <td>'.htmlspecialchars($message).'</td>
                     </tr>';
             if (ENV == DEV) {
                 echo '<tr>
@@ -55,11 +54,11 @@ class ErrorHandler
                     </tr>
                     <tr>
                         <th scope="row">Request URI</th>
-                        <td>' . htmlspecialchars($_SERVER['REQUEST_URI']) . '</td>
+                        <td>'.htmlspecialchars($_SERVER['REQUEST_URI']).'</td>
                     </tr
                     <tr>
                         <th scope="row">Request Method</th>
-                        <td>' . htmlspecialchars($_SERVER['REQUEST_METHOD']) . '</td>
+                        <td>'.htmlspecialchars($_SERVER['REQUEST_METHOD']).'</td>
                     </tr>';
             }
             echo '</table>
