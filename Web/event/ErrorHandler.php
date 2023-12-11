@@ -42,7 +42,11 @@ class ErrorHandler
                 <table class="table">
                     <tr>
                         <th scope="row">Function</th>
-                        <td>Vault\\'.htmlspecialchars($namespace).'\\'.htmlspecialchars($class).'::'.htmlspecialchars($function).'</td>
+                        <td>
+                            Vault\\' . htmlspecialchars($namespace) .
+                            '\\' . htmlspecialchars($class) .
+                            '::' . htmlspecialchars($function) . '
+                        </td>
                     </tr>
                     <tr>
                         <th scope="row">Error</th>

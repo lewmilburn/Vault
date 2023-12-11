@@ -17,7 +17,7 @@ if ($am->authenticated() && isset($_SESSION['user'])) {
 
     $vm = new ValidationManager();
 
-    if ($sentData == null | $sentData == false) {
+    if (!$sentData) {
         $eh = new ErrorHandler();
         $eh->error('', '', '', 'Required data not recieved.', 400);
     } elseif (

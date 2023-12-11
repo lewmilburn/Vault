@@ -1,7 +1,9 @@
 <?php
 
 use Vault\authentication\AuthenticationManager;
+use Vault\data\DataManager;
 use Vault\event\ErrorHandler;
+use Vault\security\InputManager;
 
 header('Content-Type: application/json; charset=utf-8');
 
@@ -18,7 +20,7 @@ if ($am->authenticated() && isset($_SESSION['user']) && isset($_SESSION['key']))
         if (preg_match('@[a-z]@', $check)) {
             $score++;
         }
-        if (preg_match('@[0-9]@', $check)) {
+        if (preg_match('@[\d]@', $check)) {
             $score++;
         }
         if (preg_match('@[^\w]@', $check)) {
