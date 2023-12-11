@@ -43,9 +43,9 @@ class ErrorHandler
                     <tr>
                         <th scope="row">Function</th>
                         <td>
-                            Vault\\' . htmlspecialchars($namespace) .
-                            '\\' . htmlspecialchars($class) .
-                            '::' . htmlspecialchars($function) . '
+                            Vault\\'.htmlspecialchars($namespace).
+                            '\\'.htmlspecialchars($class).
+                            '::'.htmlspecialchars($function).'
                         </td>
                     </tr>
                     <tr>
