@@ -27,7 +27,8 @@
                 user: '',
                 name: '',
                 url: '',
-                notes: ''
+                notes: '',
+                strength: ''
             }">
                 <div class="grid" id="passwordGrid">
                 </div>
@@ -59,6 +60,9 @@
                             <label for="notes" class="h3 text-center w-full">Notes</label><br>
                             <textarea type="text" id="notes" name="notes" x-text="notes" class="w-full"></textarea>
                         </div>
+                        <div>
+                            <p class="h3 w-full">Password Strength: <span x-text="strength"></span>/10</p>
+                        </div>
                         <div class="col-span-2 flex space-x-2">
                             <button type="button" class="inline btn-primary" x-on:click="
                                 open=false;
@@ -68,6 +72,7 @@
                                 name='';
                                 url='';
                                 notes='';
+                                strength='';
                             ">Close</button>
                             <button
                                 type="submit"

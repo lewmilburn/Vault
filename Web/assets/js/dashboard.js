@@ -4,21 +4,43 @@ function reloadVault() {
     getVault();
 }
 
+function displayPassword(item, strength) {
+    let warning;
+
+    if (strength < 8) {
+        warning = '<i class="fa-solid fa-triangle-exclamation"></i>';
+    } else {
+        warning = '';
+    }
+    let child = '<div class="grid-item-password" x-on:click="\n' +
+        '                        open=true;\n' +
+        '                        newItem=false;\n' +
+        '                        pid=\'' + item.pid + '\';\n' +
+        '                        pass=\'' + item.pass + '\';\n' +
+        '                        user=\'' + item.user + '\';\n' +
+        '                        name=\'' + item.name + '\';\n' +
+        '                        url=\'' + item.url + '\';\n' +
+        '                        notes=\'' + item.notes + '\';\n' +
+        '                        strength=\'' + strength + '\';\n' +
+        '                    "><p class="flex-grow">' + item.name + '</p><p>' + warning + '</p></div>';
+
+    $('#passwordGrid').append(child);
+}
+
 function displayPasswords(data) {
     if (data !== undefined && data !== null) {
         Object.values(data).forEach((item) => {
-            let child = '<div class="grid-item-password" x-on:click="\n' +
-                '                        open=true;\n' +
-                '                        newItem=false;\n' +
-                '                        pid=\'' + item.pid + '\';\n' +
-                '                        pass=\'' + item.pass + '\';\n' +
-                '                        user=\'' + item.user + '\';\n' +
-                '                        name=\'' + item.name + '\';\n' +
-                '                        url=\'' + item.url + '\';\n' +
-                '                        notes=\'' + item.notes + '\';\n' +
-                '                    ">' + item.name + '</div>';
-
-            $('#passwordGrid').append(child);
+            $.ajax({
+                url: '/api/strength/?check='+item.pass,
+                type: 'GET',
+                success: function (data) {
+                    let strength = data.score;
+                    displayPassword(item, strength);
+                },
+                error: function (xhr) {
+                    displayError('Unable to check password strength', xhr.responseText);
+                }
+            });
         })
     }
 }
@@ -34,6 +56,7 @@ function addNewPasswordButton() {
         '                        name=\'\';\n' +
         '                        url=\'\';\n' +
         '                        notes=\'\';\n' +
+        '                        strength=\'\';\n' +
         '                    ">\n' +
         '                        Add a new password\n' +
         '                    </div>');
