@@ -33,5 +33,6 @@ if ($auth->authenticated()) {
     $router->anyRequest('/api/vault', 'event/unauthorised.php');
     $router->getRequest('/api/strength', 'event/unauthorised.php');
 }
+$router->anyRequest('/api/status', 'api/status.php');
 
 $router->endRouter();

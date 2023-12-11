@@ -56,6 +56,18 @@ class ApiError
         $this->errorHandler->unauthorised();
     }
 
+    #[NoReturn]
+    public function alreadyAuthenticated(): void
+    {
+        $this->errorHandler->error(
+            'api',
+            'ApiError',
+            'alreadyAuthenticated',
+            'Already authenticated.',
+            400
+        );
+    }
+
     public function notesNull($notes): string|null
     {
         if (!isset($notes)) {

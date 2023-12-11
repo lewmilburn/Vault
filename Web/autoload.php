@@ -32,11 +32,12 @@ require_once __DIR__.'/event/ExtensionHandler.php';
 require_once __DIR__.'/event/RequestHandler.php';
 require_once __DIR__.'/event/RouteHandler.php';
 
+require_once __DIR__.'/api/ApiError.php';
+
 $ext = new \Vault\event\ExtensionHandler();
 $ext->vaultStartup();
 
-global $testing;
-if (!$testing && !file_exists(__DIR__.'/run.json') && !isset($setup)) {
+if (!file_exists(__DIR__.'/run.json') && !isset($setup) && !str_contains($_SERVER['REQUEST_URI'], '/api/status')) {
     require_once __DIR__.'/event/setup.php';
     exit;
 }
