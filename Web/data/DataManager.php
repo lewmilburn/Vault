@@ -11,7 +11,7 @@ class DataManager
 {
     public string $invalidStorageError = 'Selected storage type is invalid, please use DATABASE or FILESYSTEM.';
 
-    public function getUserData(string $username): object|null
+    public function getUserData(string $username): object
     {
         $vm = new ValidationManager();
         $vm->throwNull($username, 'getUserData');
@@ -104,7 +104,7 @@ class DataManager
         }
     }
 
-    public function getVault(string $user, string $key): null|object|array
+    public function getVault(string $user, string $key): array|null
     {
         $vm = new ValidationManager();
         $vm->throwNull($user, 'getVault');
@@ -140,7 +140,7 @@ class DataManager
         string $name,
         string $url,
         string $notes
-    ) {
+    ): bool {
         $im = new InputManager();
         $username = $im->escapeString($username);
         $pass = $im->escapeString($pass);
@@ -152,6 +152,7 @@ class DataManager
 
         $data = '{"pid":"'.$uniqueID.'","user":"'.$username.'","pass":"'.$pass.'","name":"'.$name.'","url":"'.$url.'","notes":"'.$notes.'"}';
         $tempArray = json_decode($data, true);
+
         array_push($vault, $tempArray);
 
         $vault = json_encode($vault);
@@ -170,7 +171,8 @@ class DataManager
                 '500'
             );
         }
-        $dm->saveVault($user, $key, $vault);
+
+        return $dm->saveVault($user, $key, $vault);
     }
 
     public function updatePassword(
@@ -182,7 +184,7 @@ class DataManager
         string $name,
         string $url,
         string $notes
-    ) {
+    ): bool {
         $im = new InputManager();
         $username = $im->escapeString($username);
         $pass = $im->escapeString($pass);
@@ -201,7 +203,7 @@ class DataManager
 
         $data = '{"pid":"'.$uniqueID.'","user":"'.$username.'","pass":"'.$pass.'","name":"'.$name.'","url":"'.$url.'","notes":"'.$notes.'"}';
         $tempArray = json_decode($data);
-        $vault[count($vault)] = $tempArray;
+        $vault[] = $tempArray;
 
         $vault = json_encode($vault);
 
@@ -219,10 +221,11 @@ class DataManager
                 '500'
             );
         }
-        $dm->saveVault($user, $key, $vault);
+
+        return $dm->saveVault($user, $key, $vault);
     }
 
-    public function deletePassword(mixed $user, mixed $key, mixed $uniqueID)
+    public function deletePassword(string $user, string $key, string $uniqueID): bool
     {
         $im = new InputManager();
         $uniqueID = $im->escapeString($uniqueID);
@@ -252,6 +255,7 @@ class DataManager
                 '500'
             );
         }
-        $dm->saveVault($user, $key, $vault);
+
+        return $dm->saveVault($user, $key, $vault);
     }
 }

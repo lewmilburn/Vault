@@ -17,6 +17,8 @@
         <?php require_once __DIR__.'/common/nav.php';?>
 
         <main>
+            <div class="alert-red mb-6 hidden" id="error"></div>
+            <div class="alert-green mb-6 hidden" id="success"></div>
             <div class="grid-std" x-data="{
                 open:false,
                 newItem: false,
@@ -25,46 +27,15 @@
                 user: '',
                 name: '',
                 url: '',
-                notes: ''
+                notes: '',
+                strength: ''
             }">
-                <div class="grid">
-                    <div class="grid-item-password" x-on:click="
-                        open=true;
-                        newItem=true;
-                        pid='';
-                        pass='';
-                        user='';
-                        name='';
-                        url='';
-                        notes='';
-                    ">
-                        Add a new password
-                    </div>
-                    <?php
-                        $dm = new \Vault\data\DataManager();
-                        $vault = $dm->getVault($_SESSION['user'], $_SESSION['key']);
-                        foreach ($vault as $password) { if (isset($password->name)) { ?>
-                    <div class="grid-item-password" x-on:click="
-                        open=true;
-                        newItem=false;
-                        pid='<?= $password->pid; ?>';
-                        pass='<?= $password->pass; ?>';
-                        user='<?= $password->user; ?>';
-                        name='<?= $password->name; ?>';
-                        url='<?= $password->url; ?>';
-                        notes='<?= $password->notes; ?>';
-                    ">
-                        <?= $password->name; ?>
-                    </div>
-                    <?php
-                        }
-                        }
-                    ?>
+                <div class="grid" id="passwordGrid">
                 </div>
                 <div class="border p-2" x-show="open">
                     <h2 class="text-center" x-show="!newItem" x-text="name"></h2>
                     <h2 class="text-center" x-show="newItem">Add a new password</h2>
-                    <form class="grid-std" action="/api/password" method="post">
+                    <div class="grid-std">
                         <div class="hidden" aria-hidden="true">
                             <label for="pid" class="h3 text-center w-full" aria-hidden="true">PID</label><br>
                             <input type="text" id="pid" name="pid" x-model="pid" class="w-full" aria-hidden="true">
@@ -89,6 +60,9 @@
                             <label for="notes" class="h3 text-center w-full">Notes</label><br>
                             <textarea type="text" id="notes" name="notes" x-text="notes" class="w-full"></textarea>
                         </div>
+                        <div>
+                            <p class="h3 w-full">Password Strength: <span x-text="strength"></span>/10</p>
+                        </div>
                         <div class="col-span-2 flex space-x-2">
                             <button type="button" class="inline btn-primary" x-on:click="
                                 open=false;
@@ -98,6 +72,7 @@
                                 name='';
                                 url='';
                                 notes='';
+                                strength='';
                             ">Close</button>
                             <button
                                 type="submit"
@@ -114,6 +89,7 @@
                                 class="btn-green flex-grow"
                                 name="type"
                                 value="update"
+                                :id="pid"
                             >
                                 Save changes
                             </button>
@@ -123,13 +99,17 @@
                                 class="btn-red"
                                 name="type"
                                 value="delete"
+                                :id="pid"
                             >
                                 Delete
                             </button>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </main>
+        <script src="/assets/js/jquery.js"></script>
+        <script src="/assets/js/api.js"></script>
+        <script src="/assets/js/dashboard.js"></script>
     </body>
 </html>

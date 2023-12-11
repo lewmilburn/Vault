@@ -91,17 +91,32 @@ class ValidationManager
         }
     }
 
-    public function throwNull($string, $function): void
+    public function throwNull($string, $function, $stringName = null): void
     {
         if ($string == null) {
             $em = new ErrorHandler();
-            $em->error(
-                'security',
-                'ValidationManager',
-                'throwNull',
-                'Function requires non-null string, null string provided in function "'.$function.'".',
-                '500'
-            );
+            if ($stringName == null) {
+                $em->error(
+                    'security',
+                    'ValidationManager',
+                    'throwNull',
+                    'Function requires non-null string, null string provided in function "'.$function.'".',
+                    '500'
+                );
+            } else {
+                $em->error(
+                    'security',
+                    'ValidationManager',
+                    'throwNull',
+                    'Function requires non-null string, null string "'.$stringName.'" provided in function "'.$function.'".',
+                    '500'
+                );
+            }
         }
+    }
+
+    public function isEmpty($string): bool
+    {
+        return $string === null || trim($string) === '';
     }
 }

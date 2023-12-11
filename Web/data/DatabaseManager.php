@@ -98,33 +98,45 @@ class DatabaseManager
                 'CREATE TABLE `'.DB_NAME.'`.`'.DB_PREFIX.'vault` (
                     `id` INT NOT NULL AUTO_INCREMENT ,
                     `user` VARCHAR(8) NOT NULL ,
-                    `data` BLOB NOT NULL ,
+                    `data` MEDIUMBLOB NOT NULL ,
                     PRIMARY KEY (`id`)) ENGINE = InnoDB;'
             );
+            $data = urlencode($encryptedData[0].FILE_SEPARATOR.$encryptedData[1]);
             $this->db->query(
-                "INSERT INTO `".DB_PREFIX."vault` (`id`, `user`, `data`) VALUES (NULL, '".$user."', '".$encryptedData[0].FILE_SEPARATOR.$encryptedData[1]."')"
+                'INSERT INTO `'.DB_PREFIX."vault` (`id`, `user`, `data`) VALUES (NULL, '".$user."', '".$data."')"
             );
         }
 
         return true;
     }
 
-    public function getVault(string $user, string $key): array|null|object
+    public function getVault(string $user, string $key): array|null
     {
         $em = new EncryptionManager();
 
         $tableSearch = $this->db->query("SHOW TABLES LIKE '".DB_PREFIX."vault'; ");
         if ($tableSearch->num_rows != 0) {
             $rs = $this->db->query(
-                "SELECT `data` FROM `".DB_PREFIX."vault` WHERE `user` = '".$user."'"
+                'SELECT `data` FROM `'.DB_PREFIX."vault` WHERE `user` = '".$user."'"
             );
             if ($rs->num_rows != 0) {
                 $data = $rs->fetch_assoc();
-                $vault = $em->decrypt($data['data'], $key);
 
-                return json_decode($vault);
+                return (array) json_decode($em->decrypt(urldecode($data['data']), $key));
             }
         }
+
         return null;
+    }
+
+    public function saveVault(string $user, string $key, mixed $data): bool
+    {
+        $em = new EncryptionManager();
+        $encryptedData = $em->encrypt($data, $key);
+        $data = urlencode($encryptedData[0].FILE_SEPARATOR.$encryptedData[1]);
+
+        $this->db->query('UPDATE `'.DB_PREFIX."vault` SET `data` = '".$data."' WHERE `user` = '".$user."';");
+
+        return $this->db->error == null;
     }
 }

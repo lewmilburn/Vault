@@ -40,9 +40,10 @@ label { @apply text-sm text-left; }
 
 .alert { @apply px-2 py-1 border-l-4; }
 .alert-red { @apply alert bg-red-100 dark:bg-red-500 border-red-500 dark:border-red-800; }
+.alert-green { @apply alert bg-green-100 dark:bg-green-500 border-green-500 dark:border-green-800; }
 .alert-yellow { @apply alert bg-yellow-100 dark:bg-yellow-500 border-yellow-500 dark:border-yellow-800; }
 
 a { @apply underline; }
 
-.grid-item-password { @apply border px-4 py-2 cursor-pointer; }
+.grid-item-password { @apply border px-4 py-2 cursor-pointer flex space-x-4; }
 .grid-std { @apply grid grid-cols-2 gap-2; }
