@@ -137,6 +137,6 @@ class DatabaseManager
 
         $this->db->query('UPDATE `'.DB_PREFIX."vault` SET `data` = '".$data."' WHERE `user` = '".$user."';");
 
-        return ($this->db->error == null);
+        return $this->db->error == null;
     }
 }
