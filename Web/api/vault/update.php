@@ -29,9 +29,7 @@ if ($am->authenticated() && isset($_SESSION['user'])) {
     ) {
         $eh->missingData();
     } else {
-        if (!isset($sentData->notes)) {
-            $sentData->notes = null;
-        }
+        $sentData->notes = $eh->notesNull($sentData->notes);
 
         $dm = new DataManager();
         $im = new InputManager();

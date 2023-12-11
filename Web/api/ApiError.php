@@ -55,4 +55,13 @@ class ApiError
     {
         $this->errorHandler->unauthorised();
     }
+
+    public function notesNull($notes): string|null
+    {
+        if (!isset($notes)) {
+            return null;
+        } else {
+            return $notes;
+        }
+    }
 }
