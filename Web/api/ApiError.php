@@ -5,14 +5,17 @@ namespace Vault\api;
 use JetBrains\PhpStorm\NoReturn;
 use Vault\event\ErrorHandler;
 
-class ApiError {
+class ApiError
+{
     private ErrorHandler $errorHandler;
 
-    public function __construct() {
-        $this->errorHandler = new ErrorHandler;
+    public function __construct()
+    {
+        $this->errorHandler = new ErrorHandler();
     }
+
     #[NoReturn]
-    function dataNotRecieved(): void
+    public function dataNotRecieved(): void
     {
         $this->errorHandler->error(
             'api',
@@ -22,8 +25,9 @@ class ApiError {
             400
         );
     }
+
     #[NoReturn]
-    function missingData(): void
+    public function missingData(): void
     {
         $this->errorHandler->error(
             'api',
@@ -33,8 +37,9 @@ class ApiError {
             400
         );
     }
+
     #[NoReturn]
-    function internalServerError(): void
+    public function internalServerError(): void
     {
         $this->errorHandler->error(
             'api',
@@ -44,8 +49,9 @@ class ApiError {
             500
         );
     }
+
     #[NoReturn]
-    function unauthorised(): void
+    public function unauthorised(): void
     {
         $this->errorHandler->unauthorised();
     }
