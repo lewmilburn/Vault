@@ -1,8 +1,8 @@
 <?php
 
+use Vault\api\ApiError;
 use Vault\authentication\AuthenticationManager;
 use Vault\data\DataManager;
-use Vault\event\ErrorHandler;
 use Vault\security\InputManager;
 
 header('Content-Type: application/json; charset=utf-8');
@@ -17,6 +17,6 @@ if ($am->authenticated() && isset($_SESSION['user']) && isset($_SESSION['key']))
 
     echo json_encode($data);
 } else {
-    $eh = new ErrorHandler();
+    $eh = new ApiError();
     $eh->unauthorised();
 }

@@ -1,14 +1,12 @@
 <?php
 
+use Vault\api\ApiError;
 use Vault\authentication\AuthenticationManager;
-use Vault\data\DataManager;
-use Vault\event\ErrorHandler;
-use Vault\security\InputManager;
 
 header('Content-Type: application/json; charset=utf-8');
 
 $am = new AuthenticationManager();
-$eh = new ErrorHandler();
+$eh = new ApiError();
 
 if ($am->authenticated() && isset($_SESSION['user']) && isset($_SESSION['key'])) {
     if (isset($_GET['check'])) {
@@ -50,7 +48,7 @@ if ($am->authenticated() && isset($_SESSION['user']) && isset($_SESSION['key']))
 
         echo '{"score": '.$score.'}';
     } else {
-        $eh->error('', '', '', 'Missing required data.', 400);
+        $eh->missingData();
     }
 } else {
     $eh->unauthorised();

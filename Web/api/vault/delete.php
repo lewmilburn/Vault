@@ -1,16 +1,16 @@
 <?php
 
 use event\RequestHandler;
+use Vault\api\ApiError;
 use Vault\authentication\AuthenticationManager;
 use Vault\data\DataManager;
-use Vault\event\ErrorHandler;
 use Vault\security\InputManager;
 use Vault\security\ValidationManager;
 
 header('Content-Type: application/json; charset=utf-8');
 
 $am = new AuthenticationManager();
-$eh = new ErrorHandler();
+$eh = new ApiError();
 
 if ($am->authenticated() && isset($_SESSION['user'])) {
     $rh = new RequestHandler();
@@ -19,9 +19,9 @@ if ($am->authenticated() && isset($_SESSION['user'])) {
     $vm = new ValidationManager();
 
     if (!$sentData) {
-        $eh->error('', '', '', 'Required data not recieved.', 400);
+        $eh->dataNotRecieved();
     } elseif (!isset($sentData->pid) || $vm->isEmpty($sentData->pid)) {
-        $eh->error('', '', '', 'Missing required data.', 400);
+        $eh->missingData();
     } else {
         if (!isset($sentData->notes)) {
             $sentData->notes = null;
@@ -37,7 +37,7 @@ if ($am->authenticated() && isset($_SESSION['user'])) {
         )) {
             echo '{"status": 200}';
         } else {
-            $eh->error('', '', '', 'Internal Server Error.', 500);
+            $eh->internalServerError();
         }
     }
 } else {
