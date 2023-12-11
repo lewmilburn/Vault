@@ -19,7 +19,7 @@ if ($am->authenticated() && isset($_SESSION['user'])) {
     if ($sentData == null | $sentData == false) {
         $eh = new ErrorHandler();
         $eh->error('', '', '', 'Required data not recieved.', 400);
-    } elseif ((!isset($sentData->pid) || $vm->isEmpty($sentData->pid))) {
+    } elseif (!isset($sentData->pid) || $vm->isEmpty($sentData->pid)) {
         $eh = new ErrorHandler();
         $eh->error('', '', '', 'Missing required data.', 400);
     } else {

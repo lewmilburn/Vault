@@ -100,7 +100,7 @@ class ValidationManager
                     'security',
                     'ValidationManager',
                     'throwNull',
-                    'Function requires non-null string, null string provided in function "' . $function . '".',
+                    'Function requires non-null string, null string provided in function "'.$function.'".',
                     '500'
                 );
             } else {
@@ -108,7 +108,7 @@ class ValidationManager
                     'security',
                     'ValidationManager',
                     'throwNull',
-                    'Function requires non-null string, null string "'.$stringName.'" provided in function "' . $function . '".',
+                    'Function requires non-null string, null string "'.$stringName.'" provided in function "'.$function.'".',
                     '500'
                 );
             }

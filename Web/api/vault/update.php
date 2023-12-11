@@ -25,8 +25,7 @@ if ($am->authenticated() && isset($_SESSION['user'])) {
         (!isset($sentData->pass) || $vm->isEmpty($sentData->pass)) ||
         (!isset($sentData->name) || $vm->isEmpty($sentData->name)) ||
         (!isset($sentData->url) || $vm->isEmpty($sentData->url))
-    )
-    {
+    ) {
         $eh = new ErrorHandler();
         $eh->error('', '', '', 'Missing required data.', 400);
     } else {

@@ -9,25 +9,25 @@ class RouteHandler
     public function getRequest($url, $file): void
     {
         $this->request($url, $file, 'GET');
-        return;
+
     }
 
     public function postRequest(string $url, string $file): void
     {
         $this->request($url, $file, 'POST');
-        return;
+
     }
 
     public function putRequest(string $url, string $file): void
     {
         $this->request($url, $file, 'PUT');
-        return;
+
     }
 
     public function deleteRequest(string $url, string $file): void
     {
         $this->request($url, $file, 'DELETE');
-        return;
+
     }
 
     public function anyRequest(string $url, string $file)
@@ -36,7 +36,7 @@ class RouteHandler
         if ($request == $url) {
             $this->runFile($file);
         }
-        return;
+
     }
 
     public function request(string $url, string $file, string $method): void
@@ -45,7 +45,7 @@ class RouteHandler
         if ($request == $url && $_SERVER['REQUEST_METHOD'] == $method) {
             $this->runFile($file);
         }
-        return;
+
     }
 
     #[NoReturn]
