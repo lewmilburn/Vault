@@ -8,6 +8,8 @@ use Vault\security\InputManager;
 header('Content-Type: application/json; charset=utf-8');
 
 $am = new AuthenticationManager();
+$eh = new ErrorHandler();
+
 if ($am->authenticated() && isset($_SESSION['user']) && isset($_SESSION['key'])) {
     if (isset($_GET['check'])) {
         $check = $_GET['check'];
@@ -48,10 +50,8 @@ if ($am->authenticated() && isset($_SESSION['user']) && isset($_SESSION['key']))
 
         echo '{"score": '.$score.'}';
     } else {
-        $eh = new ErrorHandler();
         $eh->error('', '', '', 'Missing required data.', 400);
     }
 } else {
-    $eh = new ErrorHandler();
     $eh->unauthorised();
 }

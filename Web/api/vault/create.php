@@ -11,6 +11,8 @@ use Vault\security\ValidationManager;
 header('Content-Type: application/json; charset=utf-8');
 
 $am = new AuthenticationManager();
+$eh = new ErrorHandler();
+
 if ($am->authenticated() && isset($_SESSION['user'])) {
     $rh = new RequestHandler();
     $sentData = $rh->getJSONBody();
@@ -18,7 +20,6 @@ if ($am->authenticated() && isset($_SESSION['user'])) {
     $vm = new ValidationManager();
 
     if (!$sentData) {
-        $eh = new ErrorHandler();
         $eh->error('', '', '', 'Required data not recieved.', 400);
     } elseif (
         (!isset($sentData->user) || $vm->isEmpty($sentData->user)) ||
@@ -26,7 +27,6 @@ if ($am->authenticated() && isset($_SESSION['user'])) {
         (!isset($sentData->name) || $vm->isEmpty($sentData->name)) ||
         (!isset($sentData->url) || $vm->isEmpty($sentData->url))
     ) {
-        $eh = new ErrorHandler();
         $eh->error('', '', '', 'Missing required data.', 400);
     } else {
         if (!isset($sentData->notes)) {
@@ -49,11 +49,9 @@ if ($am->authenticated() && isset($_SESSION['user'])) {
         )) {
             echo '{"status": 200}';
         } else {
-            $eh = new ErrorHandler();
             $eh->error('', '', '', 'Internal Server Error.', 500);
         }
     }
 } else {
-    $eh = new ErrorHandler();
     $eh->unauthorised();
 }
