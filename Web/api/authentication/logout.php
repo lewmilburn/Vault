@@ -1,9 +1,7 @@
 <?php
 
-use event\RequestHandler;
 use Vault\api\ApiError;
 use Vault\authentication\AuthenticationManager;
-use Vault\security\ValidationManager;
 
 header('Content-Type: application/json; charset=utf-8');
 
