@@ -2,10 +2,10 @@ function getVault (id) {
     $.ajax({
         url: '/api/vault/',
         type: 'GET',
-        success: function (data, textStatus, xhr) {
+        success: function (data) {
             displayPasswords(data);
         },
-        error: function (xhr, textStatus, errorThrown) {
+        error: function (xhr) {
             displayError('Unable to retrieve passwords', xhr.responseText);
         }
     });
@@ -19,21 +19,7 @@ function createPassword () {
         url: $('#url').val(),
         notes: $('#notes').val()
     };
-
-    $.ajax({
-        url: '/api/vault/',
-        type: 'POST',
-        dataType: 'json',
-        data: JSON.stringify(password),
-        contentType: "application/json; charset=utf-8",
-        success: function (data, textStatus, xhr) {
-            reloadVault();
-            displaySuccess('Password added.');
-        },
-        error: function (xhr, textStatus, errorThrown) {
-            displayError('Unable to add password', xhr.responseText);
-        }
-    });
+    sendRequest('POST',password,'Password added.', 'Unable to add password');
 }
 
 function updatePassword (id) {
@@ -45,38 +31,33 @@ function updatePassword (id) {
         url: $('#url').val(),
         notes: $('#notes').val()
     };
-
-    $.ajax({
-        url: '/api/vault/',
-        type: 'PUT',
-        dataType: 'json',
-        data: JSON.stringify(password),
-        contentType: "application/json; charset=utf-8",
-        success: function (data, textStatus, xhr) {
-            reloadVault();
-            displaySuccess('Password saved.');
-        },
-        error: function (xhr, textStatus, errorThrown) {
-            displayError('Unable to update password', xhr.responseText);
-        }
-    });
+    sendRequest('PUT',password,'Password saved.', 'Unable to update password');
 }
 
 function deletePassword (id) {
-    $(document).ready(function() {
-        let password = {pid: id};
-        $.ajax({
-            url: '/api/vault/',
-            type: 'DELETE',
-            dataType: 'json',
-            data: JSON.stringify(password),
-            success: function (data, textStatus, xhr) {
+    let password = {pid: id};
+    sendRequest('DELETE',password,'Password deleted.', 'Unable to delete password');
+}
+
+function sendRequest(type, data, successMessage, errorMessage, noReload = false) {
+    $.ajax({
+        url: '/api/vault/',
+        type: type,
+        dataType: 'json',
+        data: JSON.stringify(data),
+        success: function () {
+            if (noReload === false) {
                 reloadVault();
-                displaySuccess('Password deleted.');
-            },
-            error: function (xhr, textStatus, errorThrown) {
-                displayError('Unable to delete password', xhr.responseText);
             }
-        });
+
+            if (successMessage !== null) {
+                displaySuccess(successMessage);
+            }
+        },
+        error: function (xhr) {
+            if (errorMessage !== null) {
+                displayError(errorMessage+' ('+xhr.responseText+')');
+            }
+        }
     });
 }
