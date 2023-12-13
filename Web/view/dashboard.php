@@ -108,7 +108,8 @@
                 </div>
             </div>
         </main>
-        <script src="/assets/js/jquery.js"></script>
+        <script defer src="/assets/js/lib/alpine.js"></script>
+        <script src="/assets/js/lib/jquery.js"></script>
         <script src="/assets/js/api.js"></script>
         <script src="/assets/js/dashboard.js"></script>
     </body>
