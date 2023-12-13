@@ -33,7 +33,7 @@ class ApiError
             'api',
             'ApiError',
             'missingData',
-            'Missing required data..',
+            'Missing required data.',
             400
         );
     }

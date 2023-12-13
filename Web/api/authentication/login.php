@@ -10,7 +10,7 @@ header('Content-Type: application/json; charset=utf-8');
 $am = new AuthenticationManager();
 $eh = new ApiError();
 
-if (!$am->authenticated() && isset($_SESSION['user'])) {
+if (!$am->authenticated() && !isset($_SESSION['user'])) {
     $rh = new RequestHandler();
     $sentData = $rh->getJSONBody();
 
