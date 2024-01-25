@@ -62,11 +62,11 @@ function sendRequest(type, data, successMessage, errorMessage, noReload = false)
                 }
             } else {
                 if (errorMessage !== null) {
-                    displayError(errorMessage+' ('+xhr.responseText+')');
+                    displayError(errorMessage,xhr.responseText);
                 }
             }
         })
         .catch(xhr => {
-            displayError(errorMessage+' ('+xhr.responseText+')');
+            displayError(errorMessage,xhr.responseText);
         });
 }

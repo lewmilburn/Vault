@@ -77,19 +77,20 @@ function addNewPasswordButton() {
 }
 
 function displayError(message, apiError) {
-    if (apiError !== null) {
+    console.log(message, apiError);
+    if (apiError !== undefined) {
         message = message + ' (Error ' + apiError.status + ' - ' + apiError.error + ')'
     }
 
     let errorBox = document.getElementById('error');
     errorBox.classList.remove('hidden');
-    errorBox.text(message);
+    errorBox.innerHTML = message;
 }
 
 function displaySuccess(message) {
     let successBox = document.getElementById('success');
     successBox.classList.remove('hidden');
-    successBox.text(message);
+    successBox.innerText = message;
 }
 
 document.addEventListener('DOMContentLoaded', function () {
