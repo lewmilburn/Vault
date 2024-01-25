@@ -78,18 +78,17 @@ function addNewPasswordButton() {
 
 function displayError(message, apiError) {
     if (apiError !== null) {
-        let errorObject = JSON.parse(apiError);
-        message = message + ' (Error ' + errorObject.status + ' - ' + errorObject.error + ')'
+        message = message + ' (Error ' + apiError.status + ' - ' + apiError.error + ')'
     }
 
-    let errorBox = $('#error');
-    errorBox.removeClass('hidden');
+    let errorBox = document.getElementById('error');
+    errorBox.classList.remove('hidden');
     errorBox.text(message);
 }
 
 function displaySuccess(message) {
-    let successBox = $('#success');
-    successBox.removeClass('hidden');
+    let successBox = document.getElementById('success');
+    successBox.classList.remove('hidden');
     successBox.text(message);
 }
 
