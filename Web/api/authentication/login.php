@@ -30,9 +30,9 @@ if (!$am->authenticated() && !isset($_SESSION['user'])) {
             $sentData->password
         )) {
             if (isset($sentData->sendall)) {
-                echo '{"status": 200, "name": "' . $_SESSION['name'] . '", "user": "' . $_SESSION['user'] . '", "token": "' . $_SESSION['token'] . '", "apikey": "' . urlencode($_SESSION['key']) . '"}';
+                echo '{"status": 200, "name": "'.$_SESSION['name'].'", "user": "'.$_SESSION['user'].'", "token": "'.$_SESSION['token'].'", "apikey": "'.urlencode($_SESSION['key']).'"}';
             } else {
-                echo '{"status": 200, "user": "' . $_SESSION['user'] . '"}';
+                echo '{"status": 200, "user": "'.$_SESSION['user'].'"}';
             }
         } else {
             $eh->internalServerError();
