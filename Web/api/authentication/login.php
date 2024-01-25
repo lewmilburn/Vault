@@ -29,7 +29,7 @@ if (!$am->authenticated() && !isset($_SESSION['user'])) {
             $sentData->username,
             $sentData->password
         )) {
-            echo '{"user": "'.$_SESSION['user'].'"}';
+            echo '{"status": 200, "user": "'.$_SESSION['user'].'"}';
         } else {
             $eh->internalServerError();
         }
