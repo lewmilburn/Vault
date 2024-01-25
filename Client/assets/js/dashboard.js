@@ -37,17 +37,19 @@ function displayPassword(item, strength) {
 function displayPasswords(data) {
     if (data !== undefined && data !== null) {
         Object.values(data).forEach((item) => {
-            $.ajax({
-                url: '/api/strength/?check='+item.pass,
-                type: 'GET',
-                success: function (data) {
+            let url = vaultUrl + '/api/strength/?check='+item.pass;
+            fetch(url, {
+                method: 'GET',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(data),
+            }).then(response => response.json())
+                .then(data => {
                     let strength = data.score;
                     displayPassword(item, strength);
-                },
-                error: function (xhr) {
+                })
+                .catch(xhr => {
                     displayError('Unable to check password strength', xhr.responseText);
-                }
-            });
+                });
         })
     }
 }
