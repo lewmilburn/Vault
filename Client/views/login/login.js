@@ -1,7 +1,8 @@
 function doLogin() {
     let data = {
         username: document.getElementById('user').value,
-        password: document.getElementById('pass').value
+        password: document.getElementById('pass').value,
+        sendall: true
     };
 
     console.log(data);
@@ -14,11 +15,19 @@ function doLogin() {
         body: JSON.stringify(data),
     }).then(response => response.json())
         .then(jsonResponse => {
-            console.log(jsonResponse);
+            let errorBox = document.getElementById('error');
             if (jsonResponse.status === 200) {
-                localStorage.setItem('user', jsonResponse.user);
+                if (jsonResponse.apikey !== undefined) {
+                    localStorage.setItem('name', jsonResponse.name);
+                    localStorage.setItem('user', jsonResponse.user);
+                    localStorage.setItem('token', jsonResponse.token);
+                    localStorage.setItem('key', jsonResponse.apikey);
 
-                electronAuthenticated();
+                    electronAuthenticated();
+                } else {
+                    errorBox.classList.remove('hidden');
+                    errorBox.innerHTML = 'Unable to fetch key, please check the "SEND_ALL_INFO" setting is enabled on the server.';
+                }
             } else if (jsonResponse.status === 401) {
                 errorBox.classList.remove('hidden');
                 errorBox.innerHTML = 'Username or password is incorrect.';
@@ -38,6 +47,7 @@ function doLogin() {
                 errorBox.classList.remove('hidden');
                 errorBox.innerHTML = 'Required data was not recieved by the server, please try again.';
             } else {
+                errorBox.classList.remove('hidden');
                 errorBox.innerHTML = 'An unexpected error occurred.';
             }
         })
