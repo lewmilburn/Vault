@@ -108,6 +108,20 @@
                 </div>
             </div>
         </main>
+        <script>
+            function getVault (id) {
+                $.ajax({
+                    url: '/api/vault/?user=<?= $_SESSION['name']; ?>&password=<?=$_SESSION['pass']; ?>',
+                    type: 'GET',
+                    success: function (data) {
+                        displayPasswords(data);
+                    },
+                    error: function (xhr) {
+                        displayError('Unable to retrieve passwords', xhr.responseText);
+                    }
+                });
+            }
+        </script>
         <script defer src="/assets/js/lib/alpine.js"></script>
         <script src="/assets/js/lib/jquery.js"></script>
         <script src="/assets/js/api.js"></script>

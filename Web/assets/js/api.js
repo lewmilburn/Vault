@@ -1,16 +1,3 @@
-function getVault (id) {
-    $.ajax({
-        url: '/api/vault/',
-        type: 'GET',
-        success: function (data) {
-            displayPasswords(data);
-        },
-        error: function (xhr) {
-            displayError('Unable to retrieve passwords', xhr.responseText);
-        }
-    });
-}
-
 function createPassword () {
     let password = {
         pass: $('#pass').val(),

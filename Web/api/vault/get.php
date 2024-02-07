@@ -1,22 +1,22 @@
 <?php
 
 use Vault\api\ApiError;
-use Vault\authentication\AuthenticationManager;
 use Vault\data\DataManager;
+use Vault\security\EncryptionManager;
 use Vault\security\InputManager;
 
 header('Content-Type: application/json; charset=utf-8');
 
-$am = new AuthenticationManager();
-if ($am->authenticated() && isset($_SESSION['user']) && isset($_SESSION['key'])) {
-    $dm = new DataManager();
+if (isset($_GET['user']) && isset($_GET['key'])) {
     $im = new InputManager();
-    $user = $im->escapeString($_SESSION['user']);
-    $key = $_SESSION['key'];
-    $data = $dm->getVault($user, $key);
+    $user = $im->escapeString($_GET['user']);
 
-    echo json_encode($data);
+    $dm = new DataManager();
+    $em = new EncryptionManager();
+
+    echo json_encode($dm->getVault($_GET['user'], $_GET['key']));
+
 } else {
     $eh = new ApiError();
-    $eh->unauthorised();
+    $eh->dataNotRecieved();
 }

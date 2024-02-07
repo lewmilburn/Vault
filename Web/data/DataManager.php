@@ -11,7 +11,7 @@ class DataManager
 {
     public string $invalidStorageError = 'Selected storage type is invalid, please use DATABASE or FILESYSTEM.';
 
-    public function getUserData(string $username): object
+    public function getUserData(string $username): object|null
     {
         $vm = new ValidationManager();
         $vm->throwNull($username, 'getUserData');

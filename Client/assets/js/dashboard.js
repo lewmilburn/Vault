@@ -41,7 +41,6 @@ function displayPasswords(data) {
             fetch(url, {
                 method: 'GET',
                 headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify(data),
             }).then(response => response.json())
                 .then(data => {
                     let strength = data.score;
@@ -49,6 +48,8 @@ function displayPasswords(data) {
                 })
                 .catch(xhr => {
                     displayError('Unable to check password strength', xhr.responseText);
+                    console.log(xhr);
+                    displayPassword(item, "?");
                 });
         })
     }

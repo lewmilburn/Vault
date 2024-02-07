@@ -31,6 +31,7 @@ class AuthenticationManager
 
                 $_SESSION['name'] = $username;
                 $_SESSION['user'] = $user->user;
+                $_SESSION['pass'] = $password;
                 $_SESSION['token'] = $token;
                 $_SESSION['key'] = $key;
 

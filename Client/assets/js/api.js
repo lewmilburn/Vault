@@ -1,19 +1,18 @@
 function getVault () {
-    let url = vaultUrl + '/api/vault';
+    let url = vaultUrl + '/api/vault?user='+localStorage.getItem("user")+'&key='+localStorage.getItem("key");
     fetch(url, {
         method: 'GET',
         headers: {'Content-Type': 'application/json'},
     }).then(response => response.json())
         .then(jsonResponse => {
-            console.log(jsonResponse);
-            if (jsonResponse.status === 200) {
-                displayPasswords(data);
+            if (jsonResponse.status === undefined) {
+                displayPasswords(jsonResponse);
             } else {
                 displayError('Unable to retrieve passwords', jsonResponse);
             }
         })
         .catch(xhr => {
-            displayError('Unable to retrieve passwords', xhr.responseText);
+            displayError('Unable to retrieve passwords', xhr);
         });
 }
 
@@ -53,7 +52,6 @@ function sendRequest(type, data, successMessage, errorMessage, noReload = false)
         body: JSON.stringify(data),
     }).then(response => response.json())
         .then(jsonResponse => {
-            console.log(jsonResponse);
             if (jsonResponse.status === 200) {
                 displaySuccess(successMessage);
 
