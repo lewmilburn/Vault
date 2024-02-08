@@ -13,37 +13,46 @@ header('Content-Type: application/json; charset=utf-8');
 $am = new AuthenticationManager();
 $eh = new ApiError();
 
-if ($am->authenticated() && isset($_SESSION['user'])) {
-    $rh = new RequestHandler();
-    $sentData = $rh->getJSONBody();
+$rh = new RequestHandler();
+$sentData = $rh->getJSONBody();
+
+if ($am->authenticated() || (isset($sentData->user) && isset($sentData->key))) {
 
     $vm = new ValidationManager();
 
     if (!$sentData) {
         $eh->dataNotRecieved();
     } elseif (
-        (!isset($sentData->user) || $vm->isEmpty($sentData->user)) ||
-        (!isset($sentData->pass) || $vm->isEmpty($sentData->pass)) ||
-        (!isset($sentData->name) || $vm->isEmpty($sentData->name)) ||
-        (!isset($sentData->url) || $vm->isEmpty($sentData->url))
+        (!isset($sentData->data->user) || $vm->isEmpty($sentData->data->user)) ||
+        (!isset($sentData->data->pass) || $vm->isEmpty($sentData->data->pass)) ||
+        (!isset($sentData->data->name) || $vm->isEmpty($sentData->data->name)) ||
+        (!isset($sentData->data->url) || $vm->isEmpty($sentData->data->url))
     ) {
         $eh->missingData();
     } else {
-        $sentData->notes = $eh->notesNull($sentData->notes);
+        $sentData->data->notes = $eh->notesNull($sentData->data->notes);
 
         $hm = new HashManager();
         $dm = new DataManager();
         $im = new InputManager();
 
+        if (isset($sentData->user) && isset($sentData->key) && !$am->authenticated()) {
+            $user = $sentData->user;
+            $key = urldecode($sentData->key);
+        } else {
+            $user = $_SESSION['user'];
+            $key = $_SESSION['key'];
+        }
+
         if ($dm->addPassword(
-            $_SESSION['user'],
-            $_SESSION['key'],
+            $user,
+            $key,
             $hm->generateUniqueId(),
-            $im->escapeString($sentData->user),
-            $im->escapeString($sentData->pass),
-            $im->escapeString($sentData->name),
-            $im->escapeString($sentData->url),
-            $im->escapeString($sentData->notes)
+            $im->escapeString($sentData->data->user),
+            $im->escapeString($sentData->data->pass),
+            $im->escapeString($sentData->data->name),
+            $im->escapeString($sentData->data->url),
+            $im->escapeString($sentData->data->notes)
         )) {
             echo '{"status": 200}';
         } else {

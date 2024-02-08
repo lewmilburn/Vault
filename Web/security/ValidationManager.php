@@ -115,6 +115,11 @@ class ValidationManager
         }
     }
 
+    public function isNull($string): bool
+    {
+        return ($string == null);
+    }
+
     public function isEmpty($string): bool
     {
         return $string === null || trim($string) === '';

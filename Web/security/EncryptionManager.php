@@ -27,11 +27,11 @@ class EncryptionManager
         }
     }
 
-    public function encrypt($string, $key): array
+    public function encrypt($string, $key): array|null
     {
         $vm = new ValidationManager();
-        $vm->throwNull($string, 'encrypt', 'data');
-        $vm->throwNull($key, 'encrypt', 'key');
+        if ($vm->isNull($string)) { return null; }
+        if ($vm->isNull($key)) { return null; }
 
         try {
             $nonce = random_bytes(SODIUM_CRYPTO_AEAD_XCHACHA20POLY1305_IETF_NPUBBYTES);
@@ -62,8 +62,8 @@ class EncryptionManager
     public function decrypt(string $data, string $key): string|null
     {
         $vm = new ValidationManager();
-        $vm->throwNull($data, 'decrypt', 'data');
-        $vm->throwNull($key, 'decrypt', 'key');
+        if ($vm->isNull($data)) { return null; }
+        if ($vm->isNull($key)) { return null; }
 
         $data = explode(FILE_SEPARATOR, $data);
         $encryptedData = $data[0];

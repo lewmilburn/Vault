@@ -18,14 +18,16 @@ class FileManager
 
     public function getUserData(string $username): object|null
     {
-        $usersFile = file_get_contents($this->usersFile);
-        $users = json_decode($usersFile);
-        foreach ($users as $user) {
-            if ($user->user == $username) {
-                return $user;
+        if (file_exists($this->usersFile)) {
+            $usersFile = file_get_contents($this->usersFile);
+            $users = json_decode($usersFile);
+            foreach ($users as $user) {
+                if ($user->user == $username) {
+                    return $user;
+                }
             }
-        }
 
+        }
         return null;
     }
 
@@ -76,7 +78,11 @@ class FileManager
         $file = $this->secureLocation.$user.$this->vaultExt;
 
         $em = new EncryptionManager();
-        $data = file_get_contents($file);
+        if (file_exists($file)) {
+            $data = file_get_contents($file);
+        } else {
+            return null;
+        }
 
         return (array) json_decode($em->decrypt($data, $key));
     }
