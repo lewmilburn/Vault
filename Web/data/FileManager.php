@@ -26,8 +26,8 @@ class FileManager
                     return $user;
                 }
             }
-
         }
+
         return null;
     }
 

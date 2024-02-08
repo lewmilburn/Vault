@@ -17,7 +17,6 @@ $rh = new RequestHandler();
 $sentData = $rh->getJSONBody();
 
 if ($am->authenticated() || (isset($sentData->user) && isset($sentData->key))) {
-
     $vm = new ValidationManager();
 
     if (!$sentData) {
