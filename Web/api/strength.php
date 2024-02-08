@@ -43,7 +43,7 @@ if (isset($_GET['check'])) {
         $score++;
     }
 
-    echo '{"score": ' . $score . '}';
+    echo '{"score": '.$score.'}';
 } else {
     $eh->missingData();
 }

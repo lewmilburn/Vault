@@ -109,9 +109,12 @@
             </div>
         </main>
         <script>
+            localStorage.setItem('user', '<?= $_SESSION['user']; ?>');
+            localStorage.setItem('key', '<?= urlencode($_SESSION['key']); ?>');
+
             function getVault (id) {
                 $.ajax({
-                    url: '/api/vault/?user=<?= $_SESSION['name']; ?>&password=<?=$_SESSION['pass']; ?>',
+                    url: '/api/vault/?user='+localStorage.getItem('user')+'&key='+localStorage.getItem('key'),
                     type: 'GET',
                     success: function (data) {
                         displayPasswords(data);
