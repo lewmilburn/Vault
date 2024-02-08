@@ -52,7 +52,9 @@ function deletePassword (id) {
     let password = {
         user: localStorage.getItem('user'),
         key: localStorage.getItem('key'),
-        pid: id
+        data: {
+            pid: id
+        }
     };
     sendRequest('DELETE',password,'Password deleted.', 'Unable to delete password');
 }

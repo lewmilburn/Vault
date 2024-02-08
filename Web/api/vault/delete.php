@@ -12,28 +12,34 @@ header('Content-Type: application/json; charset=utf-8');
 $am = new AuthenticationManager();
 $eh = new ApiError();
 
-if ($am->authenticated() && isset($_SESSION['user'])) {
-    $rh = new RequestHandler();
-    $sentData = $rh->getJSONBody();
+$rh = new RequestHandler();
+$sentData = $rh->getJSONBody();
+
+if ($am->authenticated() || (isset($sentData->user) && isset($sentData->key))) {
 
     $vm = new ValidationManager();
 
     if (!$sentData) {
         $eh->dataNotRecieved();
-    } elseif (!isset($sentData->pid) || $vm->isEmpty($sentData->pid)) {
+    } elseif (!isset($sentData->data->pid) || $vm->isEmpty($sentData->data->pid)) {
         $eh->missingData();
     } else {
-        if (!isset($sentData->notes)) {
-            $sentData->notes = null;
+
+        if (isset($sentData->user) && isset($sentData->key) && !$am->authenticated()) {
+            $user = $sentData->user;
+            $key = urldecode($sentData->key);
+        } else {
+            $user = $_SESSION['user'];
+            $key = $_SESSION['key'];
         }
 
         $dm = new DataManager();
         $im = new InputManager();
 
         if ($dm->deletePassword(
-            $_SESSION['user'],
-            $_SESSION['key'],
-            $im->escapeString($sentData->pid)
+            $user,
+            $key,
+            $im->escapeString($sentData->data->pid)
         )) {
             echo '{"status": 200}';
         } else {
