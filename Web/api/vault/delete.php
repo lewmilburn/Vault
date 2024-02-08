@@ -16,7 +16,6 @@ $rh = new RequestHandler();
 $sentData = $rh->getJSONBody();
 
 if ($am->authenticated() || (isset($sentData->user) && isset($sentData->key))) {
-
     $vm = new ValidationManager();
 
     if (!$sentData) {
@@ -24,7 +23,6 @@ if ($am->authenticated() || (isset($sentData->user) && isset($sentData->key))) {
     } elseif (!isset($sentData->data->pid) || $vm->isEmpty($sentData->data->pid)) {
         $eh->missingData();
     } else {
-
         if (isset($sentData->user) && isset($sentData->key) && !$am->authenticated()) {
             $user = $sentData->user;
             $key = urldecode($sentData->key);
