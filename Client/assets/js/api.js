@@ -6,6 +6,7 @@ function getVault () {
     }).then(response => response.json())
         .then(jsonResponse => {
             if (jsonResponse.status === undefined) {
+                electronSetCache(jsonResponse)
                 displayPasswords(jsonResponse);
             } else {
                 displayError('Unable to retrieve passwords', jsonResponse);
