@@ -19,7 +19,7 @@
   "author": "Lewis Milburn",
   "license": "Apache-2.0",
   "devDependencies": {
-    "electron": "^27.0.1"
+    "electron": "^29.0.0"
   },
   "dependencies": {
     "bcrypt": "^5.1.1",
