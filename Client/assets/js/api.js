@@ -1,20 +1,23 @@
 function getVault () {
-    let url = vaultUrl + '/api/vault?user='+localStorage.getItem("user")+'&key='+localStorage.getItem("key");
-    fetch(url, {
-        method: 'GET',
-        headers: {'Content-Type': 'application/json'},
-    }).then(response => response.json())
-        .then(jsonResponse => {
-            if (jsonResponse.status === undefined) {
-                electronSetCache(jsonResponse)
-                displayPasswords(jsonResponse);
-            } else {
-                displayError('Unable to retrieve passwords', jsonResponse);
-            }
-        })
-        .catch(xhr => {
-            displayError('Unable to retrieve passwords', xhr);
-        });
+    if (localStorage.getItem('using-cache') === 'false') {
+        let url = vaultUrl + '/api/vault?user=' + localStorage.getItem("user") + '&key=' + localStorage.getItem("key");
+        fetch(url, {
+            method: 'GET',
+            headers: {'Content-Type': 'application/json'},
+        }).then(response => response.json())
+            .then(jsonResponse => {
+                if (jsonResponse.status === undefined) {
+                    electronSetCache(jsonResponse);
+                    vault = jsonResponse;
+                    displayPasswords();
+                } else {
+                    displayError('Unable to retrieve passwords', jsonResponse);
+                }
+            })
+            .catch(xhr => {
+                displayError('Unable to retrieve passwords', xhr);
+            });
+    }
 }
 
 function createPassword () {

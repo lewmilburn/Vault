@@ -19,7 +19,6 @@ function doLogin() {
             if (jsonResponse.status === 200) {
                 if (jsonResponse.apikey !== undefined) {
                     localStorage.setItem('name', jsonResponse.name);
-                    localStorage.setItem('pass', data.password);
                     localStorage.setItem('user', jsonResponse.user);
                     localStorage.setItem('token', jsonResponse.token);
                     localStorage.setItem('key', jsonResponse.apikey);

@@ -1,4 +1,10 @@
-const { ipcRenderer } = require('electron');
+
+const { ipcRenderer, ipcMain} = require('electron');
+const fs = require("fs");
+
+ipcRenderer.on('cache-data', (_event, value) => {
+    console.log(value);
+})
 
 function electronAuthenticated() {
     ipcRenderer.send('screen-dashboard');
@@ -8,9 +14,8 @@ function electronSetCache(data) {
     ipcRenderer.send('set-cache', data, 'test-checksum', localStorage.getItem('key'));
 }
 
-function electronGetCache(data) {
-    ipcRenderer.send('request-cache');
-    //ipcRenderer.on('get-cache') {}
+function electronGetCache() {
+    ipcRenderer.send('request-cache', localStorage.getItem('key'));
 }
 
 function isOffline() {
@@ -22,5 +27,7 @@ function loginScreen() {
 }
 
 function doOfflineCache() {
+    localStorage.setItem('using-cache', 'true')
     ipcRenderer.send('screen-dashboard');
+    electronGetCache();
 }

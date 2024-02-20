@@ -34,9 +34,9 @@ function displayPassword(item, strength) {
     passwordGrid.appendChild(newElem);
 }
 
-function displayPasswords(data) {
-    if (data !== undefined && data !== null) {
-        Object.values(data).forEach((item) => {
+function displayPasswords() {
+    if (vault !== undefined && vault !== null) {
+        Object.values(vault).forEach((item) => {
             let url = vaultUrl + '/api/strength/?check='+item.pass;
             fetch(url, {
                 method: 'GET',
