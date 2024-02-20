@@ -1,7 +1,7 @@
 module.exports = function (text, key) {
     const crypto = require('crypto');
 
-    key = key.substring(0, 32)
+    key = key.substring(0, 32);
 
     let iv = Buffer.from(text.iv, 'hex');
     let encryptedText = Buffer.from(text.encryptedData, 'hex');
