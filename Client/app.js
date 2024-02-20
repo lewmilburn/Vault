@@ -13,20 +13,35 @@ const createWindow = () => {
         },
     })
 
-    win.loadFile('./views/login/login.html')
+    win.loadFile('./views/loading.html')
 }
 
 app.whenReady().then(() => {
     createWindow()
 
-    ipcMain.on('authenticated', () => {
+    ipcMain.on('screen-dashboard', () => {
         // Load another HTML file
-        win.loadFile('./views/dashboard/dashboard.html')
+        win.loadFile('./views/dashboard.html')
+    });
+
+    ipcMain.on('screen-login', () => {
+        // Load another HTML file
+        win.loadFile('./views/login.html')
+    });
+
+    ipcMain.on('screen-offline', () => {
+        // Load another HTML file
+        win.loadFile('./views/offline.html')
     });
 
     ipcMain.on('set-cache', (event, data, checksum, key) => {
+        console.log(data);
+        let encryptedData = require('./server_processes/encrypt')(data, key);
+        let decryptedData = require('./server_processes/decrypt')(encryptedData, key);
+        console.log(decryptedData);
+
         let dataToSave = {
-            "data": data,
+            "data": encryptedData,
             "checksum": checksum
         }
 

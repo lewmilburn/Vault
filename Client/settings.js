@@ -1,1 +1,1 @@
-let vaultUrl = 'http://localhost'
+const vaultUrl = 'http://localhost'

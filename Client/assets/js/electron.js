@@ -1,7 +1,7 @@
 const { ipcRenderer } = require('electron');
 
 function electronAuthenticated() {
-    ipcRenderer.send('authenticated');
+    ipcRenderer.send('screen-dashboard');
 }
 
 function electronSetCache(data) {
@@ -11,4 +11,16 @@ function electronSetCache(data) {
 function electronGetCache(data) {
     ipcRenderer.send('request-cache');
     //ipcRenderer.on('get-cache') {}
+}
+
+function isOffline() {
+    ipcRenderer.send('screen-offline');
+}
+
+function loginScreen() {
+    ipcRenderer.send('screen-login');
+}
+
+function doOfflineCache() {
+    ipcRenderer.send('screen-dashboard');
 }
