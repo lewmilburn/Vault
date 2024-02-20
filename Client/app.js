@@ -35,10 +35,7 @@ app.whenReady().then(() => {
     });
 
     ipcMain.on('set-cache', (event, data, checksum, key) => {
-        console.log(data);
         let encryptedData = require('./server_processes/encrypt')(data, key);
-        let decryptedData = require('./server_processes/decrypt')(encryptedData, key);
-        console.log(decryptedData);
 
         let dataToSave = {
             "data": encryptedData,
