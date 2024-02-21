@@ -1,46 +1,45 @@
-function checkStatus() {
+async function checkStatus() {
+    await waitForSettings(settings);
     if (localStorage.getItem('using-cache') === 'false') {
-        let url = vaultUrl + '/api/status/';
+        let url = settings.SYNC_SERVER_URL + '/api/status/';
         fetch(url, {
             method: 'GET',
             headers: {'Content-Type': 'application/json'},
         }).then(response => response.json())
             .then(jsonResponse => {
-                console.log(jsonResponse);
                 if (jsonResponse.status !== 200) {
-                    isOffline();
+                    screenOffline();
                 }
             })
-            .catch(xhr => {
-                isOffline();
+            .catch(() => {
+                screenOffline();
             });
     }
 }
 
-function checkStatusFirst() {
+async function checkStatusFirst() {
+    await waitForSettings(settings);
     if (localStorage.getItem('using-cache') === 'false') {
-        console.log('Checking...');
-        let url = vaultUrl + '/api/status/';
+        let url = settings.SYNC_SERVER_URL + '/api/status/';
         fetch(url, {
             method: 'GET',
             headers: {'Content-Type': 'application/json'},
         }).then(response => response.json())
             .then(jsonResponse => {
-                console.log(jsonResponse);
                 if (jsonResponse.status !== 200) {
-                    isOffline();
+                    screenOffline();
                 } else {
-                    loginScreen();
+                    screenLogin();
                 }
             })
-            .catch(xhr => {
-                isOffline();
+            .catch(() => {
+                screenOffline();
             });
     }
 }
 
 function goOnline() {
     localStorage.setItem('using-cache', 'false');
-    checkStatus();
+    checkStatus().then(() => {});
     reloadVault();
 }

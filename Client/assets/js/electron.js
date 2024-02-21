@@ -1,33 +1,47 @@
+let settings;
 
-const { ipcRenderer, ipcMain} = require('electron');
-const fs = require("fs");
+window.bridge.requestSettings(() => {});
+window.bridge.sendSettings((event, vaultSettings) => {
+    settings = vaultSettings;
+});
 
-ipcRenderer.on('cache-data', (_event, value) => {
-    console.log(value);
-})
-
-function electronAuthenticated() {
-    ipcRenderer.send('screen-dashboard');
+function screenDashboard() {
+    window.bridge.screenDashboard(() => {});
 }
 
-function electronSetCache(data) {
-    ipcRenderer.send('set-cache', data, 'test-checksum', localStorage.getItem('key'));
+function screenOffline() {
+    window.bridge.screenOffline(() => {});
 }
 
-function electronGetCache() {
-    ipcRenderer.send('request-cache', localStorage.getItem('key'));
+function screenLogin() {
+    window.bridge.screenLogin(() => {});
 }
 
-function isOffline() {
-    ipcRenderer.send('screen-offline');
+function screenMisconfiguration() {
+    window.bridge.screenMisconfiguration(() => {});
 }
 
-function loginScreen() {
-    ipcRenderer.send('screen-login');
+function cacheUpdate(cache) {
+    localStorage.setItem('cache', JSON.stringify(cache))
+    window.bridge.updateCache(() => {});
 }
 
-function doOfflineCache() {
-    localStorage.setItem('using-cache', 'true')
-    ipcRenderer.send('screen-dashboard');
-    electronGetCache();
+function requestCache() {
+    window.bridge.requestCache(() => {});
+}
+
+function reloadSettings() {
+    window.bridge.fullReload(() => {});
+    window.bridge.requestSettings(() => {});
+}
+
+function waitForSettings() {
+    return new Promise((resolve) => {
+        const settingsInterval = setInterval(() => {
+            if (typeof settings !== 'undefined') {
+                clearInterval(settingsInterval);
+                resolve(settings);
+            }
+        }, 5);
+    });
 }

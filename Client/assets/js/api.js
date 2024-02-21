@@ -1,22 +1,25 @@
-function getVault () {
+async function getVault () {
+    await waitForSettings();
     if (localStorage.getItem('using-cache') === 'false') {
-        let url = vaultUrl + '/api/vault?user=' + localStorage.getItem("user") + '&key=' + localStorage.getItem("key");
+        let url = settings.SYNC_SERVER_URL + '/api/vault?user=' + localStorage.getItem("user") + '&key=' + localStorage.getItem("key");
         fetch(url, {
             method: 'GET',
             headers: {'Content-Type': 'application/json'},
         }).then(response => response.json())
             .then(jsonResponse => {
                 if (jsonResponse.status === undefined) {
-                    electronSetCache(jsonResponse);
                     vault = jsonResponse;
                     displayPasswords();
+                    cacheUpdate(vault);
                 } else {
                     displayError('Unable to retrieve passwords', jsonResponse);
                 }
             })
             .catch(xhr => {
-                displayError('Unable to retrieve passwords', xhr);
+                displayError('Unexpected error: ', xhr);
             });
+    } else {
+        loadCache();
     }
 }
 
@@ -64,7 +67,7 @@ function deletePassword (id) {
 }
 
 function sendRequest(type, data, successMessage, errorMessage, noReload = false) {
-    let url = vaultUrl + '/api/vault/';
+    let url = settings.SYNC_SERVER_URL + '/api/vault/';
     fetch(url, {
         method: type,
         headers: {'Content-Type': 'application/json'},

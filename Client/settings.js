@@ -1,1 +1,0 @@
-const vaultUrl = 'http://localhost'

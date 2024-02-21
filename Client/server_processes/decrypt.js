@@ -1,4 +1,5 @@
 module.exports = function (text, key) {
+    console.log('[VAULT][CRYPTO] Decrypting data...')
     const crypto = require('crypto');
 
     key = key.substring(0, 32);
@@ -10,5 +11,6 @@ module.exports = function (text, key) {
 
     decrypted = Buffer.concat([decrypted, decipher.final()]);
 
+    console.log('[VAULT][CRYPTO] Data decrypted.')
     return decrypted.toString();
 }

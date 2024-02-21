@@ -1,83 +1,101 @@
-const { app, BrowserWindow, ipcMain } = require('electron')
+console.log('Starting Vault...');
 
-console.log('[VAULT] Starting client...');
+const electronApp = require('electron').app;
+const ipcMain = require('electron').ipcMain;
+const electronBrowserWindow = require('electron').BrowserWindow;
+const nodePath = require('path');
+const crypto = require('crypto');
 
-let win;
+let window;
+let settings = require('./server_processes/readJsonFile')('settings.json');
 
-const createWindow = () => {
-    console.log('[VAULT] Creating window...');
-    win = new BrowserWindow({
-        width: 800,
-        height: 600,
+console.log("[VAULT] Loaded settings:");
+console.log(settings);
+
+function createWindow() {
+    console.log("[VAULT] Creating window...");
+    const window = new electronBrowserWindow({
+        width: settings.APP.WINDOW_WIDTH,
+        height: settings.APP.WINDOW_HEIGHT,
+        show: false,
         webPreferences: {
-            nodeIntegration: true,
-            enableRemoteModule: true,
-            contextIsolation: false
-        },
-    })
+            nodeIntegration: false,
+            contextIsolation: true,
+            preload: nodePath.join(__dirname, 'preload.js')
+        }
+    });
 
-    win.loadFile('./views/loading.html')
+    window.loadFile('./views/loading.html')
+        .then(() => {
+            window.webContents.send('settings', settings.VAULT);
+        })
+        .then(() => {
+            window.name = 'Vault';
+            window.show();
+        });
+
+    return window;
 }
 
-app.whenReady().then(() => {
-    createWindow()
-    console.log('[VAULT] Window created.');
+ipcMain.on('request-settings', () => {
+    console.log('[Vault][IPC] Renderer requested settings.');
+    window.webContents.send('settings', settings.VAULT);
+});
+ipcMain.on('screen-offline', () => {
+    console.log('[Vault][IPC] Renderer requested screen change.');
+    screen('offline');
+});
+ipcMain.on('screen-login', () => {
+    console.log('[Vault][IPC] Renderer requested screen change.');
+    screen('login');
+});
+ipcMain.on('screen-dashboard', () => {
+    console.log('[Vault][IPC] Renderer requested screen change.');
+    screen('dashboard');
+});
+ipcMain.on('screen-misconfiguration', () => {
+    console.log('[Vault][IPC] Renderer requested screen change.');
+    screen('misconfiguration');
+});
+ipcMain.on('full-reload', () => {
+    console.log('[Vault] Starting full reload...');
+    settings = require('./server_processes/readJsonFile')('settings.json');
+    console.log('[Vault] Reloaded.');
+});
+ipcMain.on('cache-update', (event, user, data, key) => {
+    console.log('[Vault][IPC] Cache received, updating file...');
+    let checksum = crypto.createHash('sha1').update(data).digest("hex");
+    let encryptedData = require('./server_processes/encrypt')(data, key);
+    require('./server_processes/cache_save')(user, encryptedData, checksum);
+    console.log('[Vault][IPC] Cache updated.');
+});
+ipcMain.on('cache-request', (event, user, key) => {
+    console.log('[Vault][IPC] Cache requested...');
+    let encryptedCache = require('./server_processes/cache_load')(user);
+    if (encryptedCache !== null) {
+        let cache = require('./server_processes/decrypt')(encryptedCache.data, key);
+        window.webContents.send('cache', cache);
+        console.log('[Vault][IPC] Cache sent.');
+    }
+});
 
-    ipcMain.on('screen-dashboard', () => {
-        console.log('[VAULT][IPC] Change screen to "dashboard".');
-        // Load another HTML file
-        win.loadFile('./views/dashboard.html')
+function screen(name) {
+    let screenFilePath = './views/' + name + '.html';
+    window.loadFile(screenFilePath).then(() => {
+        console.log('[VAULT] Loaded screen "'+name+'"');
     });
+}
 
-    ipcMain.on('screen-login', () => {
-        console.log('[VAULT][IPC] Change screen to "login".');
-        // Load another HTML file
-        win.loadFile('./views/login.html')
-    });
+electronApp.on('window-all-closed', () => {
+    if (process.platform !== 'darwin') {
+        electronApp.quit();
+    }
+});
 
-    ipcMain.on('screen-offline', () => {
-        console.log('[VAULT][IPC] Change screen to "offline".');
-        // Load another HTML file
-        win.loadFile('./views/offline.html')
-    });
-
-    ipcMain.on('set-cache', (event, data, checksum, key) => {
-        console.log('[VAULT][IPC] Setting cache');
-        let encryptedData = require('./server_processes/encrypt')(data, key);
-
-        let dataToSave = {
-            "data": encryptedData,
-            "checksum": checksum
-        }
-
-        let fs = require('fs');
-        try {
-            console.log('[VAULT] Saving cache to file...');
-            fs.writeFileSync('vault.cache', JSON.stringify(dataToSave), 'utf-8');
-            console.log('[VAULT] Cache saved to file.');
-        } catch(error) {
-            console.log('[VAULT] Failed to save cache!');
-            console.log('[VAULT] Error: ' + error);
-            console.log('[VAULT] Please check the cache file is writeable and try again.');
-        }
-        console.log('[VAULT][IPC] Set cache');
-    });
-
-    ipcMain.on('request-cache', (event, key) => {
-        console.log('[VAULT][IPC] Requested cache');
-
-        let fs = require('fs');
-
-        console.log('[VAULT] Loading cache from file...');
-        let cache = fs.readFileSync('vault.cache', 'utf-8');
-        console.log('[VAULT] Loaded cache from file.');
-
-        cache = JSON.parse(cache.toString());
-        let decryptedData = require('./server_processes/decrypt')(cache.data, key);
-
-        ipcMain.emit('cache-data', decryptedData);
-        console.log('[VAULT][IPC] Sent cache');
-    });
-
-    console.log('[VAULT] Client started.');
-})
+electronApp.on('activate', () => {
+    console.log("[VAULT] Electron activated.");
+    if (electronBrowserWindow.getAllWindows().length === 0) {
+        window = createWindow();
+    }
+    console.log("[VAULT] Created window.");
+});

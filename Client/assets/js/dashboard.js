@@ -37,7 +37,7 @@ function displayPassword(item, strength) {
 function displayPasswords() {
     if (vault !== undefined && vault !== null) {
         Object.values(vault).forEach((item) => {
-            let url = vaultUrl + '/api/strength/?check='+item.pass;
+            let url = settings.SYNC_SERVER_URL + '/api/strength/?check='+item.pass;
             fetch(url, {
                 method: 'GET',
                 headers: {'Content-Type': 'application/json'},

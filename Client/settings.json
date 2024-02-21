@@ -1,0 +1,11 @@
+{
+    "VAULT": {
+        "SYNC_SERVER_URL": "https://uop-vta.lewismilburn.co",
+        "ALLOW_OFFLINE_MODE": true,
+        "FORCE_OFFLINE_MODE": false
+    },
+    "APP": {
+        "WINDOW_WIDTH": "800",
+        "WINDOW_HEIGHT": "600"
+    }
+}
