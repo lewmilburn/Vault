@@ -4,7 +4,6 @@ const electronApp = require('electron').app;
 const ipcMain = require('electron').ipcMain;
 const electronBrowserWindow = require('electron').BrowserWindow;
 const nodePath = require('path');
-const crypto = require('crypto');
 
 let window;
 let settings = require('./server_processes/readJsonFile')('settings.json');
@@ -64,7 +63,7 @@ ipcMain.on('full-reload', () => {
 });
 ipcMain.on('cache-update', (event, user, data, key) => {
     console.log('[Vault][IPC] Cache received, updating file...');
-    let checksum = crypto.createHash('sha1').update(data).digest("hex");
+    let checksum = require('./server_processes/checksum')(data);
     let encryptedData = require('./server_processes/encrypt')(data, key);
     require('./server_processes/cache_save')(user, encryptedData, checksum);
     console.log('[Vault][IPC] Cache updated.');
