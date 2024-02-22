@@ -44,7 +44,7 @@ if ($am->authenticated() || (isset($sentData->user) && isset($sentData->key))) {
         }
 
         if ($dm->addPassword(
-            $user,
+            $im->escapeString($user),
             $key,
             $hm->generateUniqueId(),
             $im->escapeString($sentData->data->user),

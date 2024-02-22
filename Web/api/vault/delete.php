@@ -35,7 +35,7 @@ if ($am->authenticated() || (isset($sentData->user) && isset($sentData->key))) {
         $im = new InputManager();
 
         if ($dm->deletePassword(
-            $user,
+            $im->escapeString($user),
             $key,
             $im->escapeString($sentData->data->pid)
         )) {
