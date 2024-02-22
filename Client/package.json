@@ -6,8 +6,11 @@
   "scripts": {
     "start": "electron .",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build:dir": "electron-builder --dir",
-    "build:dist": "electron-builder"
+    "build dir": "electron-builder --dir",
+    "build win": "electron-builder -w --universal",
+    "build mac": "electron-builder -m --universal",
+    "build linux": "electron-builder -l --universal",
+    "build": "electron-builder -wml --universal"
   },
   "keywords": [
     "Passwords",
