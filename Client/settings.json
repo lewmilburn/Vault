@@ -1,11 +1,12 @@
 {
     "VAULT": {
-        "SYNC_SERVER_URL": "https://uop-vta.lewismilburn.co",
+        "SYNC_SERVER_URL": "https://uop-vta.lewismilburn.com",
         "ALLOW_OFFLINE_MODE": true,
         "FORCE_OFFLINE_MODE": false
     },
     "APP": {
         "WINDOW_WIDTH": "800",
-        "WINDOW_HEIGHT": "600"
+        "WINDOW_HEIGHT": "600",
+        "CACHE_ENCRYPTION_METHOD": "AES-256-GCM"
     }
 }

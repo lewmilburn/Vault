@@ -1,12 +1,18 @@
-module.exports = function (text, key) {
+module.exports = function (data, key, settings) {
     console.log('[VAULT][CRYPTO] Decrypting data...')
     const crypto = require('crypto');
 
+    let splitData = data.split("[$]");
+    let tag = Buffer.from(splitData[0], 'hex');
+    let iv = Buffer.from(splitData[1], 'hex');
+    let encryptedData = splitData[2];
+
     key = key.substring(0, 32);
 
-    let iv = Buffer.from(text.iv, 'hex');
-    let encryptedText = Buffer.from(text.encryptedData, 'hex');
-    let decipher = crypto.createDecipheriv('aes-256-cbc', Buffer.from(key), iv);
+    let decryptIv = Buffer.from(iv);
+    let encryptedText = Buffer.from(encryptedData, 'hex');
+    let decipher = crypto.createDecipheriv(settings.APP.CACHE_ENCRYPTION_METHOD, Buffer.from(key), decryptIv);
+    decipher.setAuthTag(tag);
     let decrypted = decipher.update(encryptedText);
 
     decrypted = Buffer.concat([decrypted, decipher.final()]);

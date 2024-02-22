@@ -64,7 +64,7 @@ ipcMain.on('full-reload', () => {
 ipcMain.on('cache-update', (event, user, data, key) => {
     console.log('[Vault][IPC] Cache received, updating file...');
     let checksum = require('./server_processes/checksum')(data);
-    let encryptedData = require('./server_processes/encrypt')(data, key);
+    let encryptedData = require('./server_processes/encrypt')(data, key,settings);
     require('./server_processes/cache_save')(user, encryptedData, checksum);
     console.log('[Vault][IPC] Cache updated.');
 });
@@ -72,7 +72,7 @@ ipcMain.on('cache-request', (event, user, key) => {
     console.log('[Vault][IPC] Cache requested...');
     let encryptedCache = require('./server_processes/cache_load')(user);
     if (encryptedCache !== null) {
-        let cache = require('./server_processes/decrypt')(encryptedCache.data, key);
+        let cache = require('./server_processes/decrypt')(encryptedCache.data, key, settings);
         window.webContents.send('cache', cache);
         console.log('[Vault][IPC] Cache sent.');
     }
