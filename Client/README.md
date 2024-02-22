@@ -1,6 +1,11 @@
 # Vault Client
 The Vault client is an offline-capable version of Vault you can run on your local machine.
 
+## System Requirements
+### Development
+- Node 20.11.1
+- NPM 10.2.4
+
 ## Sync to Server
 You require the Vault Webserver to be running to sync your passwords. For more information see the Web folder in the Vault repository. 
 
