@@ -14,7 +14,8 @@ if (isset($_GET['user']) && isset($_GET['key'])) {
     $dm = new DataManager();
     $em = new EncryptionManager();
 
-    echo json_encode($dm->getVault($_GET['user'], $_GET['key']));
+    $user = $im->escapeString($_GET['user']);
+    echo json_encode($dm->getVault($user, $_GET['key']));
 } else {
     $eh = new ApiError();
     $eh->dataNotRecieved();

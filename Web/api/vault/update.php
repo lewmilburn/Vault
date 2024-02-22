@@ -43,7 +43,7 @@ if ($am->authenticated() || (isset($sentData->user) && isset($sentData->key))) {
         }
 
         if ($dm->updatePassword(
-            $user,
+            $im->escapeString($user),
             $key,
             $im->escapeString($sentData->data->pid),
             $im->escapeString($sentData->data->user),
