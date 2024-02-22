@@ -32,7 +32,6 @@ function createWindow() {
             window.name = 'Vault';
             window.show();
         });
-
     return window;
 }
 
@@ -91,10 +90,6 @@ electronApp.on('window-all-closed', () => {
     }
 });
 
-electronApp.on('activate', () => {
-    console.log("[VAULT] Electron activated.");
-    if (electronBrowserWindow.getAllWindows().length === 0) {
-        window = createWindow();
-    }
-    console.log("[VAULT] Created window.");
+electronApp.whenReady().then(() => {
+    window = createWindow();
 });
