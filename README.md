@@ -39,3 +39,7 @@ Filesystem storage has no real limit, you can store as many passwords as you'd l
 
 ## DATABASE storage.
 Database storage can hold up to 16 Megabytes of data, which is estimated to be over 1,000 passwords.
+
+### Software-specific Information
+- [Web (Sync Server)](https://github.com/lewmilburn/Vault/blob/main/Web/README.md)
+- [Client](https://github.com/lewmilburn/Vault/blob/main/Client/README.md)

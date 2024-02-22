@@ -9,9 +9,9 @@ You require the Vault Webserver to be running to sync your passwords. For more i
 `npm start`
 ### Building
 #### Packaged
-- All: `npm build`
-- Windows: `npm build win`
-- Windows: `npm build mac`
-- Windows: `npm build linux`
+- All: `npm run build`
+- Windows: `npm run build win`
+- Windows: `npm run build mac`
+- Windows: `npm run build linux`
 #### Non-packaged
-`npm build dir`
+`npm run build dir`

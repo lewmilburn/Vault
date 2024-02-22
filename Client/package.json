@@ -22,10 +22,10 @@
   "author": "Lewis Milburn",
   "license": "Apache-2.0",
   "devDependencies": {
-    "electron": "^29.0.0"
+    "electron": "^29.0.0",
+    "electron-builder": "^24.9.1"
   },
   "dependencies": {
-    "bcrypt": "^5.1.1",
-    "electron-builder": "^24.9.1"
+    "bcrypt": "^5.1.1"
   }
 }
