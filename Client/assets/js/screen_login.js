@@ -5,9 +5,7 @@ function doLogin() {
         sendall: true
     };
 
-    console.log(data);
-
-    let url = vaultUrl + '/api/auth/login'
+    let url = settings.SYNC_SERVER_URL + '/api/auth/login'
 
     fetch(url, {
         method: 'POST',
@@ -19,12 +17,11 @@ function doLogin() {
             if (jsonResponse.status === 200) {
                 if (jsonResponse.apikey !== undefined) {
                     localStorage.setItem('name', jsonResponse.name);
-                    localStorage.setItem('pass', data.password);
                     localStorage.setItem('user', jsonResponse.user);
                     localStorage.setItem('token', jsonResponse.token);
                     localStorage.setItem('key', jsonResponse.apikey);
 
-                    electronAuthenticated();
+                    screenDashboard();
                 } else {
                     errorBox.classList.remove('hidden');
                     errorBox.innerHTML = 'Unable to fetch key, please check the "SEND_ALL_INFO" setting is enabled on the server.';

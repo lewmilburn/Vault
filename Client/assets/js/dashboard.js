@@ -34,10 +34,10 @@ function displayPassword(item, strength) {
     passwordGrid.appendChild(newElem);
 }
 
-function displayPasswords(data) {
-    if (data !== undefined && data !== null) {
-        Object.values(data).forEach((item) => {
-            let url = vaultUrl + '/api/strength/?check='+item.pass;
+function displayPasswords() {
+    if (vault !== undefined && vault !== null) {
+        Object.values(vault).forEach((item) => {
+            let url = settings.SYNC_SERVER_URL + '/api/strength/?check='+item.pass;
             fetch(url, {
                 method: 'GET',
                 headers: {'Content-Type': 'application/json'},
