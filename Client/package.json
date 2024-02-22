@@ -1,6 +1,6 @@
 {
   "name": "vault",
-  "version": "1.0.0",
+  "version": "pre-s9",
   "description": "A desktop client for the Vault project.",
   "main": "app.js",
   "scripts": {
