@@ -11,3 +11,6 @@
 /Web/vendor/phpunit
 /Web/vendor/sebastian
 /Web/vendor/theseer
+/Client/node_modules/
+/Client/dist/
+/Client/*.cache
