@@ -27,5 +27,9 @@
   },
   "dependencies": {
     "bcrypt": "^5.1.1"
+  },
+  "build": {
+    "productName": "Vault",
+    "copyright": "Copyright © 2024 ${author} - Icons by Freepik on Flaticon"
   }
 }
