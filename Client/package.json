@@ -1,13 +1,13 @@
 {
   "name": "vault",
-  "version": "pre-s9",
+  "version": "0.0.10",
   "description": "A desktop client for the Vault project.",
   "main": "app.js",
   "scripts": {
     "start": "electron .",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build dir": "electron-builder --dir",
-    "build win": "electron-builder -w --universal",
+    "build win": "electron-builder -w --x64",
     "build mac": "electron-builder -m --universal",
     "build linux": "electron-builder -l --universal",
     "build": "electron-builder -wml --universal"

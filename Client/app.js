@@ -6,7 +6,7 @@ const electronBrowserWindow = require('electron').BrowserWindow;
 const nodePath = require('path');
 
 let window;
-let settings = require('./server_processes/readJsonFile')('settings.json');
+let settings = require(nodePath.join(__dirname + '/server_processes/readJsonFile'))(nodePath.join(__dirname + '/settings.json'));
 
 console.log("[VAULT] Loaded settings:");
 console.log(settings);
@@ -20,11 +20,11 @@ function createWindow() {
         webPreferences: {
             nodeIntegration: false,
             contextIsolation: true,
-            preload: nodePath.join(__dirname, 'preload.js')
+            preload: nodePath.join(__dirname, '/preload.js')
         }
     });
 
-    window.loadFile('./views/loading.html')
+    window.loadFile(nodePath.join(__dirname + '/views/loading.html'))
         .then(() => {
             window.webContents.send('settings', settings.VAULT);
         })
@@ -57,29 +57,29 @@ ipcMain.on('screen-misconfiguration', () => {
 });
 ipcMain.on('full-reload', () => {
     console.log('[Vault] Starting full reload...');
-    settings = require('./server_processes/readJsonFile')('settings.json');
+    settings = require('/server_processes/readJsonFile')(nodePath.join(__dirname + 'settings.json'));
     console.log('[Vault] Reloaded.');
 });
 ipcMain.on('cache-update', (event, user, data, key) => {
     console.log('[Vault][IPC] Cache received, updating file...');
-    let checksum = require('./server_processes/checksum')(data);
-    let encryptedData = require('./server_processes/encrypt')(data, key,settings);
-    require('./server_processes/cache_save')(user, encryptedData, checksum);
+    let checksum = require(nodePath.join(__dirname + '/server_processes/checksum'))(data);
+    let encryptedData = require(nodePath.join(__dirname + '/server_processes/encrypt'))(data, key,settings);
+    require(nodePath.join(__dirname + '/server_processes/cache_save'))(user, encryptedData, checksum);
     console.log('[Vault][IPC] Cache updated.');
 });
 ipcMain.on('cache-request', (event, user, key) => {
     console.log('[Vault][IPC] Cache requested...');
-    let encryptedCache = require('./server_processes/cache_load')(user);
+    let encryptedCache = require(nodePath.join(__dirname + '/server_processes/cache_load'))(user);
     if (encryptedCache !== null) {
-        let cache = require('./server_processes/decrypt')(encryptedCache.data, key, settings);
+        let cache = require(nodePath.join(__dirname + '/server_processes/decrypt'))(encryptedCache.data, key, settings);
         window.webContents.send('cache', cache);
         console.log('[Vault][IPC] Cache sent.');
     }
 });
 
 function screen(name) {
-    let screenFilePath = './views/' + name + '.html';
-    window.loadFile(screenFilePath).then(() => {
+    let screenFilePath = '/views/' + name + '.html';
+    window.loadFile(nodePath.join(__dirname + screenFilePath)).then(() => {
         console.log('[VAULT] Loaded screen "'+name+'"');
     });
 }
@@ -90,6 +90,6 @@ electronApp.on('window-all-closed', () => {
     }
 });
 
-electronApp.whenReady().then(() => {
-    window = createWindow();
+electronApp.on('ready', () => {
+    window = createWindow()
 });
