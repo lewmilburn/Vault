@@ -57,7 +57,7 @@ ipcMain.on('screen-misconfiguration', () => {
 });
 ipcMain.on('full-reload', () => {
     console.log('[Vault] Starting full reload...');
-    settings = require('/server_processes/readJsonFile')(nodePath.join(__dirname + 'settings.json'));
+    settings = require(nodePath.join(__dirname + '/server_processes/readJsonFile'))(nodePath.join(__dirname + 'settings.json'));
     console.log('[Vault] Reloaded.');
 });
 ipcMain.on('cache-update', (event, user, data, key) => {
