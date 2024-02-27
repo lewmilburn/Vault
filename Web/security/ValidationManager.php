@@ -124,4 +124,9 @@ class ValidationManager
     {
         return $string === null || trim($string) === '';
     }
+
+    public function generateChecksum($string): string
+    {
+        return hash('sha3-512', $string);
+    }
 }

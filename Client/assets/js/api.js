@@ -8,9 +8,10 @@ async function getVault () {
         }).then(response => response.json())
             .then(jsonResponse => {
                 if (jsonResponse.status === undefined) {
-                    vault = jsonResponse;
+                    vault = jsonResponse.data;
+                    checksum = jsonResponse.checksum;
+                    cacheUpdate(jsonResponse);
                     displayPasswords();
-                    cacheUpdate(vault);
                 } else {
                     displayError('Unable to retrieve passwords', jsonResponse);
                 }
@@ -67,7 +68,7 @@ function deletePassword (id) {
 }
 
 function sendRequest(type, data, successMessage, errorMessage, noReload = false) {
-    let url = settings.SYNC_SERVER_URL + '/api/vault/';
+    let url = settings.SYNC_SERVER_URL + '/api/password/';
     fetch(url, {
         method: type,
         headers: {'Content-Type': 'application/json'},
