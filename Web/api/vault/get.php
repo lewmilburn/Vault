@@ -18,8 +18,8 @@ if (isset($_GET['user']) && isset($_GET['key'])) {
     $user = $im->escapeString($_GET['user']);
     $vault = $dm->getVault($user, $_GET['key']);
     $vault = [
-        "data"=>$vault,
-        "last_known_checksum"=>$vm->generateChecksum(json_encode($vault))
+        'data'               => $vault,
+        'last_known_checksum'=> $vm->generateChecksum(json_encode($vault)),
     ];
 
     echo json_encode($vault);
