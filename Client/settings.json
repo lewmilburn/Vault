@@ -1,6 +1,6 @@
 {
     "VAULT": {
-        "SYNC_SERVER_URL": "http://localhos",
+        "SYNC_SERVER_URL": "http://localhost",
         "ALLOW_OFFLINE_MODE": true,
         "FORCE_OFFLINE_MODE": false
     },

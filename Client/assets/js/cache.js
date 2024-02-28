@@ -3,7 +3,7 @@ function loadCache() {
         requestCache();
 
         window.bridge.recieveCache((event, cache) => {
-            vault = JSON.parse(JSON.parse(cache));
+            vault = JSON.parse(JSON.parse(cache)).data;
             displayPasswords();
         });
     }
