@@ -13,10 +13,13 @@ You require the Vault Webserver to be running to sync your passwords. For more i
 ### Running locally
 `npm start`
 ### Building
-#### Packaged
-- All: `npm run build`
-- Windows: `npm run build win`
-- Windows: `npm run build mac`
-- Windows: `npm run build linux`
-#### Non-packaged
-`npm run build dir`
+
+| Platform | Architecture | Command                     |
+|----------|--------------|-----------------------------|
+| Windows  | Intel 64-bit | `npm run build:win:intel64` |
+| Windows  | Intel 32-bit | `npm run build:win:intel32` |
+| Windows  | ARM 64-bit   | `npm run build:win:arm64`   |
+| Windows  | ARM 32-bit   | `npm run build:win:arm32`   |
+| Windows  | Universal    | `npm run build:win`         |
+| macOS    | Universal    | `npm run build:mac`         |
+| Linux    | Universal    | `npm run build:linux`       |
