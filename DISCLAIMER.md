@@ -10,3 +10,6 @@ The Vault software is released under the Apache 2.0 International License. See t
 # Securing your Installation
 > This is not legal or security advice, and should not be taken as such. It is a list of recommendations for securing servers in general.
 * Ensure your system is up-to-date
+* Use a strong password for the administrator account
+* Do not add any untrusted code in the system's source code or JavaScript console.
+* Use a trusted host with security credentials.
