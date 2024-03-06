@@ -6,3 +6,7 @@ or otherwise, arising from, out of or in connection with the software or the use
 
 # Source Code License
 The Vault software is released under the Apache 2.0 International License. See the [LICENSE](https://github.com/lewmilburn/Vault/blob/main/LICENSE) file for details.
+
+# Securing your Installation
+> This is not legal or security advice, and should not be taken as such. It is a list of recommendations for securing servers in general.
+* Ensure your system is up-to-date
