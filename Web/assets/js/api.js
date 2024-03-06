@@ -42,7 +42,7 @@ function deletePassword (id) {
 
 function sendRequest(type, data, successMessage, errorMessage, noReload = false) {
     $.ajax({
-        url: '/api/vault/',
+        url: '/api/password/',
         type: type,
         dataType: 'json',
         data: JSON.stringify(data),
