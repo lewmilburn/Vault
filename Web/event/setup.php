@@ -83,7 +83,7 @@ if (isset($_POST['user']) && isset($_POST['pass'])) {
                     <label for="pass">Password</label>
                     <input id="pass" name="pass" type="password">
                 </div>
-                <button type="submit" class="btn-primary">Login</button>
+                <button type="submit" class="btn-primary">Finish Setup</button>
             </form>
         </main>
     </body>
