@@ -69,7 +69,7 @@ if (isset($_POST['user']) && isset($_POST['pass'])) {
         <?php } ?>
 
         <header>
-            <h1>Welcome to Vault.</h1>
+            <h1>Setup Vault.</h1>
             <p>Please create an account.</p>
         </header>
 
