@@ -45,4 +45,4 @@ Database storage can hold up to 16 Megabytes of data, which is estimated to be o
 - [Client](https://github.com/lewmilburn/Vault/blob/main/Client/README.md)
 
 # Legal
-Released under the [https://github.com/lewmilburn/Vault/blob/main/LICENSE](Apache License). [https://github.com/lewmilburn/Vault/blob/main/DISCLAIMER.md](DISCLAIMER.md)
+Released under the [Apache License](https://github.com/lewmilburn/Vault/blob/main/LICENSE). [Read the disclaimer before using](https://github.com/lewmilburn/Vault/blob/main/DISCLAIMER.md).
