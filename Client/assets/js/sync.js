@@ -6,7 +6,24 @@ function syncMismatch(local, remote) {
 }
 
 function keepLocal() {
+    console.log(vault);
+    for (let item in vault) {
+        let password = {
+            user: localStorage.getItem('user'),
+            key: localStorage.getItem('key'),
+            data: {
+                pid: vault[item].pid,
+                pass: vault[item].pass,
+                user: vault[item].user,
+                name: vault[item].name,
+                url: vault[item].url,
+                notes: vault[item].notes,
+            }
+        };
+        sendRequest('PUT',password,'Password saved.', 'Unable to update password');
+    }
     document.getElementById('syncmismatch').classList.add('hidden');
+    resync();
 }
 
 function keepRemote() {

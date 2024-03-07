@@ -15,7 +15,8 @@ async function getVault (override = false) {
                     requestUser();
 
                     window.bridge.recieveUserData((event, user) => {
-                        if (user.last_change !== jsonResponse.last_change && override === false) {
+                        if (user.last_change !== jsonResponse.last_change && override === false && settings.ALLOW_OFFLINE_MODE === true) {
+                            loadCache(true);
                             syncMismatch(user.last_change, jsonResponse.last_change);
                         } else {
                             vault = jsonResponse.data;
