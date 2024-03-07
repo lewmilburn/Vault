@@ -64,7 +64,6 @@ function updatePassword (id) {
             notes: document.getElementById('notes').value,
         }
     };
-    console.log(password);
     sendRequest('PUT',password,'Password saved.', 'Unable to update password');
 }
 
