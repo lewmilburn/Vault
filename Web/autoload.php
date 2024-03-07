@@ -22,6 +22,7 @@ require_once __DIR__.'/security/ValidationManager.php';
 require_once __DIR__.'/data/FileManager.php';
 require_once __DIR__.'/data/DatabaseManager.php';
 require_once __DIR__.'/data/DataManager.php';
+require_once __DIR__.'/data/UserManager.php';
 
 require_once __DIR__.'/authentication/AuthenticationManager.php';
 require_once __DIR__.'/authentication/TokenManager.php';

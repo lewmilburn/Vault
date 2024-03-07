@@ -27,7 +27,7 @@ if (isset($_GET['user']) && isset($_GET['key'])) {
     $vault = [
         'data' => $vault,
         'checksum' => $vm->generateChecksum(json_encode($vault)),
-        'last_sync' => $um->getLastSync($_GET['user'])
+        'last_change' => $um->getLastChange($_GET['user'])
     ];
 
     echo json_encode($vault);

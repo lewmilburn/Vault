@@ -4,6 +4,7 @@ use event\RequestHandler;
 use Vault\api\ApiError;
 use Vault\authentication\AuthenticationManager;
 use Vault\data\DataManager;
+use Vault\data\UserManager;
 use Vault\security\InputManager;
 use Vault\security\ValidationManager;
 
@@ -52,6 +53,8 @@ if ($am->authenticated() || (isset($sentData->user) && isset($sentData->key))) {
             $im->escapeString($sentData->data->url),
             $im->escapeString($sentData->data->notes)
         )) {
+            $um = new UserManager();
+            $um->setLastChange($_GET['user']);
             echo '{"status": 200}';
         } else {
             $eh->internalServerError();

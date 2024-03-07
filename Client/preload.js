@@ -27,8 +27,23 @@ contextBridge.exposeInMainWorld(
             ipcRenderer.send('cache-request', user, key);
         },
 
+        requestUser: () => {
+            let user = localStorage.getItem('user');
+            ipcRenderer.send('user-request', user);
+        },
+
+        resync: () => {
+            let user = localStorage.getItem('user');
+            let last_change = localStorage.getItem('remote_change');
+            ipcRenderer.send('resync', user, last_change);
+        },
+
         recieveCache: (cache) => {
             ipcRenderer.on('cache', cache);
+        },
+
+        recieveUserData: (userdata) => {
+            ipcRenderer.on('user_data', userdata);
         },
 
         screenDashboard: () => {

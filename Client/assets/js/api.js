@@ -1,5 +1,9 @@
-async function getVault () {
+async function getVault (override = false) {
     await waitForSettings();
+    vault = null;
+    checksum = null;
+    document.getElementById('passwordGrid').innerHTML = '';
+    addNewPasswordButton();
     if (localStorage.getItem('using-cache') === 'false') {
         let url = settings.SYNC_SERVER_URL + '/api/vault?user=' + localStorage.getItem("user") + '&key=' + localStorage.getItem("key");
         fetch(url, {
@@ -8,10 +12,18 @@ async function getVault () {
         }).then(response => response.json())
             .then(jsonResponse => {
                 if (jsonResponse.status === undefined) {
-                    vault = jsonResponse.data;
-                    checksum = jsonResponse.checksum;
-                    cacheUpdate(jsonResponse);
-                    displayPasswords();
+                    requestUser();
+
+                    window.bridge.recieveUserData((event, user) => {
+                        if (user.last_change !== jsonResponse.last_change && override === false) {
+                            syncMismatch(user.last_change, jsonResponse.last_change);
+                        } else {
+                            vault = jsonResponse.data;
+                            checksum = jsonResponse.checksum;
+                            cacheUpdate(jsonResponse);
+                            displayPasswords();
+                        }
+                    });
                 } else {
                     displayError('Unable to retrieve passwords', jsonResponse);
                 }
@@ -86,6 +98,7 @@ function sendRequest(type, data, successMessage, errorMessage, noReload = false)
                 if (errorMessage !== null) {
                     displayError(errorMessage,xhr.responseText);
                 }
+                return false;
             }
         })
         .catch(xhr => {

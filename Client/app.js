@@ -76,6 +76,20 @@ ipcMain.on('cache-request', (event, user, key) => {
         console.log('[Vault][IPC] Cache sent.');
     }
 });
+ipcMain.on('user-request', (event, user) => {
+    console.log('[Vault][IPC] User data requested...');
+    let userdata = require(nodePath.join(__dirname + '/server_processes/user_load'))(user);
+    if (userdata !== null) {
+        window.webContents.send('user_data', userdata);
+        console.log('[Vault][IPC] User data sent.');
+    } else {
+        return null;
+    }
+});
+ipcMain.on('resync', (event, user, last_change) => {
+    console.log('[Vault][IPC] Resync requested...');
+    require(nodePath.join(__dirname + '/server_processes/user_save'))(user, last_change);
+});
 
 function screen(name) {
     let screenFilePath = '/views/' + name + '.html';

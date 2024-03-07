@@ -31,6 +31,7 @@ $router->deleteRequest('/api/password', 'api/password/delete.php');
 $router->postRequest('/api/password', 'api/password/create.php');
 
 $router->getRequest('/api/vault', 'api/vault/get.php');
+$router->getRequest('/api/user/resync', 'api/user/resync.php');
 
 $router->anyRequest('/api/status', 'api/status.php');
 $router->getRequest('/api/strength', 'api/strength.php');
