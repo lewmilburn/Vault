@@ -30,9 +30,17 @@ function requestCache() {
     window.bridge.requestCache(() => {});
 }
 
+function requestUser() {
+    window.bridge.requestUser(() => {});
+}
+
 function reloadSettings() {
     window.bridge.fullReload(() => {});
     window.bridge.requestSettings(() => {});
+}
+
+function resync() {
+    window.bridge.resync(() => {});
 }
 
 function waitForSettings() {

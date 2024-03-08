@@ -26,10 +26,12 @@ if ($auth->authenticated()) {
 
     $router->anyRequest('/api/auth/login', 'api/authentication/login.php');
 }
-$router->putRequest('/api/vault', 'api/vault/update.php');
+$router->putRequest('/api/password', 'api/password/update.php');
+$router->deleteRequest('/api/password', 'api/password/delete.php');
+$router->postRequest('/api/password', 'api/password/create.php');
+
 $router->getRequest('/api/vault', 'api/vault/get.php');
-$router->postRequest('/api/vault', 'api/vault/create.php');
-$router->deleteRequest('/api/vault', 'api/vault/delete.php');
+$router->getRequest('/api/user/resync', 'api/user/resync.php');
 
 $router->anyRequest('/api/status', 'api/status.php');
 $router->getRequest('/api/strength', 'api/strength.php');

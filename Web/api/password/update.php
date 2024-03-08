@@ -4,7 +4,7 @@ use event\RequestHandler;
 use Vault\api\ApiError;
 use Vault\authentication\AuthenticationManager;
 use Vault\data\DataManager;
-use Vault\security\HashManager;
+use Vault\data\UserManager;
 use Vault\security\InputManager;
 use Vault\security\ValidationManager;
 
@@ -22,6 +22,7 @@ if ($am->authenticated() || (isset($sentData->user) && isset($sentData->key))) {
     if (!$sentData) {
         $eh->dataNotRecieved();
     } elseif (
+        (!isset($sentData->data->pid) || $vm->isEmpty($sentData->data->pid)) ||
         (!isset($sentData->data->user) || $vm->isEmpty($sentData->data->user)) ||
         (!isset($sentData->data->pass) || $vm->isEmpty($sentData->data->pass)) ||
         (!isset($sentData->data->name) || $vm->isEmpty($sentData->data->name)) ||
@@ -31,7 +32,6 @@ if ($am->authenticated() || (isset($sentData->user) && isset($sentData->key))) {
     } else {
         $sentData->data->notes = $eh->notesNull($sentData->data->notes);
 
-        $hm = new HashManager();
         $dm = new DataManager();
         $im = new InputManager();
 
@@ -43,21 +43,23 @@ if ($am->authenticated() || (isset($sentData->user) && isset($sentData->key))) {
             $key = $_SESSION['key'];
         }
 
-        if ($dm->addPassword(
+        if ($dm->updatePassword(
             $im->escapeString($user),
             $key,
-            $hm->generateUniqueId(),
+            $im->escapeString($sentData->data->pid),
             $im->escapeString($sentData->data->user),
             $im->escapeString($sentData->data->pass),
             $im->escapeString($sentData->data->name),
             $im->escapeString($sentData->data->url),
             $im->escapeString($sentData->data->notes)
         )) {
+            $um = new UserManager();
+            $um->setLastChange($_GET['user']);
             echo '{"status": 200}';
         } else {
             $eh->internalServerError();
         }
     }
 } else {
-    $eh->unauthorised();
+    $eh->dataNotRecieved();
 }

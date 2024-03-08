@@ -112,22 +112,24 @@
             localStorage.setItem('user', '<?= $_SESSION['user']; ?>');
             localStorage.setItem('key', '<?= urlencode($_SESSION['key']); ?>');
 
-            function getVault (id) {
+            function getVault () {
                 $.ajax({
                     url: '/api/vault/?user='+localStorage.getItem('user')+'&key='+localStorage.getItem('key'),
                     type: 'GET',
                     success: function (data) {
-                        displayPasswords(data);
+                        displayPasswords(data.data);
                     },
                     error: function (xhr) {
                         displayError('Unable to retrieve passwords', xhr.responseText);
                     }
                 });
             }
+
         </script>
         <script defer src="/assets/js/lib/alpine.js"></script>
         <script src="/assets/js/lib/jquery.js"></script>
         <script src="/assets/js/api.js"></script>
         <script src="/assets/js/dashboard.js"></script>
+        <script src="/assets/js/strength.js"></script>
     </body>
 </html>

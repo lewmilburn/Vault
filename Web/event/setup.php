@@ -69,7 +69,7 @@ if (isset($_POST['user']) && isset($_POST['pass'])) {
         <?php } ?>
 
         <header>
-            <h1>Welcome to Vault.</h1>
+            <h1>Setup Vault.</h1>
             <p>Please create an account.</p>
         </header>
 
@@ -83,7 +83,7 @@ if (isset($_POST['user']) && isset($_POST['pass'])) {
                     <label for="pass">Password</label>
                     <input id="pass" name="pass" type="password">
                 </div>
-                <button type="submit" class="btn-primary">Login</button>
+                <button type="submit" class="btn-primary">Finish Setup</button>
             </form>
         </main>
     </body>

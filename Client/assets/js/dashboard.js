@@ -34,23 +34,10 @@ function displayPassword(item, strength) {
     passwordGrid.appendChild(newElem);
 }
 
-function displayPasswords() {
+async function displayPasswords() {
     if (vault !== undefined && vault !== null) {
         Object.values(vault).forEach((item) => {
-            let url = settings.SYNC_SERVER_URL + '/api/strength/?check='+item.pass;
-            fetch(url, {
-                method: 'GET',
-                headers: {'Content-Type': 'application/json'},
-            }).then(response => response.json())
-                .then(data => {
-                    let strength = data.score;
-                    displayPassword(item, strength);
-                })
-                .catch(xhr => {
-                    displayError('Unable to check password strength', xhr.responseText);
-                    console.log(xhr);
-                    displayPassword(item, "?");
-                });
+            displayPassword(item, strength(item.pass));
         })
     }
 }

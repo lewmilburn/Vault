@@ -1,5 +1,9 @@
-async function getVault () {
+async function getVault (override = false) {
     await waitForSettings();
+    vault = null;
+    checksum = null;
+    document.getElementById('passwordGrid').innerHTML = '';
+    addNewPasswordButton();
     if (localStorage.getItem('using-cache') === 'false') {
         let url = settings.SYNC_SERVER_URL + '/api/vault?user=' + localStorage.getItem("user") + '&key=' + localStorage.getItem("key");
         fetch(url, {
@@ -8,9 +12,19 @@ async function getVault () {
         }).then(response => response.json())
             .then(jsonResponse => {
                 if (jsonResponse.status === undefined) {
-                    vault = jsonResponse;
-                    displayPasswords();
-                    cacheUpdate(vault);
+                    requestUser();
+
+                    window.bridge.recieveUserData((event, user) => {
+                        if (user.last_change !== jsonResponse.last_change && override === false && settings.ALLOW_OFFLINE_MODE === true) {
+                            loadCache(true);
+                            syncMismatch(user.last_change, jsonResponse.last_change);
+                        } else {
+                            vault = jsonResponse.data;
+                            checksum = jsonResponse.checksum;
+                            cacheUpdate(jsonResponse);
+                            displayPasswords();
+                        }
+                    });
                 } else {
                     displayError('Unable to retrieve passwords', jsonResponse);
                 }
@@ -51,7 +65,6 @@ function updatePassword (id) {
             notes: document.getElementById('notes').value,
         }
     };
-    console.log(password);
     sendRequest('PUT',password,'Password saved.', 'Unable to update password');
 }
 
@@ -67,7 +80,7 @@ function deletePassword (id) {
 }
 
 function sendRequest(type, data, successMessage, errorMessage, noReload = false) {
-    let url = settings.SYNC_SERVER_URL + '/api/vault/';
+    let url = settings.SYNC_SERVER_URL + '/api/password/';
     fetch(url, {
         method: type,
         headers: {'Content-Type': 'application/json'},
@@ -85,6 +98,7 @@ function sendRequest(type, data, successMessage, errorMessage, noReload = false)
                 if (errorMessage !== null) {
                     displayError(errorMessage,xhr.responseText);
                 }
+                return false;
             }
         })
         .catch(xhr => {

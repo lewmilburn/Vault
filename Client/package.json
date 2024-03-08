@@ -6,11 +6,13 @@
   "scripts": {
     "start": "electron .",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build dir": "electron-builder --dir",
-    "build win": "electron-builder -w --x64",
-    "build mac": "electron-builder -m --universal",
-    "build linux": "electron-builder -l --universal",
-    "build": "electron-builder -wml --universal"
+    "build:mac": "electron-builder -m",
+    "build:win": "electron-builder -w --universal",
+    "build:win:intel64": "electron-builder -w --x64",
+    "build:win:intel32": "electron-builder -w --ia32",
+    "build:win:arm64": "electron-builder -w --arm64",
+    "build:win:arm32": "electron-builder -w --armv7l",
+    "build:linux": "electron-builder -l"
   },
   "keywords": [
     "Passwords",

@@ -109,6 +109,25 @@
                     </div>
                 </div>
             </div>
+            <div id="syncmismatch" class="hidden absolute top-0 left-0 right-0 bottom-0 bg-black/50">
+                <div class="absolute top-10 left-10 right-10 bottom-10 bg-white">
+                    <header>
+                        <p>Sync Mismatch</p>
+                    </header>
+                    <main>
+                        Vault has identified that changes have been made to the sync server since you were last online.
+                        <br><br>
+                        <div class="grid-std">
+                            <p>Last local change: <span id="lastLocalChange"></span></p>
+                            <button onclick="keepLocal()" class="btn-primary">Keep local changes</button>
+                            <p>Last remote change: <span id="lastRemoteChange"></span></p>
+                            <button onclick="keepRemote()" class="btn-primary">Keep remote changes</button>
+                        </div>
+                        <br>
+                        The changes you decide to keep will also be pushed to the sync server.
+                    </main>
+                </div>
+            </div>
         </main>
         <script src="../assets/js/electron.js"></script>
         <script src="../assets/js/lib/alpine.js" defer></script>
@@ -116,6 +135,9 @@
         <script src="../assets/js/api.js"></script>
         <script src="../assets/js/dashboard.js"></script>
         <script src="../assets/js/status.js"></script>
+        <script src="../assets/js/strength.js"></script>
+        <script src="../assets/js/vault.js"></script>
+        <script src="../assets/js/sync.js"></script>
         <script>
             checkStatus();
 
