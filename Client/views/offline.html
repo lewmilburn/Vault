@@ -10,24 +10,32 @@
                 referrerpolicy="no-referrer"
         ></script>
     </head>
-    <body>
-        <header class="mb-6">
-            <h1>Unable to connect to Sync Server.</h1>
-        </header>
+    <body class="flex w-screen h-screen">
+        <nav class="flex flex-col bg-blue-700 p-0">
+            <i class="fa-solid fa-arrow-right-to-bracket btn-sidebar" title="Continue Offline" onclick="goOffline()"></i>
+            <i class="fa-solid fa-rotate btn-sidebar" title="Retry" onclick="screenLogin()"></i>
+            <span class="flex-grow"></span>
+            <i class="fa-solid fa-circle-xmark btn-sidebar" title="Close Vault" onclick="shutdown()"></i>
+        </nav>
+        <div class="flex-grow">
+            <header class="mb-6">
+                <h1>Unable to connect to Sync Server.</h1>
+            </header>
 
-        <main>
-            <p class="text-center">Server: <span id="serverURL"></span></p>
-            <br>
-            <form class="text-center sm:w-1/2 md:w-1/3 lg:w-1/4 mx-auto">
-                <button type="button" onclick="goOffline()" class="btn-primary hidden" id="cache">Continue Offline</button>
-                <button type="button" onclick="screenLogin()" class="btn-primary">Retry</button>
+            <main>
+                <p class="text-center">Server: <span id="serverURL"></span></p>
                 <br>
-                <p id="nocache" class="hidden">
-                    Vault is unable to find your security key and therefore cannot work offline.
-                    You may need to reconnect to the sync server to get this.
-                </p>
-            </form>
-        </main>
+                <form class="text-center sm:w-1/2 md:w-1/3 lg:w-1/4 mx-auto">
+                    <button type="button" onclick="goOffline()" class="btn-primary hidden" id="cache">Continue Offline</button>
+                    <button type="button" onclick="screenLogin()" class="btn-primary">Retry</button>
+                    <br>
+                    <p id="nocache" class="hidden">
+                        Vault is unable to find your security key and therefore cannot work offline.
+                        You may need to reconnect to the sync server to get this.
+                    </p>
+                </form>
+            </main>
+        </div>
 
         <script src="../assets/js/electron.js"></script>
         <script src="../assets/js/screen_login.js"></script>

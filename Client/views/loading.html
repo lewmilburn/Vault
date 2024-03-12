@@ -10,10 +10,16 @@
                 referrerpolicy="no-referrer"
         ></script>
     </head>
-    <body>
-        <header class="mb-6">
-            <h1>Please wait...</h1>
-        </header>
+    <body class="flex w-screen h-screen">
+        <nav class="flex flex-col bg-blue-700 p-0">
+            <span class="flex-grow"></span>
+            <i class="fa-solid fa-circle-xmark btn-sidebar" title="Close Vault" onclick="shutdown()"></i>
+        </nav>
+        <div class="flex-grow">
+            <header class="mb-6">
+                <h1>Please wait...</h1>
+            </header>
+        </div>
 
         <script src="../assets/js/electron.js"></script>
         <script src="../assets/js/status.js"></script>
