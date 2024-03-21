@@ -11,7 +11,7 @@ h1, .h1 { @apply font-bold lg:text-3xl md:text-2xl text-xl sm:text-lg; }
 h2, .h2 { @apply font-bold lg:text-2xl md:text-xl text-lg; }
 h3, .h3 { @apply font-bold lg:text-xl md:text-lg; }
 
-input, textarea {
+input, textarea, select {
     @apply border px-2 py-1 dark:bg-black;
 }
 
