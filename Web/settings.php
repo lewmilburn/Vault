@@ -1,10 +1,8 @@
 <?php
 
-// DATA_TYPE - DEV or PROD
-const ENV = DEV;
-
-// STORAGE_TYPE = DATABASE or FILESYSTEM
-const STORAGE_TYPE = FILESYSTEM;
+// Global settings
+const ENV = DEV; // DEV/PROD
+const STORAGE_TYPE = FILESYSTEM; // FILESYSTEM/DATABASE
 
 // Filesystem storage settings
 const USERS_FILE = 'users.json';
