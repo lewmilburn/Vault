@@ -31,7 +31,7 @@ class FileManager
         return null;
     }
 
-    public function createUser(string $username, string $password): bool
+    public function createUser(string $username, string $password, int $role): bool
     {
         if (file_exists($this->usersFile)) {
             $usersFile = file_get_contents($this->usersFile);
@@ -43,14 +43,14 @@ class FileManager
                 }
             }
 
-            $newUser = '{"user":"'.$username.'","pass":"'.$password.'"}';
+            $newUser = '{"user":"'.$username.'","pass":"'.$password.'","role":"'.$role.'"}';
             $newUser = json_decode($newUser);
 
             $data[] = $newUser;
 
             $data = json_encode($data);
         } else {
-            $data = '[{"user":"'.$username.'","pass":"'.$password.'"}]';
+            $data = '[{"user":"'.$username.'","pass":"'.$password.'","role":"'.$role.'"}]';
         }
 
         $usersFile = fopen($this->usersFile, 'w');

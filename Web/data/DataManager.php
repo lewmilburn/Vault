@@ -39,11 +39,12 @@ class DataManager
         return $dm->getUserData($user);
     }
 
-    public function createUser(string $username, string $password): bool
+    public function createUser(string $username, string $password, int $role): bool
     {
         $vm = new ValidationManager();
         $vm->throwNull($username, 'createUser');
         $vm->throwNull($password, 'createUser');
+        $vm->throwNull($role, 'createUser');
 
         $password = password_hash($password, PASSWORD_DEFAULT);
         $username = trim($username);
@@ -54,6 +55,7 @@ class DataManager
         $im = new InputManager();
         $username = $im->escapeString($username);
         $password = $im->escapeString($password);
+        $role = $im->escapeString($role);
 
         if (STORAGE_TYPE == DATABASE) {
             $dm = new DatabaseManager();
@@ -70,7 +72,7 @@ class DataManager
             );
         }
 
-        return $dm->createUser($username, $password);
+        return $dm->createUser($username, $password, $role);
     }
 
     public function createVault(string $username, string $password): void
