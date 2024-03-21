@@ -37,8 +37,16 @@
                 <div class="grid">
                     <label for="STORAGE_TYPE">Storage Type</label>
                     <select id="STORAGE_TYPE" class="w-full">
-                        <option value="FILESYSTEM"<?php if (STORAGE_TYPE==FILESYSTEM) { ?> selected<?php } ?>>Filesystem</option>
-                        <option value="DATABASE"<?php if (STORAGE_TYPE==DATABASE) { ?> selected<?php } ?>>Database</option>
+                        <option
+                            value="FILESYSTEM"<?php if (STORAGE_TYPE==FILESYSTEM) { ?> selected<?php } ?>
+                        >
+                            Filesystem
+                        </option>
+                        <option
+                            value="DATABASE"<?php if (STORAGE_TYPE==DATABASE) { ?> selected<?php } ?>
+                        >
+                            Database
+                        </option>
                     </select>
                 </div>
             </div>
