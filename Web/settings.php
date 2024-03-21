@@ -1,10 +1,8 @@
 <?php
 
-// DATA_TYPE - DEV or PROD
-const ENV = DEV;
-
-// STORAGE_TYPE = DATABASE or FILESYSTEM
-const STORAGE_TYPE = FILESYSTEM;
+// Global settings
+const ENV = DEV; // DEV/PROD
+const STORAGE_TYPE = FILESYSTEM; // FILESYSTEM/DATABASE
 
 // Filesystem storage settings
 const USERS_FILE = 'users.json';
@@ -12,7 +10,6 @@ const SECURE_LOCATION = ''; // relative to this file.
 const FILE_SEPARATOR = '[SEP]';
 const DEFAULT_HASH = 'sha3-512';
 const USER_HASH = 'crc32';
-const ID_HASH = 'crc32';
 const CHECKSUM_HASH = 'sha1';
 
 // Database storage settings

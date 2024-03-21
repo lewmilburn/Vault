@@ -56,7 +56,7 @@ class DatabaseManager
         }
     }
 
-    public function createUser($username, $password): bool
+    public function createUser($username, $password, $role): bool
     {
         $tableSearch = $this->db->query(
             "SHOW TABLES LIKE '".DB_PREFIX."users';"
@@ -67,6 +67,7 @@ class DatabaseManager
                     `id` INT NOT NULL AUTO_INCREMENT ,
                     `user` VARCHAR(8) NOT NULL ,
                     `pass` VARCHAR(64) NOT NULL ,
+                    `role` INT(1) NOT NULL ,
                     PRIMARY KEY (`id`))
                     ENGINE = InnoDB;'
             );
@@ -79,8 +80,8 @@ class DatabaseManager
         if ($existingUser->num_rows == 0) {
             return $this->db->query(
                 'INSERT INTO `'.DB_PREFIX."users`
-                    (`id`, `user`, `pass`)
-                    VALUES (NULL, '".$username."', '".$password."')"
+                    (`id`, `user`, `pass`, `role`)
+                    VALUES (NULL, '".$username."', '".$password."', '".$role."')"
             );
         } else {
             return false;

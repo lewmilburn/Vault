@@ -34,6 +34,7 @@ class AuthenticationManager
                 $_SESSION['pass'] = $password;
                 $_SESSION['token'] = $token;
                 $_SESSION['key'] = $key;
+                $_SESSION['role'] = $user->role;
 
                 $result = true;
             } else {

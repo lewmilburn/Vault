@@ -29,7 +29,7 @@ if (isset($_POST['user']) && isset($_POST['pass'])) {
     }
 
     $dm = new DataManager();
-    if (!$dm->createUser($user,$pass)) {
+    if (!$dm->createUser($user,$pass,1)) {
         header('Location: /?sf=userExists');
         exit;
     }
@@ -74,6 +74,7 @@ if (isset($_POST['user']) && isset($_POST['pass'])) {
         </header>
 
         <main>
+            <p>This account will be the administrator account for the instance.</p>
             <form action="/" method="post" class="text-center sm:w-1/2 md:w-1/3 lg:w-1/4 mx-auto">
                 <div class="grid">
                     <label for="user">Username</label>
