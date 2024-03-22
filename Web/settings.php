@@ -3,6 +3,7 @@
 // Global settings
 const ENV = DEV; // DEV/PROD
 const STORAGE_TYPE = FILESYSTEM; // FILESYSTEM/DATABASE
+const ALLOW_REGISTRATION = true;
 
 // Filesystem storage settings
 const USERS_FILE = 'users.json';
