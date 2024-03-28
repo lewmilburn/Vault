@@ -21,6 +21,7 @@ if ($auth->authenticated()) {
     $router->getRequest('', 'view/dashboard.php');
     $router->getRequest('/logout', 'event/logout.php');
     $router->getRequest('/settings', 'view/settings.php');
+    $router->postRequest('/settings', 'view/settings.php');
 } else {
     $router->getRequest('', 'view/login.php');
     if (ALLOW_REGISTRATION) {
