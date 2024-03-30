@@ -9,26 +9,29 @@ class Authentication
 {
     public function __construct()
     {
-        require_once __DIR__ . '/../authentication/TokenManager.php';
-        require_once __DIR__ . '/../authentication/SessionManager.php';
+        require_once __DIR__.'/../authentication/TokenManager.php';
+        require_once __DIR__.'/../authentication/SessionManager.php';
     }
 
     private function testGenerateToken(): bool
     {
         $tm = new TokenManager();
         $token = $tm->generateToken('test1');
+
         return $tm->validToken($token, 'test1');
     }
 
     private function testActiveSession(): bool
     {
         $sm = new SessionManager();
+
         return $sm->active();
     }
 
     private function testEndSession(): bool
     {
         $sm = new SessionManager();
+
         return $sm->end();
     }
 
@@ -60,7 +63,7 @@ class Authentication
         }
         echo PHP_EOL;
 
-        echo '[AUTHENTICATION] ' . $pass . '/03 tests passed.' . PHP_EOL;
+        echo '[AUTHENTICATION] '.$pass.'/03 tests passed.'.PHP_EOL;
 
         return $pass;
     }

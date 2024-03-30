@@ -6,7 +6,6 @@ use Vault\data\UserManager;
 use Vault\security\EncryptionManager;
 use Vault\security\HashManager;
 use Vault\security\InputManager;
-use Vault\security\ValidationManager;
 
 header('Content-Type: application/json; charset=utf-8');
 
