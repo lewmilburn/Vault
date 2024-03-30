@@ -11,16 +11,17 @@ class Security
 {
     public function __construct()
     {
-        require_once __DIR__ . '/../security/EncryptionManager.php';
-        require_once __DIR__ . '/../security/HashManager.php';
-        require_once __DIR__ . '/../security/InputManager.php';
-        require_once __DIR__ . '/../security/ValidationManager.php';
+        require_once __DIR__.'/../security/EncryptionManager.php';
+        require_once __DIR__.'/../security/HashManager.php';
+        require_once __DIR__.'/../security/InputManager.php';
+        require_once __DIR__.'/../security/ValidationManager.php';
     }
 
     private function testGenerateKey(): bool
     {
         $em = new EncryptionManager();
         $key = $em->generateKey('test1', 'test2');
+
         return $key != false;
     }
 
@@ -29,72 +30,84 @@ class Security
         $em = new EncryptionManager();
         $key = $em->generateKey('test1', 'test2');
         $encrypted = $em->encrypt($toEncrypt, $key);
-        return $em->decrypt($encrypted[0] . FILE_SEPARATOR . $encrypted[1], $key);
+
+        return $em->decrypt($encrypted[0].FILE_SEPARATOR.$encrypted[1], $key);
     }
 
     private function testHashString($toHash): string
     {
         $hm = new HashManager();
+
         return $hm->hashString($toHash);
     }
 
     private function testHashUser($toHash): string
     {
         $hm = new HashManager();
+
         return $hm->hashUser($toHash);
     }
 
     private function testGenerateUniqueId($toID): string
     {
         $hm = new HashManager();
+
         return $hm->generateUniqueId($toID);
     }
 
     private function testGenerateChecksum($toGenerate): string
     {
         $hm = new HashManager();
+
         return $hm->generateChecksum($toGenerate);
     }
 
     private function testEscapeString($toEscape): string
     {
         $im = new InputManager();
+
         return $im->escapeString($toEscape);
     }
 
     private function testStripSlashes($toStrip): string
     {
         $im = new InputManager();
+
         return $im->stripSlashes($toStrip);
     }
 
     private function testValidatePasswordStrength($password): bool
     {
         $vm = new ValidationManager();
+
         return $vm->validatePasswordStrength($password);
     }
 
     private function testValidateUsername($username): bool
     {
         $vm = new ValidationManager();
+
         return $vm->validateUsername($username);
     }
 
     private function testCSRF($username): bool
     {
         $vm = new ValidationManager();
+
         return $vm->csrfValidate($vm->csrfToken());
     }
 
     private function testIsNull(): bool
     {
         $vm = new ValidationManager();
+
         return $vm->isNull(null);
     }
 
     private function testIsEmpty(): bool
     {
         $vm = new ValidationManager();
+
         return $vm->isNull('');
     }
 
@@ -206,7 +219,7 @@ class Security
         }
         echo PHP_EOL;
 
-        echo '[SECURITY] ' . $pass . '/13 tests passed.' . PHP_EOL;
+        echo '[SECURITY] '.$pass.'/13 tests passed.'.PHP_EOL;
 
         return $pass;
     }
