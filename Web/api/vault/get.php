@@ -4,6 +4,7 @@ use Vault\api\ApiError;
 use Vault\data\DataManager;
 use Vault\data\UserManager;
 use Vault\security\EncryptionManager;
+use Vault\security\HashManager;
 use Vault\security\InputManager;
 use Vault\security\ValidationManager;
 
@@ -20,13 +21,13 @@ if (isset($_GET['user']) && isset($_GET['key'])) {
 
     $dm = new DataManager();
     $em = new EncryptionManager();
-    $vm = new ValidationManager();
+    $hm = new HashManager();
 
     $user = $im->escapeString($_GET['user']);
     $vault = $dm->getVault($user, $_GET['key']);
     $vault = [
         'data'        => $vault,
-        'checksum'    => $vm->generateChecksum(json_encode($vault)),
+        'checksum'    => $hm->generateChecksum(json_encode($vault)),
         'last_change' => $um->getLastChange($_GET['user']),
     ];
 
