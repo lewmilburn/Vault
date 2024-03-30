@@ -33,7 +33,7 @@ class HashManager
         }
     }
 
-    public function generateChecksum($string)
+    public function generateChecksum($string): string
     {
         return hash(CHECKSUM_HASH, $string);
     }
