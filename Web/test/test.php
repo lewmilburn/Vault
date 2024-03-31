@@ -27,5 +27,5 @@ $authentication = new Authentication();
 $pass += $authentication->run();
 
 echo PHP_EOL;
-echo $pass.'/16 tests passed.';
+echo $pass.'/18 tests passed.';
 echo PHP_EOL;
