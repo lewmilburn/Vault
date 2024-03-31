@@ -3,12 +3,10 @@
 session_start();
 
 use Vault\test\Authentication;
-use Vault\test\Event;
 use Vault\test\Security;
-use Vault\test\Data;
 
-require_once __DIR__.'/data/testConst.php';
-require_once __DIR__.'/data/testSettings.php';
+require_once __DIR__.'/../data/const.php';
+require_once __DIR__.'/../settings.php';
 
 require_once __DIR__.'/Security.php';
 require_once __DIR__.'/Authentication.php';
