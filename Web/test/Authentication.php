@@ -35,12 +35,14 @@ class Authentication
     private function testLogin(): bool
     {
         $am = new AuthenticationManager();
+
         return $am->login('test', 'test');
     }
 
     private function testAuthenticated(): bool
     {
         $am = new AuthenticationManager();
+
         return $am->authenticated();
     }
 
