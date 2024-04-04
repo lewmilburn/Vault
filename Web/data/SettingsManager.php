@@ -6,6 +6,7 @@ class SettingsManager {
     public function update(
         $env,
         $storage_type,
+        $allow_registration,
         $users_file,
         $secure_location,
         $file_separator,
@@ -24,6 +25,7 @@ class SettingsManager {
         $data = "<?php
 const ENV = {$env};
 const STORAGE_TYPE = {$storage_type};
+const ALLOW_REGISTRATION = {$allow_registration};
 const USERS_FILE = '{$users_file}';
 const SECURE_LOCATION = '{$secure_location}';
 const FILE_SEPARATOR = '{$file_separator}';
