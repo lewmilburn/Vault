@@ -290,9 +290,10 @@ if (isset($_POST['submit'])) {
                     </div>
                     <button class="btn-green" id="submit" name="submit">Save</button>
                 </form>
-                <?php } else { ?>
-                    <p>You have no settings available to you.</p>
-                <?php } ?>
+                <?php } else {
+                    header('Location: / ');
+                    exit;
+                } ?>
             </main>
         </div>
     </body>
