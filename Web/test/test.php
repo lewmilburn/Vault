@@ -15,9 +15,9 @@ echo '[WARNING] This script should NOT be distributed or uploaded to a Vault ser
 echo '[WARNING] It is a test script designed to identify if there are issues with the Vault codebase.'.PHP_EOL;
 echo '[WARNING] Enter "Y" to continue.'.PHP_EOL;
 
-$handle = fopen ("php://stdin","r");
+$handle = fopen('php://stdin', 'r');
 $line = fgets($handle);
-if(strtoupper(trim($line)) != 'Y'){
+if (strtoupper(trim($line)) != 'Y') {
     echo PHP_EOL;
     echo "Cancelled testing.\n";
     fclose($handle);
