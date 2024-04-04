@@ -15,7 +15,7 @@
     <body class="flex w-screen h-screen">
         <nav class="flex flex-col bg-blue-700 p-0">
             <i class="fa-solid fa-house btn-sidebar" title="Dashboard"></i>
-            <i class="fa-solid fa-cog btn-sidebar" title="Settings"></i>
+            <i class="fa-solid fa-cog btn-sidebar" title="Settings" onclick="document.getElementById('settings').classList.remove('hidden')"></i>
             <span class="flex-grow"></span>
             <i class="fa-solid fa-lock btn-sidebar" title="Secured with AEAD Encryption"></i>
             <i class="fa-solid fa-circle-xmark btn-sidebar" title="Close Vault" onclick="shutdown()"></i>
@@ -114,6 +114,49 @@
                                     Delete
                                 </button>
                             </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="settings" class="hidden absolute top-0 left-0 right-0 bottom-0 bg-black/50">
+                    <div class="absolute top-10 left-10 right-10 bottom-10 bg-white">
+                        <header>
+                            <p>Settings</p>
+                        </header>
+
+                        Software Settings<br>
+                        <div class="grid-std">
+                            <label for="vault.sync_server_url">Sync Server URL</label>
+                            <input id="vault.sync_server_url">
+
+                            <label for="vault.allow_offline_mode">Allow Offline Mode</label>
+                            <select id="vault.allow_offline_mode">
+                                <option value="true">True</option>
+                                <option value="false">False</option>
+                            </select>
+
+                            <label for="vault.force_offline_mode">Force Offline Mode</label>
+                            <select id="vault.force_offline_mode">
+                                <option value="true">True</option>
+                                <option value="false">False</option>
+                            </select>
+                        </div>
+
+                        <br>
+
+                        App Settings<br>
+                        <div class="grid-std">
+                            <label for="vault.window_width">Sync Server URL</label>
+                            <input id="vault.window_width">
+
+                            <label for="vault.window_height">Allow Offline Mode</label>
+                            <input id="vault.window_height">
+
+                            <label for="vault.cache_encryption_method">Cache Encryption Method</label>
+                            <select id="vault.cache_encryption_method">
+                                <option value="AES-256-GCM">AES-256-GCM (Recommended)</option>
+                                <option value="AES-192-GCM">AES-192-GCM</option>
+                                <option value="AES-128-GCM">AES-128-GCM</option>
+                            </select>
                         </div>
                     </div>
                 </div>
