@@ -20,13 +20,15 @@ $auth = new AuthenticationManager();
 if ($auth->authenticated()) {
     $router->getRequest('', 'view/dashboard.php');
     $router->getRequest('/logout', 'event/logout.php');
+    $router->getRequest('/users', 'view/users.php');
     $router->getRequest('/settings', 'view/settings.php');
+    $router->postRequest('/settings', 'view/settings.php');
 } else {
     $router->getRequest('', 'view/login.php');
     if (ALLOW_REGISTRATION) {
         $router->getRequest('/register', 'view/register.php');
+        $router->postRequest('/reg', 'event/register.php');
     }
-    $router->getRequest('/reg', 'event/register.php');
     $router->postRequest('/auth', 'event/login.php');
 
     $router->anyRequest('/api/auth/login', 'api/authentication/login.php');

@@ -95,7 +95,7 @@ class ValidationManager
     {
         if ($string == null) {
             $em = new ErrorHandler();
-            if ($stringName == null) {
+            if ($stringName === null) {
                 $em->error(
                     'security',
                     'ValidationManager',

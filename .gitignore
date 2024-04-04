@@ -1,5 +1,4 @@
 /.idea/
-/Web/users.json
 /Web/*.vault
 /Web/run.json
 /Web/node_modules/
@@ -11,6 +10,8 @@
 /Web/vendor/phpunit
 /Web/vendor/sebastian
 /Web/vendor/theseer
+/Web/.idea/
+/Client/.idea/
 /Client/node_modules/
 /Client/dist/
 /Client/*.cache

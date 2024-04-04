@@ -59,10 +59,22 @@ class ErrorHandler
                     <tr>
                         <th scope="row">Request URI</th>
                         <td>'.htmlspecialchars($_SERVER['REQUEST_URI']).'</td>
-                    </tr
+                    </tr>
                     <tr>
                         <th scope="row">Request Method</th>
                         <td>'.htmlspecialchars($_SERVER['REQUEST_METHOD']).'</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">_SESSION</th>
+                        <td>'.var_dump($_SESSION).'</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">_POST</th>
+                        <td>'.var_dump($_POST).'</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">_GET</th>
+                        <td>'.var_dump($_GET).'</td>
                     </tr>';
             }
             echo '</table>
