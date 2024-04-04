@@ -100,12 +100,8 @@ if (isset($_POST['submit'])) {
         <?php require_once __DIR__.'/common/head.php'; ?>
     </head>
     <body class="flex w-screen h-screen">
-        <nav class="flex flex-col bg-blue-700 p-0">
-            <i class="fa-solid fa-house btn-sidebar" title="Dashboard" onclick="window.location = '/'"></i>
-            <i class="fa-solid fa-cog btn-sidebar" title="Settings" onclick="window.location = '/settings'"></i>
-            <span class="flex-grow"></span>
-            <i class="fa-solid fa-lock btn-sidebar" title="Secured with AEAD Encryption"></i>
-        </nav>
+        <?php require_once __DIR__.'/common/sidebar.php'; ?>
+
         <div class="flex-grow">
             <?php require_once __DIR__.'/common/alerts.php';?>
 
@@ -128,8 +124,12 @@ if (isset($_POST['submit'])) {
                         <div class="grid">
                             <label for="ENV">Environment</label>
                             <select id="ENV" name="ENV" class="w-full">
-                                <option value="DEV"<?php if (ENV==DEV) { ?> selected<?php } ?>>Development</option>
-                                <option value="PROD"<?php if (ENV==PROD) { ?> selected<?php } ?>>Production (Recommended)</option>
+                                <option value="DEV"<?php if (ENV==DEV) { ?> selected<?php } ?>>
+                                    Development
+                                </option>
+                                <option value="PROD"<?php if (ENV==PROD) { ?> selected<?php } ?>>
+                                    Production (Recommended)
+                                </option>
                             </select>
                         </div>
 

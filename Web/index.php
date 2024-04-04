@@ -20,6 +20,7 @@ $auth = new AuthenticationManager();
 if ($auth->authenticated()) {
     $router->getRequest('', 'view/dashboard.php');
     $router->getRequest('/logout', 'event/logout.php');
+    $router->getRequest('/users', 'view/users.php');
     $router->getRequest('/settings', 'view/settings.php');
     $router->postRequest('/settings', 'view/settings.php');
 } else {
