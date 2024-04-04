@@ -26,7 +26,7 @@ if (isset($_POST['user']) && isset($_POST['pass']) && ALLOW_REGISTRATION) {
     }
 
     $dm = new DataManager();
-    if (!$dm->createUser($user,$pass,1)) {
+    if (!$dm->createUser($user,$pass,0)) {
         header('Location: /register/?rf=userExists');
         exit;
     }
