@@ -66,15 +66,57 @@ class ErrorHandler
                     </tr>
                     <tr>
                         <th scope="row">_SESSION</th>
-                        <td>'.var_dump($_SESSION).'</td>
+                        <td>
+                        <table>';
+                foreach ($_SESSION as $key => $value) {
+                    echo '<tr>';
+                    echo '<td>';
+                    echo htmlspecialchars($key);
+                    echo '</td>';
+                    echo '<td>';
+                    echo htmlspecialchars($value);
+                    echo '</td>';
+                    echo '</tr>';
+                }
+                echo '
+                        </table>
+                        </td>
                     </tr>
                     <tr>
                         <th scope="row">_POST</th>
-                        <td>'.var_dump($_POST).'</td>
+                        <td>
+                        <table>';
+                foreach ($_POST as $key => $value) {
+                    echo '<tr>';
+                    echo '<td>';
+                    echo htmlspecialchars($key);
+                    echo '</td>';
+                    echo '<td>';
+                    echo htmlspecialchars($value);
+                    echo '</td>';
+                    echo '</tr>';
+                }
+                echo '
+                        </table>
+                        </td>
                     </tr>
                     <tr>
                         <th scope="row">_GET</th>
-                        <td>'.var_dump($_GET).'</td>
+                        <td>
+                        <table>';
+                foreach ($_GET as $key => $value) {
+                    echo '<tr>';
+                    echo '<td>';
+                    echo htmlspecialchars($key);
+                    echo '</td>';
+                    echo '<td>';
+                    echo htmlspecialchars($value);
+                    echo '</td>';
+                    echo '</tr>';
+                }
+                echo '
+                        </table>
+                        </td>
                     </tr>';
             }
             echo '</table>

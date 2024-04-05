@@ -4,7 +4,7 @@
 ?><!DOCTYPE html>
 <html lang="en" xmlns:x-on="http://www.w3.org/1999/xhtml">
     <head>
-        <title>Vault</title>
+        <title>Vault Dashboard</title>
         <?php require_once __DIR__.'/common/head.php'; ?>
     </head>
     <body class="flex w-screen h-screen">

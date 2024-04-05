@@ -4,7 +4,7 @@ use Vault\security\ValidationManager;
 ?><!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Vault</title>
+        <title>Create an Account - Vault</title>
         <?php require_once __DIR__.'/common/head.php'; ?>
     </head>
     <body class="flex w-screen h-screen">
@@ -37,7 +37,7 @@ use Vault\security\ValidationManager;
             <?php } ?>
 
             <header class="mb-6">
-                <h1>Login to Vault.</h1>
+                <h1>Create an Account.</h1>
             </header>
 
             <main>

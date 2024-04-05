@@ -4,7 +4,7 @@ use Vault\security\ValidationManager;
 ?><!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Vault</title>
+        <title>Login to Vault</title>
         <?php require_once __DIR__.'/common/head.php'; ?>
     </head>
     <body class="flex w-screen h-screen">
