@@ -33,6 +33,9 @@ The below badges will automatically update, you can also see all information abo
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=lewmilburn_Vault&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=lewmilburn_Vault)
 [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=lewmilburn_Vault&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=lewmilburn_Vault)
 
+### Unit Tests
+You can run the ./test/test.php file to run unit tests. This folder should not be uploaded to a webserver running Vault.
+
 ## Theoretical Limits
 ### FILESYSTEM storage.
 Filesystem storage has no real limit, you can store as many passwords as you'd like, it just may slow down the more you add.

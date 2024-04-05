@@ -1,4 +1,5 @@
 <?php
+
 const ENV = DEV;
 const STORAGE_TYPE = FILESYSTEM;
 const ALLOW_REGISTRATION = false;

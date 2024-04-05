@@ -1131,6 +1131,10 @@ video {
   grid-auto-flow: column dense;
 }
 
+.grid-cols-4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
 .flex-row {
   flex-direction: row;
 }
@@ -1755,6 +1759,11 @@ video {
 .bg-blue-700 {
   --tw-bg-opacity: 1;
   background-color: rgb(29 78 216 / var(--tw-bg-opacity));
+}
+
+.bg-neutral-100 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(245 245 245 / var(--tw-bg-opacity));
 }
 
 .decoration-slice {

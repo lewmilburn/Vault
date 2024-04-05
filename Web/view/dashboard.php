@@ -4,16 +4,11 @@
 ?><!DOCTYPE html>
 <html lang="en" xmlns:x-on="http://www.w3.org/1999/xhtml">
     <head>
-        <title>Vault</title>
+        <title>Vault Dashboard</title>
         <?php require_once __DIR__.'/common/head.php'; ?>
     </head>
     <body class="flex w-screen h-screen">
-        <nav class="flex flex-col bg-blue-700 p-0">
-            <i class="fa-solid fa-house btn-sidebar" title="Dashboard" onclick="window.location = '/'"></i>
-            <i class="fa-solid fa-cog btn-sidebar" title="Settings" onclick="window.location = '/settings'"></i>
-            <span class="flex-grow"></span>
-            <i class="fa-solid fa-lock btn-sidebar" title="Secured with AEAD Encryption"></i>
-        </nav>
+        <?php require_once __DIR__.'/common/sidebar.php'; ?>
         <div class="flex-grow">
             <?php require_once __DIR__.'/common/alerts.php';?>
 

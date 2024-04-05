@@ -19,6 +19,11 @@ function updateSettings(): string|null
         return 'Invalid storage type.';
     }
 
+    $allow_registration = $im->escapeString($_POST['ALLOW_REGISTRATION']);
+    if ($allow_registration !== 'true' && $allow_registration !== 'false') {
+        return 'Invalid registration option.';
+    }
+
     $users_file = $im->escapeString($_POST['USERS_FILE']);
     if (!file_exists(__DIR__ . '/../' . $users_file)) {
         return 'Users file does not exist, please create it first then set it as the users file.';
@@ -41,12 +46,12 @@ function updateSettings(): string|null
 
     $user_hash = $im->escapeString($_POST['USER_HASH']);
     if (!in_array($user_hash, USER_HASHES)) {
-        return 'Invalid default hash.';
+        return 'Invalid user hash.';
     }
 
     $checksum_hash = $im->escapeString($_POST['CHECKSUM_HASH']);
     if (!in_array($checksum_hash, CHECKSUM_HASHES)) {
-        return 'Invalid default hash.';
+        return 'Invalid checksum hash.';
     }
 
     $db_host = $im->escapeString($_POST['DB_HOST']);
@@ -60,6 +65,7 @@ function updateSettings(): string|null
     if (!$sm->update(
         $env,
         $storage_type,
+        $allow_registration,
         $users_file,
         $secure_location,
         $file_separator,
@@ -94,12 +100,8 @@ if (isset($_POST['submit'])) {
         <?php require_once __DIR__.'/common/head.php'; ?>
     </head>
     <body class="flex w-screen h-screen">
-        <nav class="flex flex-col bg-blue-700 p-0">
-            <i class="fa-solid fa-house btn-sidebar" title="Dashboard" onclick="window.location = '/'"></i>
-            <i class="fa-solid fa-cog btn-sidebar" title="Settings" onclick="window.location = '/settings'"></i>
-            <span class="flex-grow"></span>
-            <i class="fa-solid fa-lock btn-sidebar" title="Secured with AEAD Encryption"></i>
-        </nav>
+        <?php require_once __DIR__.'/common/sidebar.php'; ?>
+
         <div class="flex-grow">
             <?php require_once __DIR__.'/common/alerts.php';?>
 
@@ -122,8 +124,12 @@ if (isset($_POST['submit'])) {
                         <div class="grid">
                             <label for="ENV">Environment</label>
                             <select id="ENV" name="ENV" class="w-full">
-                                <option value="DEV"<?php if (ENV==DEV) { ?> selected<?php } ?>>Development</option>
-                                <option value="PROD"<?php if (ENV==PROD) { ?> selected<?php } ?>>Production (Recommended)</option>
+                                <option value="DEV"<?php if (ENV==DEV) { ?> selected<?php } ?>>
+                                    Development
+                                </option>
+                                <option value="PROD"<?php if (ENV==PROD) { ?> selected<?php } ?>>
+                                    Production (Recommended)
+                                </option>
                             </select>
                         </div>
 
@@ -142,6 +148,22 @@ if (isset($_POST['submit'])) {
                                     value="DATABASE"<?php if (STORAGE_TYPE==DATABASE) { ?> selected<?php } ?>
                                 >
                                     Database
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="grid">
+                            <label for="ALLOW_REGISTRATION">Allow Registration</label>
+                            <select id="ALLOW_REGISTRATION" name="ALLOW_REGISTRATION" class="w-full">
+                                <option
+                                        value="true"<?php if (ALLOW_REGISTRATION) { ?> selected<?php } ?>
+                                >
+                                    Yes
+                                </option>
+                                <option
+                                        value="DATABASE"<?php if (!ALLOW_REGISTRATION) { ?> selected<?php } ?>
+                                >
+                                    No
                                 </option>
                             </select>
                         </div>
@@ -268,9 +290,10 @@ if (isset($_POST['submit'])) {
                     </div>
                     <button class="btn-green" id="submit" name="submit">Save</button>
                 </form>
-                <?php } else { ?>
-                    <p>You have no settings available to you.</p>
-                <?php } ?>
+                <?php } else {
+                    header('Location: / ');
+                    exit;
+                } ?>
             </main>
         </div>
     </body>

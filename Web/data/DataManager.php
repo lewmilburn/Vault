@@ -44,7 +44,6 @@ class DataManager
         $vm = new ValidationManager();
         $vm->throwNull($username, 'createUser');
         $vm->throwNull($password, 'createUser');
-        $vm->throwNull($role, 'createUser');
 
         $password = password_hash($password, PASSWORD_DEFAULT);
         $username = trim($username);

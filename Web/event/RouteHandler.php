@@ -45,8 +45,8 @@ class RouteHandler
     #[NoReturn]
     public function endRouter(): void
     {
-        $eh = new ErrorHandler();
-        $eh->fileNotFound('event', 'routeHandler', 'endRouter');
+        header('Location: /');
+        exit;
     }
 
     #[NoReturn]

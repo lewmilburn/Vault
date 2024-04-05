@@ -4,7 +4,7 @@ use Vault\security\ValidationManager;
 ?><!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Vault</title>
+        <title>Create an Account - Vault</title>
         <?php require_once __DIR__.'/common/head.php'; ?>
     </head>
     <body class="flex w-screen h-screen">
@@ -16,25 +16,28 @@ use Vault\security\ValidationManager;
             <?php require_once __DIR__.'/common/alerts.php'; ?>
 
             <?php if (isset($_GET['rf'])) { ?>
-                <?php if ($_GET['rf'] == 'csrf') { ?>
+                <?php if (isset($_GET['rf']) && $_GET['rf'] == 'userExists') { ?>
                     <div class="alert-red">
-                        A possible cross-site request forgery attempt was detected and this login was aborted.
+                        Setup failed, a user with this account name already exists.
                     </div>
                 <?php } ?>
-                <?php if ($_GET['rf'] == 'none') { ?>
+                <?php if (isset($_GET['rf']) && $_GET['rf'] == 'pass') { ?>
                     <div class="alert-red">
-                        Please enter a username and password.
+                        Your password must contain 8 characters,
+                        including at least 1 uppercase,
+                        1 lowercase, 1 number, and 1 symbol.
                     </div>
                 <?php } ?>
-                <?php if ($_GET['rf'] == 'wrong') { ?>
+                <?php if (isset($_GET['rf']) && $_GET['rf'] == 'user') { ?>
                     <div class="alert-red">
-                        Incorrect username or password.
+                        Your username must be at least 4 characters
+                        and can not include any symbols.
                     </div>
                 <?php } ?>
             <?php } ?>
 
             <header class="mb-6">
-                <h1>Login to Vault.</h1>
+                <h1>Create an Account.</h1>
             </header>
 
             <main>

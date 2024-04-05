@@ -95,7 +95,7 @@ class ValidationManager
     {
         if ($string == null) {
             $em = new ErrorHandler();
-            if ($stringName == null) {
+            if ($stringName === null) {
                 $em->error(
                     'security',
                     'ValidationManager',
@@ -123,10 +123,5 @@ class ValidationManager
     public function isEmpty($string): bool
     {
         return $string === null || trim($string) === '';
-    }
-
-    public function generateChecksum($string): string
-    {
-        return hash('sha3-512', $string);
     }
 }

@@ -2,10 +2,12 @@
 
 namespace Vault;
 
-class SettingsManager {
+class SettingsManager
+{
     public function update(
         $env,
         $storage_type,
+        $allow_registration,
         $users_file,
         $secure_location,
         $file_separator,
@@ -19,11 +21,11 @@ class SettingsManager {
         $db_port,
         $db_socket,
         $db_prefix
-    ): bool|int
-    {
+    ): bool|int {
         $data = "<?php
 const ENV = {$env};
 const STORAGE_TYPE = {$storage_type};
+const ALLOW_REGISTRATION = {$allow_registration};
 const USERS_FILE = '{$users_file}';
 const SECURE_LOCATION = '{$secure_location}';
 const FILE_SEPARATOR = '{$file_separator}';
@@ -37,6 +39,7 @@ const DB_PASS = '{$db_pass}';
 const DB_PORT = {$db_port};
 const DB_SOCKET = '{$db_socket}';
 const DB_PREFIX = '{$db_prefix}';";
-        return file_put_contents(__DIR__ . '/../settings.php', $data);
+
+        return file_put_contents(__DIR__.'/../settings.php', $data);
     }
 }
