@@ -68,17 +68,17 @@ class ErrorHandler
                         <th scope="row">_SESSION</th>
                         <td>
                         <table>';
-                            foreach ($_SESSION as $key => $value) {
-                                echo "<tr>";
-                                echo "<td>";
-                                echo htmlspecialchars($key);
-                                echo "</td>";
-                                echo "<td>";
-                                echo htmlspecialchars($value);
-                                echo "</td>";
-                                echo "</tr>";
-                            }
-                            echo '
+                foreach ($_SESSION as $key => $value) {
+                    echo '<tr>';
+                    echo '<td>';
+                    echo htmlspecialchars($key);
+                    echo '</td>';
+                    echo '<td>';
+                    echo htmlspecialchars($value);
+                    echo '</td>';
+                    echo '</tr>';
+                }
+                echo '
                         </table>
                         </td>
                     </tr>
@@ -87,14 +87,14 @@ class ErrorHandler
                         <td>
                         <table>';
                 foreach ($_POST as $key => $value) {
-                    echo "<tr>";
-                    echo "<td>";
+                    echo '<tr>';
+                    echo '<td>';
                     echo htmlspecialchars($key);
-                    echo "</td>";
-                    echo "<td>";
+                    echo '</td>';
+                    echo '<td>';
                     echo htmlspecialchars($value);
-                    echo "</td>";
-                    echo "</tr>";
+                    echo '</td>';
+                    echo '</tr>';
                 }
                 echo '
                         </table>
@@ -105,14 +105,14 @@ class ErrorHandler
                         <td>
                         <table>';
                 foreach ($_GET as $key => $value) {
-                    echo "<tr>";
-                    echo "<td>";
+                    echo '<tr>';
+                    echo '<td>';
                     echo htmlspecialchars($key);
-                    echo "</td>";
-                    echo "<td>";
+                    echo '</td>';
+                    echo '<td>';
                     echo htmlspecialchars($value);
-                    echo "</td>";
-                    echo "</tr>";
+                    echo '</td>';
+                    echo '</tr>';
                 }
                 echo '
                         </table>
