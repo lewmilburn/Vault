@@ -71,10 +71,10 @@ class ErrorHandler
                             foreach ($_SESSION as $key => $value) {
                                 echo "<tr>";
                                 echo "<td>";
-                                echo $key;
+                                echo htmlspecialchars($key);
                                 echo "</td>";
                                 echo "<td>";
-                                echo $value;
+                                echo htmlspecialchars($value);
                                 echo "</td>";
                                 echo "</tr>";
                             }
@@ -89,10 +89,10 @@ class ErrorHandler
                 foreach ($_POST as $key => $value) {
                     echo "<tr>";
                     echo "<td>";
-                    echo $key;
+                    echo htmlspecialchars($key);
                     echo "</td>";
                     echo "<td>";
-                    echo $value;
+                    echo htmlspecialchars($value);
                     echo "</td>";
                     echo "</tr>";
                 }
@@ -107,10 +107,10 @@ class ErrorHandler
                 foreach ($_GET as $key => $value) {
                     echo "<tr>";
                     echo "<td>";
-                    echo $key;
+                    echo htmlspecialchars($key);
                     echo "</td>";
                     echo "<td>";
-                    echo $value;
+                    echo htmlspecialchars($value);
                     echo "</td>";
                     echo "</tr>";
                 }
