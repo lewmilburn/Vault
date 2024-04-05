@@ -14,11 +14,29 @@
     </head>
     <body class="flex w-screen h-screen">
         <nav class="flex flex-col bg-blue-700 p-0">
-            <i class="fa-solid fa-house btn-sidebar" title="Dashboard"></i>
-            <i class="fa-solid fa-cog btn-sidebar" title="Settings" onclick="document.getElementById('settings').classList.remove('hidden')"></i>
+            <i
+                class="fa-solid fa-house btn-sidebar"
+                title="Dashboard"
+                onclick="screenDashboard()"
+                role="button"
+            ></i>
+            <i
+                class="fa-solid fa-cog btn-sidebar"
+                title="Settings"
+                onclick="document.getElementById('settings').classList.remove('hidden')"
+                role="button"
+            ></i>
             <span class="flex-grow"></span>
-            <i class="fa-solid fa-lock btn-sidebar" title="Secured with AEAD Encryption"></i>
-            <i class="fa-solid fa-circle-xmark btn-sidebar" title="Close Vault" onclick="shutdown()"></i>
+            <i
+               class="fa-solid fa-lock btn-sidebar"
+               title="Secured with AEAD Encryption"
+            ></i>
+            <i
+               class="fa-solid fa-circle-xmark btn-sidebar"
+               title="Close Vault"
+               onclick="shutdown()"
+               role="button"
+            ></i>
         </nav>
         <div class="flex-grow">
             <header>
@@ -117,7 +135,7 @@
                         </div>
                     </div>
                 </div>
-                <div id="settings" class="hidden absolute top-0 left-0 right-0 bottom-0 bg-black/50">
+                <div id="settings" class="hidden absolute top-0 left-0 right-0 bottom-0 bg-black/50" role="dialog">
                     <div class="absolute top-10 left-10 right-10 bottom-10 bg-white">
                         <header>
                             <p>Settings</p>
@@ -160,7 +178,7 @@
                         </div>
                     </div>
                 </div>
-                <div id="syncmismatch" class="hidden absolute top-0 left-0 right-0 bottom-0 bg-black/50">
+                <div id="syncmismatch" class="hidden absolute top-0 left-0 right-0 bottom-0 bg-black/50" role="dialog">
                     <div class="absolute top-10 left-10 right-10 bottom-10 bg-white">
                         <header>
                             <p>Sync Mismatch</p>

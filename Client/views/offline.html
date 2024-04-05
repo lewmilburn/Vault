@@ -12,10 +12,25 @@
     </head>
     <body class="flex w-screen h-screen">
         <nav class="flex flex-col bg-blue-700 p-0">
-            <i class="fa-solid fa-arrow-right-to-bracket btn-sidebar" title="Continue Offline" onclick="goOffline()"></i>
-            <i class="fa-solid fa-rotate btn-sidebar" title="Retry" onclick="screenLogin()"></i>
+            <i
+                    class="fa-solid fa-arrow-right-to-bracket btn-sidebar"
+                    title="Continue Offline"
+                    onclick="goOffline()"
+                    role="button"
+            ></i>
+            <i
+                    class="fa-solid fa-rotate btn-sidebar"
+                    title="Retry"
+                    onclick="screenLogin()"
+                    role="button"
+            ></i>
             <span class="flex-grow"></span>
-            <i class="fa-solid fa-circle-xmark btn-sidebar" title="Close Vault" onclick="shutdown()"></i>
+            <i
+                    class="fa-solid fa-circle-xmark btn-sidebar"
+                    title="Close Vault"
+                    onclick="shutdown()"
+                    role="button"
+            ></i>
         </nav>
         <div class="flex-grow">
             <header class="mb-6">
