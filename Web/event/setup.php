@@ -4,7 +4,7 @@ use Vault\data\DataManager;
 use Vault\data\FileManager;
 use Vault\security\InputManager;
 use Vault\security\ValidationManager;
-use Vault\SettingsManager;
+use Vault\data\SettingsManager;
 
 $setup = true;
 require_once __DIR__ . '/../autoload.php';
@@ -32,86 +32,11 @@ if (isset($_POST['user']) && isset($_POST['pass'])) {
     $im = new InputManager();
     $sm = new SettingsManager();
 
-    $env = $im->escapeString($_POST['ENV']);
-    if ($env !== 'DEV' && $env !== 'PROD') {
-        header('Location: /?sfr=Invalid environment.');
+    $result = $sm->updateFromPost();
+    if ($result !== null) {
+        header('Location: /?sfr='.$result);
         exit;
     }
-
-    $storage_type = $im->escapeString($_POST['STORAGE_TYPE']);
-    if ($storage_type !== 'FILESYSTEM' && $storage_type !== 'DATABASE') {
-        header('Location: /?sfr=Invalid storage type.');
-        exit;
-    }
-
-    $allow_registration = $im->escapeString($_POST['ALLOW_REGISTRATION']);
-    if ($allow_registration !== 'true' && $allow_registration !== 'false') {
-        header('Location: /?sfr=Invalid registration option.');
-        exit;
-    }
-
-    $users_file = $im->escapeString($_POST['USERS_FILE']);
-    if (!file_exists(__DIR__ . '/../' . $users_file)) {
-        header('Location: /?sfr=Users file does not exist, please create it first then set it as the users file.');
-        exit;
-    }
-
-    $secure_location = $im->escapeString($_POST['SECURE_LOCATION']);
-    if (!is_dir(__DIR__ . '/../' . $secure_location)) {
-        header('Location: /?sfr=Secure location does not exist, please create it first then set it as the secure location.');
-        exit;
-    }
-
-    $file_separator = $im->escapeString($_POST['FILE_SEPARATOR']);
-    if ($file_separator == '' || $file_separator == '$') {
-        header('Location: /?sfr=Invalid file separator.');
-        exit;
-    }
-
-    $default_hash = $im->escapeString($_POST['DEFAULT_HASH']);
-    if (!in_array($default_hash, SECURE_HASHES)) {
-        header('Location: /?sfr=Invalid default hash.');
-        exit;
-    }
-
-    $user_hash = $im->escapeString($_POST['USER_HASH']);
-    if (!in_array($user_hash, USER_HASHES)) {
-        header('Location: /?sfr=Invalid user hash.');
-        exit;
-    }
-
-    $checksum_hash = $im->escapeString($_POST['CHECKSUM_HASH']);
-    if (!in_array($checksum_hash, CHECKSUM_HASHES)) {
-        header('Location: /?sfr=Invalid checksum hash.');
-        exit;
-    }
-
-    $db_host = $im->escapeString($_POST['DB_HOST']);
-    $db_name = $im->escapeString($_POST['DB_NAME']);
-    $db_user = $im->escapeString($_POST['DB_USER']);
-    $db_pass = $im->escapeString($_POST['DB_PASS']);
-    $db_port = $im->escapeString($_POST['DB_PORT']);
-    $db_socket = $im->escapeString($_POST['DB_SOCKET']);
-    $db_prefix = $im->escapeString($_POST['DB_PREFIX']);
-
-    $sm->update(
-        $env,
-        $storage_type,
-        $allow_registration,
-        $users_file,
-        $secure_location,
-        $file_separator,
-        $default_hash,
-        $user_hash,
-        $checksum_hash,
-        $db_host,
-        $db_name,
-        $db_user,
-        $db_pass,
-        $db_port,
-        $db_socket,
-        $db_prefix
-    );
 
     $dm = new DataManager();
     if (!$dm->createUser($user, $pass, 1)) {
