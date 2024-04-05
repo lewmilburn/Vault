@@ -65,12 +65,12 @@ const DB_PREFIX = '{$db_prefix}';";
         }
 
         $users_file = $im->escapeString($_POST['USERS_FILE']);
-        if (!file_exists(__DIR__ . '/../' . $users_file)) {
+        if (!file_exists(__DIR__.'/../'.$users_file)) {
             return 'Users file does not exist, please create it first then set it as the users file.';
         }
 
         $secure_location = $im->escapeString($_POST['SECURE_LOCATION']);
-        if (!is_dir(__DIR__ . '/../' . $secure_location)) {
+        if (!is_dir(__DIR__.'/../'.$secure_location)) {
             return 'Secure location does not exist, please create it first then set it as the secure location.';
         }
 
