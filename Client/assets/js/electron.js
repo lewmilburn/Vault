@@ -7,14 +7,14 @@ window.bridge.sendSettings((event, vaultSettings) => {
     console.log(settings);
 
     document.getElementById('vault.sync_server_url').value = settings.VAULT.SYNC_SERVER_URL;
-
-    if (settings.VAULT.ALLOW_OFFLINE_MODE === true) {
+    console.log(settings.VAULT.ALLOW_OFFLINE_MODE);
+    if (settings.VAULT.ALLOW_OFFLINE_MODE === "true") {
         document.getElementById('vault.allow_offline_mode').options[0].selected = true;
     } else {
         document.getElementById('vault.allow_offline_mode').options[1].selected = true;
     }
 
-    if (settings.VAULT.FORCE_OFFLINE_MODE === true) {
+    if (settings.VAULT.FORCE_OFFLINE_MODE === "true") {
         document.getElementById('vault.force_offline_mode').options[0].selected = true;
     } else {
         document.getElementById('vault.force_offline_mode').options[1].selected = true;
