@@ -1,5 +1,5 @@
 function loadCache(override = false) {
-    if ((localStorage.getItem('using-cache') === 'true' && settings.ALLOW_OFFLINE_MODE) || override === true) {
+    if ((localStorage.getItem('using-cache') === 'true' && settings.VAULT.ALLOW_OFFLINE_MODE) || override === true) {
         requestCache();
 
         window.bridge.recieveCache((event, cache) => {

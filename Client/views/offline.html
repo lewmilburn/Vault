@@ -58,12 +58,12 @@
             async function js() {
                 await waitForSettings();
 
-                document.getElementById('serverURL').innerText = settings.SYNC_SERVER_URL;
+                document.getElementById('serverURL').innerText = settings.VAULT.SYNC_SERVER_URL;
 
-                if (localStorage.getItem('key') !== null && settings.ALLOW_OFFLINE_MODE) {
+                if (localStorage.getItem('key') !== null && settings.VAULT.ALLOW_OFFLINE_MODE) {
                     document.getElementById('cache').classList.remove('hidden');
 
-                    if (settings.FORCE_OFFLINE_MODE) {
+                    if (settings.VAULT.FORCE_OFFLINE_MODE) {
                         goOffline();
                     }
                 } else {

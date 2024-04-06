@@ -1,7 +1,7 @@
 async function checkStatus() {
     await waitForSettings(settings);
     if (localStorage.getItem('using-cache') === 'false') {
-        let url = settings.SYNC_SERVER_URL + '/api/status/';
+        let url = settings.VAULT.SYNC_SERVER_URL + '/api/status/';
         fetch(url, {
             method: 'GET',
             headers: {'Content-Type': 'application/json'},
@@ -20,7 +20,7 @@ async function checkStatus() {
 async function checkStatusFirst() {
     await waitForSettings(settings);
     if (localStorage.getItem('using-cache') === 'false') {
-        let url = settings.SYNC_SERVER_URL + '/api/status/';
+        let url = settings.VAULT.SYNC_SERVER_URL + '/api/status/';
         fetch(url, {
             method: 'GET',
             headers: {'Content-Type': 'application/json'},
