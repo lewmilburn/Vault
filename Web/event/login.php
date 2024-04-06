@@ -2,7 +2,6 @@
 
 use Vault\authentication\AuthenticationManager;
 use Vault\data\DataManager;
-use Vault\Libraries\PHPGangsta_GoogleAuthenticator;
 use Vault\security\InputManager;
 use Vault\security\ValidationManager;
 
