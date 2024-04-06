@@ -8,3 +8,8 @@ Simply upload the files to the PHP server, navigate to the www page and go throu
 > You should not use PHP > version 8.
 - PHP 8
 - MySQLi/MariaDB (Optional)
+
+## Libraries Used
+- PHPGangsta GoogleAuthenticator
+- TailwindCSS
+- jQuery

@@ -2,6 +2,7 @@
 
 use Vault\authentication\AuthenticationManager;
 use Vault\data\DataManager;
+use Vault\Libraries\PHPGangsta_GoogleAuthenticator;
 use Vault\security\InputManager;
 use Vault\security\ValidationManager;
 
@@ -18,6 +19,7 @@ $im = new InputManager();
 
 $user = $im->escapeString($_POST['user']);
 $pass = $im->escapeString($_POST['pass']);
+$code = $im->escapeString($_POST['code']);
 $token = $im->escapeString($_POST['csrf']);
 
 $vm = new ValidationManager();
@@ -31,7 +33,7 @@ if ($user == null || $pass == null) {
     exit;
 }
 
-if ($am->login($user, $pass)) {
+if ($am->login($user, $pass, $code)) {
     header($homeLocation);
 } else {
     header($homeLocation.'?lf=wrong');

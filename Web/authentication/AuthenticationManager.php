@@ -4,11 +4,12 @@ namespace Vault\authentication;
 
 use Vault\Data\DataManager;
 use Vault\Event\ErrorHandler;
+use Vault\Libraries\PHPGangsta_GoogleAuthenticator;
 use Vault\security\EncryptionManager;
 
 class AuthenticationManager
 {
-    public function login(string $username, string $password)
+    public function login(string $username, string $password, int $code)
     {
         if ($username == null || $password == null) {
             return false;
@@ -20,6 +21,13 @@ class AuthenticationManager
 
             if ($user == null) {
                 return false;
+            }
+
+            $factor = new PHPGangsta_GoogleAuthenticator();
+
+            if (!$factor->verifyCode($user->secret, $code)) {
+                header('Location: /?lf=code');
+                exit;
             }
 
             if (password_verify($password, $user->pass)) {
