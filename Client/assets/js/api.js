@@ -5,7 +5,7 @@ async function getVault (override = false) {
     document.getElementById('passwordGrid').innerHTML = '';
     addNewPasswordButton();
     if (localStorage.getItem('using-cache') === 'false') {
-        let url = settings.SYNC_SERVER_URL + '/api/vault?user=' + localStorage.getItem("user") + '&key=' + localStorage.getItem("key");
+        let url = settings.VAULT.SYNC_SERVER_URL + '/api/vault?user=' + localStorage.getItem("user") + '&key=' + localStorage.getItem("key");
         fetch(url, {
             method: 'GET',
             headers: {'Content-Type': 'application/json'},
@@ -15,7 +15,7 @@ async function getVault (override = false) {
                     requestUser();
 
                     window.bridge.recieveUserData((event, user) => {
-                        if (user.last_change !== jsonResponse.last_change && override === false && settings.ALLOW_OFFLINE_MODE === true) {
+                        if (user.last_change !== jsonResponse.last_change && override === false && settings.VAULT.ALLOW_OFFLINE_MODE === true) {
                             loadCache(true);
                             syncMismatch(user.last_change, jsonResponse.last_change);
                         } else {
@@ -80,7 +80,7 @@ function deletePassword (id) {
 }
 
 function sendRequest(type, data, successMessage, errorMessage, noReload = false) {
-    let url = settings.SYNC_SERVER_URL + '/api/password/';
+    let url = settings.VAULT.SYNC_SERVER_URL + '/api/password/';
     fetch(url, {
         method: type,
         headers: {'Content-Type': 'application/json'},

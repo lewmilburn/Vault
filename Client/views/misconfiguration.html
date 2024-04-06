@@ -38,11 +38,7 @@
 
                 reloadSettings();
 
-                if (!settings.ALLOW_OFFLINE_MODE && settings.FORCE_OFFLINE_MODE) {
-
-                } else {
-                    checkStatusFirst().then(() => {});
-                }
+                checkStatusFirst().then(() => {});
             }
         </script>
     </body>

@@ -26,7 +26,7 @@ function createWindow() {
 
     window.loadFile(nodePath.join(__dirname + '/views/loading.html'))
         .then(() => {
-            window.webContents.send('settings', settings.VAULT);
+            window.webContents.send('settings', settings);
         })
         .then(() => {
             window.name = 'Vault';
@@ -37,7 +37,12 @@ function createWindow() {
 
 ipcMain.on('request-settings', () => {
     console.log('[Vault][IPC] Renderer requested settings.');
-    window.webContents.send('settings', settings.VAULT);
+    window.webContents.send('settings', settings);
+});
+ipcMain.on('update-settings', (event, clientSettings) => {
+    console.log('[Vault][IPC] Renderer updated settings.');
+    console.log(clientSettings);
+    require(nodePath.join(__dirname + '/server_processes/writeJsonFile'))(nodePath.join(__dirname + '/settings.json'), clientSettings);
 });
 ipcMain.on('screen-offline', () => {
     console.log('[Vault][IPC] Renderer requested screen change.');
@@ -50,6 +55,10 @@ ipcMain.on('screen-login', () => {
 ipcMain.on('screen-dashboard', () => {
     console.log('[Vault][IPC] Renderer requested screen change.');
     screen('dashboard');
+});
+ipcMain.on('screen-restart', () => {
+    console.log('[Vault][IPC] Renderer requested screen change.');
+    screen('restart');
 });
 ipcMain.on('screen-misconfiguration', () => {
     console.log('[Vault][IPC] Renderer requested screen change.');

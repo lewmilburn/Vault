@@ -145,19 +145,20 @@
 
                         App Settings<br>
                         <div class="grid-std">
-                            <label for="vault.window_width">Sync Server URL</label>
-                            <input id="vault.window_width">
+                            <label for="app.window_width">Window Width</label>
+                            <input id="app.window_width">
 
-                            <label for="vault.window_height">Allow Offline Mode</label>
-                            <input id="vault.window_height">
+                            <label for="app.window_height">Window Height</label>
+                            <input id="app.window_height">
 
-                            <label for="vault.cache_encryption_method">Cache Encryption Method</label>
-                            <select id="vault.cache_encryption_method">
+                            <label for="app.cache_encryption_method">Cache Encryption Method</label>
+                            <select id="app.cache_encryption_method">
                                 <option value="AES-256-GCM">AES-256-GCM (Recommended)</option>
                                 <option value="AES-192-GCM">AES-192-GCM</option>
                                 <option value="AES-128-GCM">AES-128-GCM</option>
                             </select>
                         </div>
+                        <button onclick="updateSettings();" class="btn-primary">Save</button>
                     </div>
                 </div>
                 <div id="syncmismatch" class="hidden absolute top-0 left-0 right-0 bottom-0 bg-black/50">

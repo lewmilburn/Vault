@@ -28,8 +28,23 @@ contextBridge.exposeInMainWorld(
         },
 
         requestUser: () => {
-            let user = localStorage.getItem('user');
-            ipcRenderer.send('user-request', user);
+            ipcRenderer.send('user-request', localStorage.getItem('user'));
+        },
+
+        updateSettings: () => {
+            let settings = {
+                "VAULT": {
+                    "SYNC_SERVER_URL": document.getElementById('vault.sync_server_url').value,
+                    "ALLOW_OFFLINE_MODE": document.getElementById('vault.allow_offline_mode').value,
+                    "FORCE_OFFLINE_MODE": document.getElementById('vault.force_offline_mode').value
+                },
+                "APP": {
+                    "WINDOW_WIDTH": document.getElementById('app.window_width').value,
+                    "WINDOW_HEIGHT": document.getElementById('app.window_height').value,
+                    "CACHE_ENCRYPTION_METHOD": document.getElementById('app.cache_encryption_method').value
+                }
+            }
+            ipcRenderer.send('update-settings', settings);
         },
 
         resync: () => {
@@ -48,6 +63,10 @@ contextBridge.exposeInMainWorld(
 
         screenDashboard: () => {
             ipcRenderer.send('screen-dashboard');
+        },
+
+        screenRestart: () => {
+            ipcRenderer.send('screen-restart');
         },
 
         screenMisconfiguration: () => {

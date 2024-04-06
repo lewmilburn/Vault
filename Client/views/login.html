@@ -43,7 +43,7 @@
             async function js() {
                 await waitForSettings();
 
-                if (!settings.ALLOW_OFFLINE_MODE && settings.FORCE_OFFLINE_MODE) {
+                if (!settings.VAULT.ALLOW_OFFLINE_MODE && settings.VAULT.FORCE_OFFLINE_MODE) {
                     screenMisconfiguration();
                 } else {
                     checkStatus().then(() => {});

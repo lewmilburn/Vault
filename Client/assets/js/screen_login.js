@@ -5,7 +5,7 @@ function doLogin() {
         sendall: true
     };
 
-    let url = settings.SYNC_SERVER_URL + '/api/auth/login'
+    let url = settings.VAULT.SYNC_SERVER_URL + '/api/auth/login'
 
     fetch(url, {
         method: 'POST',
