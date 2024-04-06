@@ -39,10 +39,11 @@ ipcMain.on('request-settings', () => {
     console.log('[Vault][IPC] Renderer requested settings.');
     window.webContents.send('settings', settings);
 });
-ipcMain.on('update-settings', (event, clientSettings) => {
+ipcMain.on('update-settings', (event, user, clientSettings) => {
     console.log('[Vault][IPC] Renderer updated settings.');
     console.log(clientSettings);
     require(nodePath.join(__dirname + '/server_processes/writeJsonFile'))(nodePath.join(__dirname + '/settings.json'), clientSettings);
+    require(nodePath.join(__dirname + '/server_processes/deleteJsonFile'))(nodePath.join(__dirname + '/'+user+'.cache'));
 });
 ipcMain.on('screen-offline', () => {
     console.log('[Vault][IPC] Renderer requested screen change.');

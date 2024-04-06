@@ -4,10 +4,8 @@ window.bridge.requestSettings(() => {});
 window.bridge.sendSettings((event, vaultSettings) => {
     settings = vaultSettings;
 
-    console.log(settings);
-
     document.getElementById('vault.sync_server_url').value = settings.VAULT.SYNC_SERVER_URL;
-    console.log(settings.VAULT.ALLOW_OFFLINE_MODE);
+
     if (settings.VAULT.ALLOW_OFFLINE_MODE === "true") {
         document.getElementById('vault.allow_offline_mode').options[0].selected = true;
     } else {

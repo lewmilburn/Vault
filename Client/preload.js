@@ -44,7 +44,7 @@ contextBridge.exposeInMainWorld(
                     "CACHE_ENCRYPTION_METHOD": document.getElementById('app.cache_encryption_method').value
                 }
             }
-            ipcRenderer.send('update-settings', settings);
+            ipcRenderer.send('update-settings', localStorage.getItem('user'), settings);
         },
 
         resync: () => {
