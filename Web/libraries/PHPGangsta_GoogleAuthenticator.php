@@ -232,10 +232,10 @@ class PHPGangsta_GoogleAuthenticator
      *
      * @return bool True if the two strings are identical
      */
-    private function timingSafeEquals($safeString, $userString)
+    private function timingSafeEquals($safeString, $userString): bool
     {
         if (function_exists('hash_equals')) {
-            return hash_equals($safeString, $userString);
+            return hash_equals((string)$safeString, (string)$userString);
         }
         $safeLen = strlen($safeString);
         $userLen = strlen($userString);

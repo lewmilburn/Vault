@@ -25,6 +25,17 @@ class AuthenticationManager
 
             $factor = new PHPGangsta_GoogleAuthenticator();
 
+            if (!isset($user->secret)) {
+                $eh = new ErrorHandler();
+                $eh->error(
+                    'Vault\authentication',
+                    'AuthenticationManager',
+                    'login',
+                    'User secret is not defined.',
+                    '500'
+                );
+            }
+
             if (!$factor->verifyCode($user->secret, $code)) {
                 header('Location: /?lf=code');
                 exit;

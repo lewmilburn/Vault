@@ -40,7 +40,7 @@ class DataManager
         return $dm->getUserData($user);
     }
 
-    public function createUser(string $username, string $password, int $role): bool
+    public function createUser(string $username, string $password, int $role, string $secret): bool
     {
         $vm = new ValidationManager();
         $vm->throwNull($username, 'createUser');
@@ -56,9 +56,7 @@ class DataManager
         $username = $im->escapeString($username);
         $password = $im->escapeString($password);
         $role = $im->escapeString($role);
-
-        $factor = new PHPGangsta_GoogleAuthenticator();
-        $secret = $factor->createSecret();
+        $secret = $im->escapeString($secret);
 
         if (STORAGE_TYPE == DATABASE) {
             $dm = new DatabaseManager();

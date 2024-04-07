@@ -1,5 +1,4 @@
 <?php
-use Vault\security\InputManager;
 use Vault\data\SettingsManager;
 
 $error = null;

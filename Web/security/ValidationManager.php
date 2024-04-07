@@ -53,6 +53,8 @@ class ValidationManager
      */
     public function csrfToken(): string
     {
+        unset($_SESSION['csrf']);
+
         $hm = new HashManager();
 
         try {
