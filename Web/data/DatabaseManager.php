@@ -56,7 +56,7 @@ class DatabaseManager
         }
     }
 
-    public function createUser($username, $password, $role): bool
+    public function createUser($username, $password, $role, $secret): bool
     {
         $tableSearch = $this->db->query(
             "SHOW TABLES LIKE '".DB_PREFIX."users';"
@@ -80,8 +80,8 @@ class DatabaseManager
         if ($existingUser->num_rows == 0) {
             return $this->db->query(
                 'INSERT INTO `'.DB_PREFIX."users`
-                    (`id`, `user`, `pass`, `role`)
-                    VALUES (NULL, '".$username."', '".$password."', '".$role."')"
+                    (`id`, `user`, `pass`, `role`, `secret`)
+                    VALUES (NULL, '".$username."', '".$password."', '".$role."', '".$secret."')"
             );
         } else {
             return false;

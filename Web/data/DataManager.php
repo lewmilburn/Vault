@@ -3,6 +3,7 @@
 namespace Vault\data;
 
 use Vault\event\ErrorHandler;
+use Vault\Libraries\PHPGangsta_GoogleAuthenticator;
 use Vault\security\HashManager;
 use Vault\security\InputManager;
 use Vault\security\ValidationManager;
@@ -56,6 +57,9 @@ class DataManager
         $password = $im->escapeString($password);
         $role = $im->escapeString($role);
 
+        $factor = new PHPGangsta_GoogleAuthenticator();
+        $secret = $factor->createSecret();
+
         if (STORAGE_TYPE == DATABASE) {
             $dm = new DatabaseManager();
         } elseif (STORAGE_TYPE == FILESYSTEM) {
@@ -71,7 +75,7 @@ class DataManager
             );
         }
 
-        return $dm->createUser($username, $password, $role);
+        return $dm->createUser($username, $password, $role, $secret);
     }
 
     public function createVault(string $username, string $password): void
