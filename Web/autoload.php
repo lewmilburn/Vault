@@ -1,5 +1,7 @@
 <?php
 
+use Vault\event\ExtensionHandler;
+
 require_once __DIR__.'/data/const.php';
 require_once __DIR__.'/settings.php';
 
@@ -36,7 +38,9 @@ require_once __DIR__.'/event/RouteHandler.php';
 
 require_once __DIR__.'/api/ApiError.php';
 
-$ext = new \Vault\event\ExtensionHandler();
+require_once __DIR__.'/libraries/PHPGangsta_GoogleAuthenticator.php';
+
+$ext = new ExtensionHandler();
 $ext->vaultStartup();
 
 if (!file_exists(__DIR__.'/run.json') && !isset($setup) && !str_contains($_SERVER['REQUEST_URI'], '/api/status')) {

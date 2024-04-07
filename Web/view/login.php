@@ -1,5 +1,4 @@
 <?php
-use Vault\security\InputManager;
 use Vault\security\ValidationManager;
 ?><!DOCTYPE html>
 <html lang="en">
@@ -31,6 +30,11 @@ use Vault\security\ValidationManager;
                         Incorrect username or password.
                     </div>
                 <?php } ?>
+                <?php if ($_GET['lf'] == 'code') { ?>
+                    <div class="alert-red">
+                        Incorrect two-factor authentication code.
+                    </div>
+                <?php } ?>
             <?php } ?>
 
             <header class="mb-6">
@@ -53,6 +57,10 @@ use Vault\security\ValidationManager;
                     <div class="grid">
                         <label for="pass">Password</label>
                         <input id="pass" name="pass" type="password">
+                    </div>
+                    <div class="grid">
+                        <label for="code">Two Factor Authentication Code</label>
+                        <input id="code" name="code" type="password">
                     </div>
                     <div class="grid">
                         <button type="submit" class="btn-primary">Login</button>

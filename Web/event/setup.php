@@ -2,14 +2,21 @@
 
 use Vault\data\DataManager;
 use Vault\data\FileManager;
-use Vault\security\InputManager;
+use Vault\Libraries\PHPGangsta_GoogleAuthenticator;use Vault\security\InputManager;
 use Vault\security\ValidationManager;
 use Vault\data\SettingsManager;
 
 $setup = true;
 require_once __DIR__ . '/../autoload.php';
 
+$factor = new PHPGangsta_GoogleAuthenticator();
+
 if (isset($_POST['user']) && isset($_POST['pass'])) {
+
+    if (!$factor->verifyCode($_POST['secret'], $_POST['code'])) {
+        header('Location: /?sf=code');
+        exit;
+    }
 
     $im = new InputManager();
     $user = $im->escapeString($_POST['user']);
@@ -39,7 +46,7 @@ if (isset($_POST['user']) && isset($_POST['pass'])) {
     }
 
     $dm = new DataManager();
-    if (!$dm->createUser($user, $pass, 1)) {
+    if (!$dm->createUser($user, $pass, 1, $_POST['secret'])) {
         header('Location: /?sf=userExists');
         exit;
     }
@@ -50,7 +57,11 @@ if (isset($_POST['user']) && isset($_POST['pass'])) {
     file_put_contents(__DIR__ . '/../run.json', '{"config":true}');
 
     header('Location: /?sc');
-} else { ?><!DOCTYPE html>
+} else {
+$secret = $factor->createSecret();
+$qr = $factor->getQRCodeGoogleUrl($_SERVER['SERVER_NAME'], $secret, 'Vault');
+
+?><!DOCTYPE html>
 <html lang="en">
     <head>
         <title>Vault</title>
@@ -77,6 +88,11 @@ if (isset($_POST['user']) && isset($_POST['pass'])) {
                 and can not include any symbols.
             </div>
         <?php } ?>
+        <?php if (isset($_GET['sf']) && $_GET['sf'] == 'code') { ?>
+            <div class="alert-red">
+                Invalid two-factor authentication code.
+            </div>
+        <?php } ?>
         <?php if (isset($_GET['sfr'])) { ?>
             <div class="alert-red">
                 <?= htmlspecialchars($_GET['sfr']); ?>
@@ -96,6 +112,9 @@ if (isset($_POST['user']) && isset($_POST['pass'])) {
                         This account will be the administrator for the instance.
                         We recommend creating a separate account to store your own passwords if this is a public site.
                     </p>
+                    <div class="hidden">
+                        <input id="secret" name="secret" value="<?= $secret; ?>">
+                    </div>
                     <div class="grid">
                         <label for="user">Admin Username</label>
                         <input id="user" name="user">
@@ -103,6 +122,14 @@ if (isset($_POST['user']) && isset($_POST['pass'])) {
                     <div class="grid">
                         <label for="pass">Admin Password</label>
                         <input id="pass" name="pass" type="password">
+                    </div>
+                    <div class="grid">
+                        <label for="code">Two-factor Authentication QR Setup</label>
+                        <img src="<?= $qr; ?>" class="mx-auto" alt="Two-factor Authentication QR Setup">
+                    </div>
+                    <div class="grid">
+                        <label for="code">2FA Code</label>
+                        <input id="code" name="code" type="password">
                     </div>
 
                     <h2>Global Settings</h2>
@@ -139,7 +166,7 @@ if (isset($_POST['user']) && isset($_POST['pass'])) {
                                 Yes
                             </option>
                             <option
-                                    value="DATABASE"<?php if (!ALLOW_REGISTRATION) { ?> selected<?php } ?>
+                                    value="false"<?php if (!ALLOW_REGISTRATION) { ?> selected<?php } ?>
                             >
                                 No
                             </option>
