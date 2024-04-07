@@ -1,6 +1,9 @@
 <?php
-use Vault\security\InputManager;
+use Vault\Libraries\PHPGangsta_GoogleAuthenticator;
 use Vault\security\ValidationManager;
+$factor = new PHPGangsta_GoogleAuthenticator();
+$secret = $factor->createSecret();
+$qr = $factor->getQRCodeGoogleUrl($_SERVER['SERVER_NAME'], $secret, 'Vault');
 ?><!DOCTYPE html>
 <html lang="en">
     <head>
@@ -34,6 +37,11 @@ use Vault\security\ValidationManager;
                         and can not include any symbols.
                     </div>
                 <?php } ?>
+                <?php if (isset($_GET['rf']) && $_GET['rf'] == 'user') { ?>
+                    <div class="alert-red">
+                        Invalid two-factor authentication code.
+                    </div>
+                <?php } ?>
             <?php } ?>
 
             <header class="mb-6">
@@ -42,6 +50,9 @@ use Vault\security\ValidationManager;
 
             <main>
                 <form action="/reg" method="post" class="text-center sm:w-1/2 md:w-1/3 lg:w-1/4 mx-auto">
+                    <div class="hidden">
+                        <input id="secret" name="secret" value="<?= $secret; ?>">
+                    </div>
                     <input
                         id="csrf"
                         name="csrf"
@@ -56,6 +67,14 @@ use Vault\security\ValidationManager;
                     <div class="grid">
                         <label for="pass">Password</label>
                         <input id="pass" name="pass" type="password">
+                    </div>
+                    <div class="grid">
+                        <label for="code">Two-factor Authentication QR Setup</label>
+                        <img src="<?= $qr; ?>" class="mx-auto" alt="Two-factor Authentication QR Setup">
+                    </div>
+                    <div class="grid">
+                        <label for="code">2FA Code</label>
+                        <input id="code" name="code" type="password">
                     </div>
                     <div class="grid">
                         <button type="submit" class="btn-primary">Register</button>
