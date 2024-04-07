@@ -112,7 +112,7 @@ $qr = $factor->getQRCodeGoogleUrl($_SERVER['SERVER_NAME'], $secret, 'Vault');
                         This account will be the administrator for the instance.
                         We recommend creating a separate account to store your own passwords if this is a public site.
                     </p>
-                    <div class="grid hidden">
+                    <div class="hidden">
                         <input id="secret" name="secret" value="<?= $secret; ?>">
                     </div>
                     <div class="grid">
@@ -123,7 +123,10 @@ $qr = $factor->getQRCodeGoogleUrl($_SERVER['SERVER_NAME'], $secret, 'Vault');
                         <label for="pass">Admin Password</label>
                         <input id="pass" name="pass" type="password">
                     </div>
-                    <img src="<?= $qr; ?>">
+                    <div class="grid">
+                        <label for="code">Two-factor Authentication QR Setup</label>
+                        <img src="<?= $qr; ?>" class="mx-auto" alt="Two-factor Authentication QR Setup">
+                    </div>
                     <div class="grid">
                         <label for="code">2FA Code</label>
                         <input id="code" name="code" type="password">
