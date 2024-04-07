@@ -139,7 +139,7 @@ if (isset($_POST['user']) && isset($_POST['pass'])) {
                                 Yes
                             </option>
                             <option
-                                    value="DATABASE"<?php if (!ALLOW_REGISTRATION) { ?> selected<?php } ?>
+                                    value="false"<?php if (!ALLOW_REGISTRATION) { ?> selected<?php } ?>
                             >
                                 No
                             </option>
