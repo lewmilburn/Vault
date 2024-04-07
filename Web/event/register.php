@@ -7,7 +7,6 @@ use Vault\security\InputManager;
 use Vault\security\ValidationManager;
 
 if (isset($_POST['user']) && isset($_POST['pass']) && ALLOW_REGISTRATION) {
-
     $factor = new PHPGangsta_GoogleAuthenticator();
     if (!$factor->verifyCode($_POST['secret'], $_POST['code'])) {
         header('Location: /register/?rf=code');
