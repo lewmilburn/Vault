@@ -3,7 +3,6 @@
 namespace Vault\data;
 
 use Vault\event\ErrorHandler;
-use Vault\Libraries\PHPGangsta_GoogleAuthenticator;
 use Vault\security\HashManager;
 use Vault\security\InputManager;
 use Vault\security\ValidationManager;

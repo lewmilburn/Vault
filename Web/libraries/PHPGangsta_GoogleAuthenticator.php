@@ -235,7 +235,7 @@ class PHPGangsta_GoogleAuthenticator
     private function timingSafeEquals($safeString, $userString): bool
     {
         if (function_exists('hash_equals')) {
-            return hash_equals((string)$safeString, (string)$userString);
+            return hash_equals((string) $safeString, (string) $userString);
         }
         $safeLen = strlen($safeString);
         $userLen = strlen($userString);
