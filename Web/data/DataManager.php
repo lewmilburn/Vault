@@ -319,6 +319,8 @@ class DataManager
         $userHash = $im->escapeString($userHash);
         $password = password_hash($password, PASSWORD_DEFAULT);
 
+        $this->deleteVault($userHash);
+
         if (STORAGE_TYPE == DATABASE) {
             $dm = new DatabaseManager();
         } elseif (STORAGE_TYPE == FILESYSTEM) {
