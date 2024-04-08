@@ -131,6 +131,11 @@ $qr = $factor->getQRCodeGoogleUrl($_SERVER['SERVER_NAME'], $secret, 'Vault');
                         <label for="code">2FA Code</label>
                         <input id="code" name="code" type="password">
                     </div>
+                    <p>
+                        Warning: Make a note of your password in a safe, secure place. For security reasons, it is not
+                        possible to change your password unless you are logged in, and changing your password will clear
+                        your Vault.
+                    </p>
 
                     <h2>Global Settings</h2>
                     <div class="grid">

@@ -154,4 +154,11 @@ class DatabaseManager
 
         return $this->db->error == null;
     }
+
+    public function resetUserPasssword(string $userhash, string $password): bool
+    {
+        $this->db->query('UPDATE `'.DB_PREFIX."user` SET`pass` = '".$password."' WHERE `user` = '".$userhash."';");
+
+        return $this->db->error == null;
+    }
 }
