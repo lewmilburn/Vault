@@ -51,6 +51,18 @@ class ApiError
     }
 
     #[NoReturn]
+    public function authCodeMismatch(): void
+    {
+        $this->errorHandler->error(
+            'api',
+            'ApiError',
+            'authCodeMismatch',
+            'Two-factor authentication code does not match.',
+            403
+        );
+    }
+
+    #[NoReturn]
     public function unauthorised(): void
     {
         $this->errorHandler->unauthorised();
