@@ -2,6 +2,7 @@
 use Vault\authentication\AuthenticationManager;
 use Vault\data\DataManager;
 use Vault\data\SettingsManager;
+use Vault\Libraries\PHPGangsta_GoogleAuthenticator;
 
 $error = null;
 
@@ -17,6 +18,30 @@ if (isset($_POST['submit'])) {
     if ($error === null) {
         header('Location: /settings?saved');
         exit;
+    }
+}
+
+if (isset($_POST['reset'])) {
+    $dm = new DataManager();
+    $user = $dm->getUserData($_SESSION['name']);
+
+    $newpass = trim($_POST['pass']);
+    $newconfirmpass = trim($_POST['confirmpass']);
+
+    if ($newpass !== $newconfirmpass) {
+        $error = 'Unable to reset password - New Password and Confirm New Password does not match.';
+    } else {
+        $auth = new PHPGangsta_GoogleAuthenticator();
+        if ($auth->verifyCode($user->secret, $_POST['code'])) {
+            if ($dm->resetUserPassword($_SESSION['user'], $_POST['pass'])) {
+                $am = new AuthenticationManager();
+                $am->logout();
+            } else {
+                $error = 'Unable to reset password - something went wrong.';
+            }
+        } else {
+            $error = 'Unable to reset password: Invalid two-factor authentication code.';
+        }
     }
 }
 
@@ -56,15 +81,47 @@ if (isset($_GET['delete'])) {
                 <?php } elseif (isset($_GET['saved'])) { ?>
                     <div class="alert-green mb-6">Your changes have been saved.</div>
                 <?php } ?>
-                <div class="grid gap-2">
-                    <h2>Account Settings</h2>
-                    <?php if (!isset($_GET['delete'])) { ?>
-                        <button onclick="window.location = '/settings?delete=true'" class="btn-red">Delete account</button>
-                    <?php } else { ?>
-                        <button onclick="window.location = '/settings?deleteconfirm=true'" class="btn-red">Delete account</button>
-                    <?php } ?>
+                <div class="grid gap-4">
+                    <form class="grid gap-2" action="" method="post">
+                        <h2>Reset Password</h2>
+                        <div class="grid lg:grid-cols-2 gap-2">
+                            <div class="grid">
+                                <label for="pass">New Password</label>
+                                <input id="pass" name="pass" type="password" required>
+                            </div>
+                            <div class="grid">
+                                <label for="confirmpass">Confirm New Password</label>
+                                <input id="confirmpass" name="confirmpass" type="password" required>
+                            </div>
+                            <div class="grid">
+                                <label for="code">Two Factor Authentication Code</label>
+                                <input id="code" name="code" type="password" required>
+                            </div>
+                            <div class="grid">
+                                <label>
+                                    Warning: Resetting your password will delete your Vault data, please create a
+                                    backup before continuing.
+                                </label>
+                                <button class="btn-primary" id="reset" name="reset">
+                                    Reset Password, Clear Vault,  and Log out
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    <br>
+                    <div class="grid gap-2">
+                        <h2>Account Settings</h2>
+                        <?php if (!isset($_GET['delete'])) { ?>
+                            <button onclick="window.location = '/settings?delete=true'" class="btn-red">Delete account</button>
+                        <?php } else { ?>
+                            <div class="grid grid-cols-2 gap-2">
+                                <button onclick="window.location = '/settings'" class="btn-green">Do NOT delete account</button>
+                                <button onclick="window.location = '/settings?deleteconfirm=true'" class="btn-red">Delete account</button>
+                            </div>
+                        <?php } ?>
+                    </div>
                 </div>
-                <?php if ($_SESSION['role'] == 1) { ?>
+                <br><?php if ($_SESSION['role'] == 1) { ?>
                 <form class="grid gap-4" action="" method="post">
                     <div class="grid gap-2">
                         <h2>Global Settings</h2>
