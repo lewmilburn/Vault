@@ -312,4 +312,28 @@ class DataManager
 
         return $dm->saveVault($user, $key, $vault);
     }
+
+    public function resetUserPassword(string $userHash, string $password): bool
+    {
+        $im = new InputManager();
+        $userHash = $im->escapeString($userHash);
+        $password = password_hash($password, PASSWORD_DEFAULT);
+
+        if (STORAGE_TYPE == DATABASE) {
+            $dm = new DatabaseManager();
+        } elseif (STORAGE_TYPE == FILESYSTEM) {
+            $dm = new FileManager();
+        } else {
+            $em = new ErrorHandler();
+            $em->error(
+                'data',
+                'DataManager',
+                'getVault',
+                $this->invalidStorageError,
+                '500'
+            );
+        }
+
+        return $dm->resetUserPassword($userHash, $password);
+    }
 }

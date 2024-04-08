@@ -146,4 +146,35 @@ class FileManager
             return true;
         }
     }
+
+    public function resetUserPassword(string $userHash, string $password): bool
+    {
+        if (file_exists($this->usersFile)) {
+            $usersFile = file_get_contents($this->usersFile);
+            $data = json_decode($usersFile);
+
+            $found = false;
+
+            foreach ($data as $key => $user) {
+                if ($user->user == $userHash) {
+                    $data[$key]->pass = $password;
+                    $found = true;
+                }
+            }
+
+            if (!$found) {
+                return false;
+            }
+
+            $data = json_encode($data);
+
+            $usersFile = fopen($this->usersFile, 'w');
+            fwrite($usersFile, $data);
+            fclose($usersFile);
+        } else {
+            return false;
+        }
+
+        return true;
+    }
 }
