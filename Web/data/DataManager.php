@@ -75,6 +75,58 @@ class DataManager
         return $dm->createUser($username, $password, $role, $secret);
     }
 
+    public function deleteUser(string $userHash): bool
+    {
+        $vm = new ValidationManager();
+        $vm->throwNull($userHash, 'deleteUser');
+
+        $im = new InputManager();
+        $userHash = $im->escapeString($userHash);
+
+        if (STORAGE_TYPE == DATABASE) {
+            $dm = new DatabaseManager();
+        } elseif (STORAGE_TYPE == FILESYSTEM) {
+            $dm = new FileManager();
+        } else {
+            $em = new ErrorHandler();
+            $em->error(
+                'data',
+                'DataManager',
+                'createUser',
+                $this->invalidStorageError,
+                '500'
+            );
+        }
+
+        return $dm->deleteUser($userHash);
+    }
+
+    public function deleteVault(string $userHash): bool
+    {
+        $vm = new ValidationManager();
+        $vm->throwNull($userHash, 'deleteVault');
+
+        $im = new InputManager();
+        $userHash = $im->escapeString($userHash);
+
+        if (STORAGE_TYPE == DATABASE) {
+            $dm = new DatabaseManager();
+        } elseif (STORAGE_TYPE == FILESYSTEM) {
+            $dm = new FileManager();
+        } else {
+            $em = new ErrorHandler();
+            $em->error(
+                'data',
+                'DataManager',
+                'createUser',
+                $this->invalidStorageError,
+                '500'
+            );
+        }
+
+        return $dm->deleteVault($userHash);
+    }
+
     public function createVault(string $username, string $password): void
     {
         $vm = new ValidationManager();

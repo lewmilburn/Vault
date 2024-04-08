@@ -1,4 +1,6 @@
 <?php
+use Vault\authentication\AuthenticationManager;
+use Vault\data\DataManager;
 use Vault\data\SettingsManager;
 
 $error = null;
@@ -16,6 +18,19 @@ if (isset($_POST['submit'])) {
         header('Location: /settings?saved');
         exit;
     }
+}
+
+if (isset($_GET['deleteconfirm'])) {
+    $dm = new DataManager();
+    $dm->deleteUser($_SESSION['user']);
+    $dm->deleteVault($_SESSION['user']);
+
+    $am = new AuthenticationManager();
+    $am->logout();
+}
+
+if (isset($_GET['delete'])) {
+    $error = 'Are you sure you want to delete your account? Click delete again to confirm.';
 }
 ?><!DOCTYPE html>
 <html lang="en" xmlns:x-on="http://www.w3.org/1999/xhtml">
@@ -41,6 +56,14 @@ if (isset($_POST['submit'])) {
                 <?php } elseif (isset($_GET['saved'])) { ?>
                     <div class="alert-green mb-6">Your changes have been saved.</div>
                 <?php } ?>
+                <div class="grid gap-2">
+                    <h2>Account Settings</h2>
+                    <?php if (!isset($_GET['delete'])) { ?>
+                        <button onclick="window.location = '/settings?delete=true'" class="btn-red">Delete account</button>
+                    <?php } else { ?>
+                        <button onclick="window.location = '/settings?deleteconfirm=true'" class="btn-red">Delete account</button>
+                    <?php } ?>
+                </div>
                 <?php if ($_SESSION['role'] == 1) { ?>
                 <form class="grid gap-4" action="" method="post">
                     <div class="grid gap-2">
@@ -214,10 +237,7 @@ if (isset($_POST['submit'])) {
                     </div>
                     <button class="btn-green" id="submit" name="submit">Save</button>
                 </form>
-                <?php } else {
-                    header('Location: / ');
-                    exit;
-                } ?>
+                <?php } ?>
             </main>
         </div>
     </body>

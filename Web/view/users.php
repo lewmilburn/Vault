@@ -1,4 +1,12 @@
-<!DOCTYPE html>
+<?php
+use Vault\data\DataManager;
+
+if (isset($_GET['delete'])) {
+    $dm = new DataManager();
+    $dm->deleteUser($_GET['delete']);
+    $dm->deleteVault($_GET['delete']);
+}
+?><!DOCTYPE html>
 <html lang="en" xmlns:x-on="http://www.w3.org/1999/xhtml">
     <head>
         <title>Vault Users</title>
@@ -23,12 +31,22 @@
                     $jsonData = json_decode($userData);
                     foreach ($jsonData as $User) {
                 ?>
-                <div class="bg-neutral-100 p-2">
-                    <strong><?= $User->user; ?></strong><br>
-                    <?php
-                        if ($User->role === '1') { ?>Administrator<?php }
-                        elseif ($User->role === '0') { ?>User<?php }
-                    ?>
+                <div class="bg-neutral-100 p-2 flex">
+                    <div class="flex-grow">
+                        <strong><?= $User->user; ?></strong><br>
+                        <?php
+                            if ($User->role === '1') { ?>Administrator<?php }
+                            elseif ($User->role === '0') { ?>User<?php }
+                        ?>
+                    </div>
+                    <?php if ($User->user !== $_SESSION['user']) { ?>
+                    <button
+                        onclick="window.location = '/users?delete=<?= $User->user; ?>'"
+                        class="btn-red text-white"
+                    >
+                        <i class="fa-solid fa-trash-can"></i> Delete
+                    </button>
+                    <?php } ?>
                 </div>
                 <?php } ?>
             </main>
