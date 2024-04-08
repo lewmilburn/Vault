@@ -2,6 +2,7 @@
 
 namespace Vault\data;
 
+use Exception;
 use Vault\event\ErrorHandler;
 use Vault\security\HashManager;
 use Vault\security\InputManager;
@@ -207,7 +208,13 @@ class DataManager
         $data = '{"pid":"'.$uniqueID.'","user":"'.$username.'","pass":"'.$pass.'","name":"'.$name.'","url":"'.$url.'","notes":"'.$notes.'"}';
         $tempArray = json_decode($data, true);
 
-        array_push($vault, $tempArray);
+        if ($vault == null) {
+            $vault = [];
+        }
+
+        try {
+            array_push($vault, $tempArray);
+        } catch (Exception $e) {}
 
         $vault = json_encode($vault);
 

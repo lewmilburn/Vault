@@ -55,7 +55,7 @@ if ($am->authenticated() || (isset($sentData->user) && isset($sentData->key))) {
             $im->escapeString($sentData->data->notes)
         )) {
             $um = new UserManager();
-            $um->setLastChange($_GET['user']);
+            $um->setLastChange($sentData->user);
             echo '{"status": 200}';
         } else {
             $eh->internalServerError();
