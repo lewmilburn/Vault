@@ -140,4 +140,18 @@ class DatabaseManager
 
         return $this->db->error == null;
     }
+
+    public function deleteUser(string $userhash): bool
+    {
+        $this->db->query('DELETE FROM `'.DB_PREFIX."users` WHERE `user` = '".$userhash."';");
+
+        return $this->db->error == null;
+    }
+
+    public function deleteVault(string $userhash): bool
+    {
+        $this->db->query('DELETE FROM `'.DB_PREFIX."vault` WHERE `user` = '".$userhash."';");
+
+        return $this->db->error == null;
+    }
 }
