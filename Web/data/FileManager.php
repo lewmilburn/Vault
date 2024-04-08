@@ -60,6 +60,46 @@ class FileManager
         return true;
     }
 
+    public function deleteUser(string $userHash): bool
+    {
+        if (file_exists($this->usersFile)) {
+            $usersFile = file_get_contents($this->usersFile);
+            $data = json_decode($usersFile);
+
+            $found = false;
+
+            foreach ($data as $key => $user) {
+                if ($user->user == $userHash) {
+                    unset($data[$key]);
+                    $found = true;
+                }
+            }
+
+            if (!$found) {
+                return false;
+            }
+
+            $data = json_encode($data);
+
+            $usersFile = fopen($this->usersFile, 'w');
+            fwrite($usersFile, $data);
+            fclose($usersFile);
+        } else {
+            return false;
+        }
+
+        return true;
+    }
+
+    public function deleteVault(string $userHash): bool
+    {
+        if (file_exists($this->secureLocation.$userHash.$this->vaultExt)) {
+            return unlink($this->secureLocation.$userHash.$this->vaultExt);
+        } else {
+            return false;
+        }
+    }
+
     public function createVault(string $user, string $key): void
     {
         $file = $this->secureLocation.$user.$this->vaultExt;
