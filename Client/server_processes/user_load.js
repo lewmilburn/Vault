@@ -17,8 +17,8 @@ module.exports = function (user) {
         console.log('[VAULT][USER] No user data, creating...')
         let date = require(nodePath.join(__dirname + '/currentDate'))();
         require(nodePath.join(__dirname + '/user_save'))(user, date, date);
-        let user = JSON.parse(fs.readFileSync(user + '.json', ).toString());
+        let userData = JSON.parse(fs.readFileSync(user + '.json', ).toString());
         console.log('[VAULT][USER] User data read.')
-        return user;
+        return userData;
     }
 }
