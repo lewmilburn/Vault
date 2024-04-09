@@ -214,7 +214,8 @@ class DataManager
 
         try {
             array_push($vault, $tempArray);
-        } catch (Exception $e) {}
+        } catch (Exception $e) {
+        }
 
         $vault = json_encode($vault);
 
