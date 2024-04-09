@@ -2,6 +2,7 @@ function doLogin() {
     let data = {
         username: document.getElementById('user').value,
         password: document.getElementById('pass').value,
+        code: document.getElementById('code').value,
         sendall: true
     };
 
@@ -35,6 +36,9 @@ function doLogin() {
             } else if (jsonResponse.error === 'Missing required data.') {
                 errorBox.classList.remove('hidden');
                 errorBox.innerHTML = 'Please enter a username and password.';
+            } else if (jsonResponse.error === 'Two-factor authentication code does not match.') {
+                errorBox.classList.remove('hidden');
+                errorBox.innerHTML = 'Two-factor authentication code does not match.';
             } else if (jsonResponse.status === 500) {
                 errorBox.classList.remove('hidden');
                 errorBox.innerHTML = 'An error occurred on the server whilst trying to authenticate you, please try again.';
