@@ -1,7 +1,5 @@
 async function getVault (override = false) {
     await waitForSettings();
-    vault = null;
-    checksum = null;
     document.getElementById('passwordGrid').innerHTML = '';
     addNewPasswordButton();
     if (localStorage.getItem('using-cache') === 'false') {
@@ -65,6 +63,8 @@ function updatePassword (id) {
             notes: document.getElementById('notes').value,
         }
     };
+    console.log(password);
+
     sendRequest('PUT',password,'Password saved.', 'Unable to update password');
 }
 

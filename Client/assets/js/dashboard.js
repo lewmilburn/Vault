@@ -1,6 +1,8 @@
 function reloadVault() {
     document.getElementById('passwordGrid').innerHTML = '';
     addNewPasswordButton();
+    vault = null;
+    checksum = null;
     getVault();
 }
 
