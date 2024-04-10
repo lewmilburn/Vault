@@ -77,6 +77,10 @@ function resync() {
     window.bridge.resync(() => {});
 }
 
+function shutdown() {
+    window.bridge.shutdown(() => {});
+}
+
 function waitForSettings() {
     return new Promise((resolve) => {
         const settingsInterval = setInterval(() => {

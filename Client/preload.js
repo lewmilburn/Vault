@@ -21,6 +21,10 @@ contextBridge.exposeInMainWorld(
             ipcRenderer.send('cache-update', user, data, key);
         },
 
+        shutdown: () => {
+            ipcRenderer.send('shutdown');
+        },
+
         requestCache: () => {
             let user = localStorage.getItem('user');
             let key = localStorage.getItem('key');

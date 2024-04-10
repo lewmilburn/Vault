@@ -100,6 +100,9 @@ ipcMain.on('resync', (event, user, last_change) => {
     console.log('[Vault][IPC] Resync requested...');
     require(nodePath.join(__dirname + '/server_processes/user_save'))(user, last_change);
 });
+ipcMain.on('shutdown', () => {
+    electronApp.quit();
+});
 
 function screen(name) {
     let screenFilePath = '/views/' + name + '.html';
