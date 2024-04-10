@@ -101,6 +101,7 @@ ipcMain.on('resync', (event, user, last_change) => {
     require(nodePath.join(__dirname + '/server_processes/user_save'))(user, last_change);
 });
 ipcMain.on('shutdown', () => {
+    console.log('[VAULT] Goodbye!');
     electronApp.quit();
 });
 
@@ -112,9 +113,8 @@ function screen(name) {
 }
 
 electronApp.on('window-all-closed', () => {
-    if (process.platform !== 'darwin') {
-        electronApp.quit();
-    }
+    console.log('[VAULT] Goodbye!');
+    electronApp.quit();
 });
 
 electronApp.on('ready', () => {
