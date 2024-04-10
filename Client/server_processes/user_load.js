@@ -1,5 +1,12 @@
 const fs = require("fs");
 const nodePath = require("path");
+/**
+ * @name user_load.js
+ * @description Loads user data from file.
+ *
+ * @param user
+ * @returns {any}
+ */
 module.exports = function (user) {
     console.log('[VAULT][USER] Beginning user data read...')
 

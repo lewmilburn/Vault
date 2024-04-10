@@ -1,3 +1,10 @@
+/**
+ * @name readJsonFile.js
+ * @description Reads and parses a JSON file.
+ *
+ * @param file
+ * @returns {*}
+ */
 module.exports = function (file) {
     let fs = require('fs');
 

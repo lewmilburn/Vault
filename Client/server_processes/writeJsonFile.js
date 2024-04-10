@@ -1,3 +1,11 @@
+/**
+ * @name writeJsonFile.js
+ * @description Parses and writes JSON data to file.
+ *
+ * @param file
+ * @param data
+ * @returns {boolean}
+ */
 module.exports = function (file, data) {
     let fs = require('fs');
 

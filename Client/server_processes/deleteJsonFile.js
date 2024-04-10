@@ -1,3 +1,10 @@
+/**
+ * @name deleteJsonFile.js
+ * @description Deletes a file.
+ *
+ * @param file
+ * @returns {*}
+ */
 module.exports = function (file) {
     let fs = require('fs');
 
