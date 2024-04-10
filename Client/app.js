@@ -36,6 +36,10 @@ function createWindow() {
         .then(() => {
             window.name = 'Vault';
             window.show();
+
+            if (!require(nodePath.join(__dirname + '/server_processes/fileExists'))(nodePath.join(__dirname + '/v.json'))) {
+                screen('misconfiguration');
+            }
         });
     return window;
 }

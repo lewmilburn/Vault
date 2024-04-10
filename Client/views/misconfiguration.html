@@ -18,6 +18,12 @@
                     onclick="retry()"
                     role="button"
             ></i>
+            <i
+                    class="fa-solid fa-cog btn-sidebar"
+                    title="Settings"
+                    onclick="document.getElementById('settings').classList.remove('hidden')"
+                    role="button"
+            ></i>
             <span class="flex-grow"></span>
             <i
                     class="fa-solid fa-circle-xmark btn-sidebar"
@@ -28,15 +34,70 @@
         </nav>
         <div class="flex-grow">
             <header class="mb-6">
-                <h1>There was an issue whilst loading the configuration.</h1>
+                <h1>Setup Vault.</h1>
             </header>
 
             <main>
-                <p class="text-center">Please check settings.json and try again.</p>
+                <p class="text-center">
+                    Welcome to Vault! Please edit your settings to start Vault.
+                </p>
                 <br>
-                <form class="text-center sm:w-1/2 md:w-1/3 lg:w-1/4 mx-auto">
+                <p class="text-center">
+                    If you've already done this, you may be shown this due to a misconfiguration,
+                    please edit your settings to confirm they're correct or click the retry button.
+                </p>
+                <br>
+                <div class="text-center sm:w-1/2 md:w-1/3 lg:w-1/4 mx-auto">
+                    <button type="button" onclick="document.getElementById('settings').classList.remove('hidden')" class="btn-primary">Edit Settings</button>
                     <button type="button" onclick="retry()" class="btn-primary">Retry</button>
-                </form>
+                </div>
+                <div id="settings" class="hidden absolute top-0 left-0 right-0 bottom-0 bg-black/50" role="dialog">
+                    <div class="absolute top-10 left-10 right-10 bottom-10 bg-white dark:bg-neutral-900">
+                        <header>
+                            <p>Settings</p>
+                        </header>
+
+                        <div class="p-2">
+                            Software Settings<br>
+                            <div class="grid-std">
+                                <label for="vault.sync_server_url">Sync Server URL</label>
+                                <input id="vault.sync_server_url">
+
+                                <label for="vault.allow_offline_mode">Allow Offline Mode</label>
+                                <select id="vault.allow_offline_mode">
+                                    <option value="true">True</option>
+                                    <option value="false">False</option>
+                                </select>
+
+                                <label for="vault.force_offline_mode">Force Offline Mode</label>
+                                <select id="vault.force_offline_mode">
+                                    <option value="true">True</option>
+                                    <option value="false">False</option>
+                                </select>
+                            </div>
+
+                            <br>
+
+                            App Settings<br>
+                            <div class="grid-std">
+                                <label for="app.window_width">Window Width</label>
+                                <input id="app.window_width">
+
+                                <label for="app.window_height">Window Height</label>
+                                <input id="app.window_height">
+
+                                <label for="app.cache_encryption_method">Cache Encryption Method</label>
+                                <select id="app.cache_encryption_method">
+                                    <option value="AES-256-GCM">AES-256-GCM</option>
+                                </select>
+                            </div>
+                            <br>
+                            <button onclick="updateSettings();" class="btn-green">Save</button>
+                            <br>
+                            <p>Changing settings will clear your offline cache and require Vault to restart.</p>
+                        </div>
+                    </div>
+                </div>
             </main>
         </div>
 
