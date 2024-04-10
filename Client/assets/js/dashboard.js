@@ -37,6 +37,8 @@ function displayPassword(item, strength) {
 }
 
 async function displayPasswords() {
+    document.getElementById('passwordGrid').innerHTML = '';
+    addNewPasswordButton();
     if (vault !== undefined && vault !== null) {
         Object.values(vault).forEach((item) => {
             displayPassword(item, strength(item.pass));
