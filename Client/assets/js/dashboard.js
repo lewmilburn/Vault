@@ -69,7 +69,6 @@ function addNewPasswordButton() {
 }
 
 function displayError(message, apiError) {
-    console.log(message, apiError);
     if (apiError !== undefined) {
         message = message + ' (Error ' + apiError.status + ' - ' + apiError.error + ')'
     }

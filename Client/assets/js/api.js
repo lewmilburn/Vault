@@ -63,7 +63,6 @@ function updatePassword (id) {
             notes: document.getElementById('notes').value,
         }
     };
-    console.log(password);
 
     sendRequest('PUT',password,'Password saved.', 'Unable to update password');
 }
@@ -87,7 +86,6 @@ function sendRequest(type, data, successMessage, errorMessage, noReload = false)
         body: JSON.stringify(data),
     }).then(response => response.json())
         .then(jsonResponse => {
-            console.log(jsonResponse);
             if (jsonResponse.status === 200) {
                 displaySuccess(successMessage);
 
@@ -103,6 +101,5 @@ function sendRequest(type, data, successMessage, errorMessage, noReload = false)
         })
         .catch(xhr => {
             displayError(errorMessage);
-            console.log(xhr);
         });
 }
