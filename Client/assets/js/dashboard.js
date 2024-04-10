@@ -1,6 +1,8 @@
 function reloadVault() {
     document.getElementById('passwordGrid').innerHTML = '';
     addNewPasswordButton();
+    vault = null;
+    checksum = null;
     getVault();
 }
 
@@ -35,6 +37,8 @@ function displayPassword(item, strength) {
 }
 
 async function displayPasswords() {
+    document.getElementById('passwordGrid').innerHTML = '';
+    addNewPasswordButton();
     if (vault !== undefined && vault !== null) {
         Object.values(vault).forEach((item) => {
             displayPassword(item, strength(item.pass));
@@ -65,7 +69,6 @@ function addNewPasswordButton() {
 }
 
 function displayError(message, apiError) {
-    console.log(message, apiError);
     if (apiError !== undefined) {
         message = message + ' (Error ' + apiError.status + ' - ' + apiError.error + ')'
     }

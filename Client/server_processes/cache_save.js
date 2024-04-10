@@ -1,3 +1,11 @@
+/**
+ * @name cache_save.js
+ * @description Saves cache to file.
+ *
+ * @param user
+ * @param data
+ * @param checksum
+ */
 module.exports = function (user, data, checksum) {
     console.log('[VAULT] Saving cache to file...');
     let dataToSave = {

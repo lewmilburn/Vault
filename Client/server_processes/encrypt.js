@@ -1,3 +1,15 @@
+/**
+ * @name encrypt.js
+ * @description Encrypts data to be added to the cache.
+ * @see decrypt.js
+ * @see cache_load.js
+ * @see cache_savae.js
+ *
+ * @param data
+ * @param key
+ * @param settings
+ * @returns {string}
+ */
 module.exports = function (data, key, settings) {
     console.log('[VAULT][CRYPTO] Encrypting data...')
     const crypto = require('crypto');

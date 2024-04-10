@@ -6,7 +6,6 @@ function syncMismatch(local, remote) {
 }
 
 function keepLocal() {
-    console.log(vault);
     for (let item in vault) {
         let password = {
             user: localStorage.getItem('user'),

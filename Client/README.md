@@ -1,5 +1,6 @@
 # Vault Client
 The Vault client is an offline-capable version of Vault you can run on your local machine.
+It runs on Windows (Intel and ARM), macOS, and Linux.
 
 ## System Requirements
 ### Development

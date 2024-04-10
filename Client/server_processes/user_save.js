@@ -1,4 +1,11 @@
 const fs = require("fs");
+/**
+ * @name user_save.js
+ * @description Saves user data to file.
+ *
+ * @param user
+ * @param lastchange
+ */
 module.exports = function (user, lastchange) {
     console.log('[VAULT] Saving User data to file...');
     let dataToSave = {

@@ -1,3 +1,8 @@
+/**
+ * Loads the cache from file.
+ * @param user
+ * @returns {any|null}
+ */
 module.exports = function (user) {
     console.log('[VAULT][CACHE] Beginning cache read...')
     let fs = require('fs');

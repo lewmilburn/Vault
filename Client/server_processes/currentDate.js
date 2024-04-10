@@ -1,3 +1,9 @@
+/**
+ * @name currentDate.js
+ * @decription Gets the current datetime.
+ *
+ * @returns {string}
+ */
 module.exports = function() {
     let date = new Date();
 
