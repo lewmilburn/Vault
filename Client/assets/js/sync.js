@@ -21,12 +21,36 @@ function keepLocal() {
         };
         sendRequest('PUT',password,'Password saved.', 'Unable to update password');
     }
-    document.getElementById('syncmismatch').classList.add('hidden');
-    resync();
+    document.getElementById('syncmismatch-msg').classList.add('hidden');
+    document.getElementById('syncmismatch-spinner').classList.remove('hidden');
+
+    setTimeout(function() {
+        resync();
+        document.getElementById('syncmismatch-msg').classList.remove('hidden');
+        document.getElementById('syncmismatch-spinner').classList.add('hidden');
+        document.getElementById('syncmismatch').classList.add('hidden');
+        screenDashboard();
+    }, 2000);
 }
 
 function keepRemote() {
-    resync();
-    reloadVault();
-    document.getElementById('syncmismatch').classList.add('hidden');
+    let url = settings.VAULT.SYNC_SERVER_URL + '/api/vault?user='+localStorage.getItem('user')+'&key='+localStorage.getItem('key')+'&sync='+getDateTime();
+    fetch(url, {
+        method: 'GET',
+        headers: {'Content-Type': 'application/json'},
+    }).then(function (r) {
+        if (r.status !== 200) {
+            alert('Unable to resync, please try again.')
+        }
+    })
+    document.getElementById('syncmismatch-msg').classList.add('hidden');
+    document.getElementById('syncmismatch-spinner').classList.remove('hidden');
+
+    setTimeout(function() {
+        resync();
+        document.getElementById('syncmismatch-msg').classList.remove('hidden');
+        document.getElementById('syncmismatch-spinner').classList.add('hidden');
+        document.getElementById('syncmismatch').classList.add('hidden');
+        screenDashboard();
+    }, 2000);
 }

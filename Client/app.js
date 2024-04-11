@@ -25,9 +25,9 @@ function createWindow() {
             nodeIntegration: false,
             contextIsolation: true,
             preload: nodePath.join(__dirname, '/preload.js'),
-            devTools: false
+            devTools: true
         },
-        autoHideMenuBar: true
+        autoHideMenuBar: false
     });
 
     window.loadFile(nodePath.join(__dirname + '/views/loading.html'))
@@ -120,6 +120,8 @@ ipcMain.on('cache-update', (event, user, data, key) => {
     let checksum = require(nodePath.join(__dirname + '/server_processes/checksum'))(data);
     let encryptedData = require(nodePath.join(__dirname + '/server_processes/encrypt'))(data, key,settings);
     require(nodePath.join(__dirname + '/server_processes/cache_save'))(user, encryptedData, checksum);
+    let date = require(nodePath.join(__dirname + '/server_processes/currentDate'))();
+    require(nodePath.join(__dirname + '/server_processes/user_save'))(user, date);
     console.log('[Vault][IPC] Cache updated.');
 });
 
@@ -153,9 +155,10 @@ ipcMain.on('user-request', (event, user) => {
 /**
  * Resyncs the cache.
  */
-ipcMain.on('resync', (event, user, last_change) => {
+ipcMain.on('resync', (event, user) => {
     console.log('[Vault][IPC] Resync requested...');
-    require(nodePath.join(__dirname + '/server_processes/user_save'))(user, last_change);
+    let date = require(nodePath.join(__dirname + '/server_processes/currentDate'))();
+    require(nodePath.join(__dirname + '/server_processes/user_save'))(user, date);
 });
 
 /**

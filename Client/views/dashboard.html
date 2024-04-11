@@ -188,7 +188,7 @@
                             <p>Sync Mismatch</p>
                         </header>
 
-                        <div class="p-2">
+                        <div class="p-2" id="syncmismatch-msg">
                             Vault has identified that changes have been made to the sync server since you were last online.
                             <br><br>
                             <div class="grid-std">
@@ -199,6 +199,11 @@
                             </div>
                             <br>
                             The changes you decide to keep will also be pushed to the sync server.
+                        </div>
+                        <div class="w-full text-center hidden" id="syncmismatch-spinner">
+                            <br>
+                            <i class="fa-solid fa-spinner fa-spin-pulse fa-4x" aria-hidden="true"></i>
+                            <p class="text-center">Please wait...</p>
                         </div>
                     </div>
                 </div>

@@ -7,12 +7,14 @@ async function apiGetVault (override = false) {
         .then(jsonResponse => {
             if (jsonResponse.status === undefined) {
                 requestUser();
-
                 window.bridge.recieveUserData((event, user) => {
-                    if (user.last_change !== jsonResponse.last_change && override === false && settings.VAULT.ALLOW_OFFLINE_MODE === true) {
+                    if (user.last_change !== jsonResponse.last_change && override === false && settings.VAULT.ALLOW_OFFLINE_MODE === "true") {
                         cacheGetVault(true);
                         syncMismatch(user.last_change, jsonResponse.last_change);
                     } else {
+                        if (!document.getElementById('syncmismatch').classList.contains('hidden')) {
+                            document.getElementById('syncmismatch').classList.add('hidden');
+                        }
                         vault = jsonResponse.data;
                         checksum = jsonResponse.checksum;
                         cacheUpdate(jsonResponse);
@@ -32,7 +34,8 @@ function apiCreatePassword (data) {
     let password = {
         user: localStorage.getItem('user'),
         key: localStorage.getItem('key'),
-        data
+        data,
+        time: getDateTime()
     };
 
     sendRequest('POST',password,'Password added.', 'Unable to add password');
@@ -42,8 +45,10 @@ function apiUpdatePassword (data) {
     let password = {
         user: localStorage.getItem('user'),
         key: localStorage.getItem('key'),
-        data
+        data,
+        time: getDateTime()
     };
+    console.log(password);
 
     sendRequest('PUT',password,'Password saved.', 'Unable to update password');
 }
@@ -54,7 +59,8 @@ function apiDeletePassword (id) {
         key: localStorage.getItem('key'),
         data: {
             pid: id
-        }
+        },
+        time: getDateTime()
     };
 
     sendRequest('DELETE',password,'Password deleted.', 'Unable to delete password');
