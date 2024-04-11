@@ -53,8 +53,7 @@ contextBridge.exposeInMainWorld(
 
         resync: () => {
             let user = localStorage.getItem('user');
-            let last_change = localStorage.getItem('remote_change');
-            ipcRenderer.send('resync', user, last_change);
+            ipcRenderer.send('resync', user);
         },
 
         recieveCache: (cache) => {

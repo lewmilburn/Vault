@@ -14,5 +14,4 @@ module.exports = function() {
     let minutes = String(date.getMinutes()).padStart(2, '0');
 
     return year + '-' + month + '-' + day + ' ' + hours + ':' + minutes;
-
 }

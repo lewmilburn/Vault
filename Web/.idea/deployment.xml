@@ -58,6 +58,20 @@
           </mappings>
         </serverdata>
       </paths>
+      <paths name="OurCookbook FTPS">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="ScoutsOnline">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
       <paths name="Testing Server">
         <serverdata>
           <mappings>

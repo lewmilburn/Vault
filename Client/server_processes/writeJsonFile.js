@@ -12,8 +12,8 @@ module.exports = function (file, data) {
     try {
         fs.writeFileSync(file, JSON.stringify(data), 'utf-8');
 
-        if (!fs.existsSync('v.json')) {
-            fs.writeFileSync('v.json', JSON.stringify({"configured":true}), 'utf-8');
+        if (!fs.existsSync('vault.json')) {
+            fs.writeFileSync('vault.json', JSON.stringify({"configured":true}), 'utf-8');
         }
     } catch(error) {
         console.log('[VAULT] Failed to read JSON file "'+file+'"');
