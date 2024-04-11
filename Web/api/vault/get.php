@@ -26,7 +26,7 @@ if (isset($_GET['user']) && isset($_GET['key'])) {
     $vault = $dm->getVault($user, $_GET['key']);
 
     $arrayVault = [];
-    $i=0;
+    $i = 0;
     foreach ($vault as $item) {
         $arrayVault[$i] = $item;
         $i++;
