@@ -5,7 +5,7 @@ async function getVault(override = false) {
     document.getElementById('passwordGrid').innerHTML = '';
     addNewPasswordButton();
 
-    if (localStorage.getItem('using-cache') === 'false') {
+    if (localStorage.getItem('using-cache') === 'false' && override === false) {
         await apiGetVault();
     } else if ((localStorage.getItem('using-cache') === 'true' && settings.VAULT.ALLOW_OFFLINE_MODE) || override === true) {
         cacheGetVault();
