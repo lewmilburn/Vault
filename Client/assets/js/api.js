@@ -10,6 +10,7 @@ async function apiGetVault (override = false) {
                 window.bridge.recieveUserData((event, user) => {
                     if (user.last_change !== jsonResponse.last_change && override === false && settings.VAULT.ALLOW_OFFLINE_MODE === "true") {
                         cacheGetVault(true);
+                        localStorage.setItem('remote_vault_temp', JSON.stringify(jsonResponse.data));
                         syncMismatch(user.last_change, jsonResponse.last_change);
                     } else {
                         if (!document.getElementById('syncmismatch').classList.contains('hidden')) {

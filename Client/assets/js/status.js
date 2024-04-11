@@ -26,7 +26,7 @@ async function checkStatusFirst() {
             headers: {'Content-Type': 'application/json'},
         }).then(response => response.json())
             .then(jsonResponse => {
-                if (jsonResponse.status !== 200) {
+                if (jsonResponse.status !== 200 || settings.VAULT.FORCE_OFFLINE_MODE === "true") {
                     screenOffline();
                 } else {
                     screenLogin();

@@ -6,21 +6,23 @@ function syncMismatch(local, remote) {
 }
 
 function keepLocal() {
-    for (let item in vault) {
-        let password = {
+    for (let localItem in vault) {
+        password = {
             user: localStorage.getItem('user'),
             key: localStorage.getItem('key'),
             data: {
-                pid: vault[item].pid,
-                pass: vault[item].pass,
-                user: vault[item].user,
-                name: vault[item].name,
-                url: vault[item].url,
-                notes: vault[item].notes,
+                pid: vault[localItem].pid,
+                pass: vault[localItem].pass,
+                user: vault[localItem].user,
+                name: vault[localItem].name,
+                url: vault[localItem].url,
+                notes: vault[localItem].notes,
             }
         };
-        sendRequest('PUT',password,'Password saved.', 'Unable to update password');
+
+        sendRequest('PUT', password, '.', '');
     }
+
     document.getElementById('syncmismatch-msg').classList.add('hidden');
     document.getElementById('syncmismatch-spinner').classList.remove('hidden');
 
@@ -29,6 +31,8 @@ function keepLocal() {
         document.getElementById('syncmismatch-msg').classList.remove('hidden');
         document.getElementById('syncmismatch-spinner').classList.add('hidden');
         document.getElementById('syncmismatch').classList.add('hidden');
+        localStorage.removeItem('remote_change');
+        localStorage.removeItem('remote_vault_temp');
         screenDashboard();
     }, 2000);
 }
@@ -51,6 +55,8 @@ function keepRemote() {
         document.getElementById('syncmismatch-msg').classList.remove('hidden');
         document.getElementById('syncmismatch-spinner').classList.add('hidden');
         document.getElementById('syncmismatch').classList.add('hidden');
+        localStorage.removeItem('remote_change');
+        localStorage.removeItem('remote_vault_temp');
         screenDashboard();
     }, 2000);
 }

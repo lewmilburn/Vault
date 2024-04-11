@@ -25,8 +25,14 @@ function createPassword() {
 
     if (localStorage.getItem('using-cache') === 'false') {
         apiCreatePassword(data);
-    } else if ((localStorage.getItem('using-cache') === 'true' && settings.VAULT.ALLOW_OFFLINE_MODE)) {
-        cacheCreatePassword(data)
+    } else if (
+        localStorage.getItem('using-cache') === 'true' &&
+        settings.VAULT.ALLOW_OFFLINE_MODE === "true" &&
+        settings.VAULT.FORCE_OFFLINE_MODE !== "true"
+    ) {
+        alert('Please reconnect to your Vault Sync Server.')
+    } else if (settings.VAULT.FORCE_OFFLINE_MODE === "true") {
+        cacheCreatePassword(data);
     } else {
         alert('Unable to access Vault. Please restart Vault and try again.')
     }
@@ -44,7 +50,7 @@ function updatePassword(id) {
 
     if (localStorage.getItem('using-cache') === 'false') {
         apiUpdatePassword(data);
-    } else if ((localStorage.getItem('using-cache') === 'true' && settings.VAULT.ALLOW_OFFLINE_MODE)) {
+    } else if ((localStorage.getItem('using-cache') === 'true' && settings.VAULT.ALLOW_OFFLINE_MODE === "true")) {
         cacheUpdatePassword(data);
     } else {
         alert('Unable to access Vault. Please restart Vault and try again.')
@@ -54,7 +60,13 @@ function updatePassword(id) {
 function deletePassword(id) {
     if (localStorage.getItem('using-cache') === 'false') {
         apiDeletePassword(id);
-    } else if ((localStorage.getItem('using-cache') === 'true' && settings.VAULT.ALLOW_OFFLINE_MODE)) {
+    } else if (
+        localStorage.getItem('using-cache') === 'true' &&
+        settings.VAULT.ALLOW_OFFLINE_MODE === "true" &&
+        settings.VAULT.FORCE_OFFLINE_MODE !== "true"
+    ) {
+        alert('Please reconnect to your Vault Sync Server.')
+    } else if (settings.VAULT.FORCE_OFFLINE_MODE === "true") {
         cacheDeletePassword(id);
     } else {
         alert('Unable to access Vault. Please restart Vault and try again.')

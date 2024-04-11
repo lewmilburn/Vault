@@ -15,7 +15,7 @@ if (isset($_GET['user']) && isset($_GET['key'])) {
 
     $um = new UserManager();
     if (isset($_GET['sync'])) {
-        $um->setLastChange($_GET['user'], $_GET['time']);
+        $um->setLastChange($_GET['user'], $_GET['sync']);
     }
 
     $dm = new DataManager();
