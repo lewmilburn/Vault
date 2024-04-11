@@ -10,7 +10,7 @@ const nodePath = require("path");
 module.exports = function (user) {
     console.log('[VAULT][USER] Beginning user data read...')
 
-    if (fs.existsSync(user + '.json')) {
+    if (fs.existsSync(__dirname + '/../' + user + '.json')) {
         try {
             let cache = JSON.parse(fs.readFileSync(user + '.json').toString());
             console.log('[VAULT][USER] User data read.')
@@ -22,9 +22,11 @@ module.exports = function (user) {
         }
     } else {
         console.log('[VAULT][USER] No user data, creating...')
+        const {dialog} = require('electron');
+        dialog.showErrorBox('File not found.',__dirname + '/../' + user + '.json');
         let date = require(nodePath.join(__dirname + '/currentDate'))();
         require(nodePath.join(__dirname + '/user_save'))(user, date, date);
-        let userData = JSON.parse(fs.readFileSync(user + '.json', ).toString());
+        let userData = JSON.parse(fs.readFileSync(__dirname + '/../' + user + '.json', ).toString());
         console.log('[VAULT][USER] User data read.')
         return userData;
     }
