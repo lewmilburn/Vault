@@ -26,7 +26,8 @@ function createWindow() {
             contextIsolation: true,
             preload: nodePath.join(__dirname, '/preload.js'),
             devTools: false
-        }
+        },
+        autoHideMenuBar: true
     });
 
     window.loadFile(nodePath.join(__dirname + '/views/loading.html'))
@@ -37,7 +38,7 @@ function createWindow() {
             window.name = 'Vault';
             window.show();
 
-            if (!require(nodePath.join(__dirname + '/server_processes/fileExists'))(nodePath.join(__dirname + '/v.json'))) {
+            if (!require(nodePath.join(__dirname + '/server_processes/fileExists'))(nodePath.join(__dirname + '/vault.json'))) {
                 screen('misconfiguration');
             }
         });
