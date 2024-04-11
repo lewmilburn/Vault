@@ -15,7 +15,7 @@ if (isset($_GET['user']) && isset($_GET['key'])) {
 
     $um = new UserManager();
     if (isset($_GET['sync'])) {
-        $um->setLastSync($_GET['user']);
+        $um->setLastChange($_GET['user'], $_GET['time']);
     }
 
     $dm = new DataManager();
@@ -24,8 +24,16 @@ if (isset($_GET['user']) && isset($_GET['key'])) {
 
     $user = $im->escapeString($_GET['user']);
     $vault = $dm->getVault($user, $_GET['key']);
+
+    $arrayVault = [];
+    $i=0;
+    foreach ($vault as $item) {
+        $arrayVault[$i] = $item;
+        $i++;
+    }
+
     $vault = [
-        'data'        => $vault,
+        'data'        => $arrayVault,
         'checksum'    => $hm->generateChecksum(json_encode($vault)),
         'last_change' => $um->getLastChange($_GET['user']),
     ];
