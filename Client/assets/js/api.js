@@ -1,73 +1,54 @@
-async function getVault (override = false) {
-    await waitForSettings();
-    document.getElementById('passwordGrid').innerHTML = '';
-    addNewPasswordButton();
-    if (localStorage.getItem('using-cache') === 'false') {
-        let url = settings.VAULT.SYNC_SERVER_URL + '/api/vault?user=' + localStorage.getItem("user") + '&key=' + localStorage.getItem("key");
-        fetch(url, {
-            method: 'GET',
-            headers: {'Content-Type': 'application/json'},
-        }).then(response => response.json())
-            .then(jsonResponse => {
-                if (jsonResponse.status === undefined) {
-                    requestUser();
+async function apiGetVault (override = false) {
+    let url = settings.VAULT.SYNC_SERVER_URL + '/api/vault?user=' + localStorage.getItem("user") + '&key=' + localStorage.getItem("key");
+    fetch(url, {
+        method: 'GET',
+        headers: {'Content-Type': 'application/json'},
+    }).then(response => response.json())
+        .then(jsonResponse => {
+            if (jsonResponse.status === undefined) {
+                requestUser();
 
-                    window.bridge.recieveUserData((event, user) => {
-                        if (user.last_change !== jsonResponse.last_change && override === false && settings.VAULT.ALLOW_OFFLINE_MODE === true) {
-                            loadCache(true);
-                            syncMismatch(user.last_change, jsonResponse.last_change);
-                        } else {
-                            vault = jsonResponse.data;
-                            checksum = jsonResponse.checksum;
-                            cacheUpdate(jsonResponse);
-                            displayPasswords();
-                        }
-                    });
-                } else {
-                    displayError('Unable to retrieve passwords', jsonResponse);
-                }
-            })
-            .catch(xhr => {
-                displayError('Unexpected error: ', xhr);
-            });
-    } else {
-        loadCache();
-    }
+                window.bridge.recieveUserData((event, user) => {
+                    if (user.last_change !== jsonResponse.last_change && override === false && settings.VAULT.ALLOW_OFFLINE_MODE === true) {
+                        cacheGetVault(true);
+                        syncMismatch(user.last_change, jsonResponse.last_change);
+                    } else {
+                        vault = jsonResponse.data;
+                        checksum = jsonResponse.checksum;
+                        cacheUpdate(jsonResponse);
+                        displayPasswords();
+                    }
+                });
+            } else {
+                displayError('Unable to retrieve passwords', jsonResponse);
+            }
+        })
+        .catch(xhr => {
+            displayError('Unexpected error: ', xhr);
+        });
 }
 
-function createPassword () {
+function apiCreatePassword (data) {
     let password = {
         user: localStorage.getItem('user'),
         key: localStorage.getItem('key'),
-        data: {
-            pass: document.getElementById('pass').value,
-            user: document.getElementById('user').value,
-            name: document.getElementById('name').value,
-            url: document.getElementById('url').value,
-            notes: document.getElementById('notes').value
-        }
+        data
     };
+
     sendRequest('POST',password,'Password added.', 'Unable to add password');
 }
 
-function updatePassword (id) {
+function apiUpdatePassword (data) {
     let password = {
         user: localStorage.getItem('user'),
         key: localStorage.getItem('key'),
-        data: {
-            pid: id,
-            pass: document.getElementById('pass').value,
-            user: document.getElementById('user').value,
-            name: document.getElementById('name').value,
-            url: document.getElementById('url').value,
-            notes: document.getElementById('notes').value,
-        }
+        data
     };
 
     sendRequest('PUT',password,'Password saved.', 'Unable to update password');
 }
 
-function deletePassword (id) {
+function apiDeletePassword (id) {
     let password = {
         user: localStorage.getItem('user'),
         key: localStorage.getItem('key'),
@@ -75,6 +56,7 @@ function deletePassword (id) {
             pid: id
         }
     };
+
     sendRequest('DELETE',password,'Password deleted.', 'Unable to delete password');
 }
 
@@ -100,6 +82,6 @@ function sendRequest(type, data, successMessage, errorMessage, noReload = false)
             }
         })
         .catch(xhr => {
-            displayError(errorMessage);
+            displayError(xhr);
         });
 }
