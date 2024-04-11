@@ -1,1 +1,2 @@
 let vault;
+let checksum;
