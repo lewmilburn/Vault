@@ -41,7 +41,8 @@ if ($am->authenticated() || (isset($sentData->user) && isset($sentData->key))) {
             $im->escapeString($sentData->data->pid)
         )) {
             $um = new UserManager();
-            $um->setLastChange($_GET['user']);
+            $timestamp = strtotime($sentData->time . '+0 hour');
+            $um->setLastChange($sentData->user, date('Y-m-d H:i', $timestamp));
             echo '{"status": 200}';
         } else {
             $eh->internalServerError();
