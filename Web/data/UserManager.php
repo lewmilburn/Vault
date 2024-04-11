@@ -13,6 +13,7 @@ class UserManager
         foreach ($users as $key => $item) {
             if ($item->user == $user) {
                 $users[$key]->last_change = $time;
+
                 return file_put_contents($this->userFile, json_encode($users));
             }
         }
