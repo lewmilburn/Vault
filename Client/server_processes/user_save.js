@@ -13,17 +13,11 @@ module.exports = function (user, lastchange, electronApp) {
 
     let fs = require('fs');
     try {
-        if (fs.existsSync(require(__dirname + '/server_processes/path')(electronApp, '/../' + user + '.json'))) {
-            fs.writeFileSync(require(__dirname + '/server_processes/path')(electronApp, '/../' + user + '.json'), JSON.stringify(dataToSave), 'utf-8');
-        } else {
-            const { dialog } = require('electron');
-            dialog.showErrorBox("User file does not exist.",dataToSave.toString());
-            fs.writeFileSync(require(__dirname + '/server_processes/path')(electronApp, '/../' + user + '.json'), JSON.stringify(dataToSave), 'utf-8');
-            let data = fs.readFileSync(require(__dirname + '/server_processes/path')(electronApp, '/../' + user + '.json'));
-            dialog.showErrorBox("Saved data",data.toString());
-        }
+        fs.writeFileSync(require(__dirname + '/path')(electronApp, user + '.json'), JSON.stringify(dataToSave), 'utf-8');
         console.log('[VAULT] User data saved to file.');
     } catch(error) {
+        const { dialog } = require('electron');
+        dialog.showErrorBox("Vault Error", "Unable to save user file: "+error.toString());
         console.log('[VAULT] Failed to save User data!');
         console.log('[VAULT] Error: ' + error);
         console.log('[VAULT] Please check the User data file is writeable and try again.');

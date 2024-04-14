@@ -5,29 +5,28 @@ window.bridge.requestSettings(() => {});
 window.bridge.sendSettings((event, vaultSettings) => {
     settings = vaultSettings;
 
-    document.getElementById('vault.sync_server_url').value = settings.VAULT.SYNC_SERVER_URL;
+    if (!document.getElementById('vault.sync_server_url') === null) {
 
-    if (settings.VAULT.ALLOW_OFFLINE_MODE === "true") {
-        document.getElementById('vault.allow_offline_mode').options[0].selected = true;
-    } else {
-        document.getElementById('vault.allow_offline_mode').options[1].selected = true;
-    }
+        document.getElementById('vault.sync_server_url').value = settings.VAULT.SYNC_SERVER_URL;
 
-    if (settings.VAULT.FORCE_OFFLINE_MODE === "true") {
-        document.getElementById('vault.force_offline_mode').options[0].selected = true;
-    } else {
-        document.getElementById('vault.force_offline_mode').options[1].selected = true;
-    }
+        if (settings.VAULT.ALLOW_OFFLINE_MODE === "true") {
+            document.getElementById('vault.allow_offline_mode').options[0].selected = true;
+        } else {
+            document.getElementById('vault.allow_offline_mode').options[1].selected = true;
+        }
 
-    document.getElementById('app.window_width').value = settings.APP.WINDOW_WIDTH;
-    document.getElementById('app.window_height').value = settings.APP.WINDOW_HEIGHT;
+        if (settings.VAULT.FORCE_OFFLINE_MODE === "true") {
+            document.getElementById('vault.force_offline_mode').options[0].selected = true;
+        } else {
+            document.getElementById('vault.force_offline_mode').options[1].selected = true;
+        }
 
-    if (settings.APP.CACHE_ENCRYPTION_METHOD === "AES-256-GCM") {
-        document.getElementById('app.cache_encryption_method').options[0].selected = true;
-    } else if  (settings.APP.CACHE_ENCRYPTION_METHOD === "AES-192-GCM") {
-        document.getElementById('app.cache_encryption_method').options[1].selected = true;
-    } else if  (settings.APP.CACHE_ENCRYPTION_METHOD === "AES-128-GCM") {
-        document.getElementById('app.cache_encryption_method').options[2].selected = true;
+        document.getElementById('app.window_width').value = settings.APP.WINDOW_WIDTH;
+        document.getElementById('app.window_height').value = settings.APP.WINDOW_HEIGHT;
+
+        if (settings.APP.CACHE_ENCRYPTION_METHOD === "AES-256-GCM") {
+            document.getElementById('app.cache_encryption_method').options[0].selected = true;
+        }
     }
 });
 

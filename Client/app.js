@@ -121,7 +121,7 @@ ipcMain.on('cache-update', (event, user, data, key) => {
     console.log('[Vault][IPC] Cache received, updating file...');
     let checksum = require(nodePath.join(__dirname + '/server_processes/checksum'))(data);
     let encryptedData = require(nodePath.join(__dirname + '/server_processes/encrypt'))(data, key,settings);
-    require(nodePath.join(__dirname + '/server_processes/cache_save'))(user, encryptedData, checksum);
+    require(nodePath.join(__dirname + '/server_processes/cache_save'))(user, encryptedData, checksum, electronApp);
     let date = require(nodePath.join(__dirname + '/server_processes/currentDate'))();
     require(nodePath.join(__dirname + '/server_processes/user_save'))(user, date, electronApp);
     console.log('[Vault][IPC] Cache updated.');
@@ -132,7 +132,7 @@ ipcMain.on('cache-update', (event, user, data, key) => {
  */
 ipcMain.on('cache-request', (event, user, key) => {
     console.log('[Vault][IPC] Cache requested...');
-    let encryptedCache = require(nodePath.join(__dirname + '/server_processes/cache_load'))(user);
+    let encryptedCache = require(nodePath.join(__dirname + '/server_processes/cache_load'))(user, electronApp);
     if (encryptedCache !== null) {
         let cache = require(nodePath.join(__dirname + '/server_processes/decrypt'))(encryptedCache.data, key, settings);
         window.webContents.send('cache', cache);
