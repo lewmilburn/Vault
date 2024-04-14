@@ -1,8 +1,7 @@
 const fs = require("fs");
 const nodePath = require("path");
 /**
- * @name user_load.js
- * @description Loads user data from file.
+ * Loads user data from file.
  *
  * @param user
  * @returns {any}
@@ -12,7 +11,7 @@ module.exports = function (user) {
 
     if (fs.existsSync(__dirname + '/../' + user + '.json')) {
         try {
-            let cache = JSON.parse(fs.readFileSync(user + '.json').toString());
+            let cache = JSON.parse(fs.readFileSync(__dirname + '/../' + user + '.json').toString());
             console.log('[VAULT][USER] User data read.')
             return cache;
         } catch (e) {

@@ -1,6 +1,7 @@
 let settings;
 
 window.bridge.requestSettings(() => {});
+
 window.bridge.sendSettings((event, vaultSettings) => {
     settings = vaultSettings;
 

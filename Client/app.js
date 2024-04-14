@@ -25,9 +25,9 @@ function createWindow() {
             nodeIntegration: false,
             contextIsolation: true,
             preload: nodePath.join(__dirname, '/preload.js'),
-            devTools: false
+            devTools: true
         },
-        autoHideMenuBar: true
+        autoHideMenuBar: false
     });
 
     window.loadFile(nodePath.join(__dirname + '/views/loading.html'))
@@ -108,7 +108,7 @@ ipcMain.on('screen-misconfiguration', () => {
  */
 ipcMain.on('full-reload', () => {
     console.log('[Vault] Starting full reload...');
-    settings = require(nodePath.join(__dirname + '/server_processes/readJsonFile'))(nodePath.join(__dirname + 'settings.json'));
+    settings = require(nodePath.join(__dirname + '/server_processes/readJsonFile'))(nodePath.join(__dirname + '/settings.json'));
     console.log('[Vault] Reloaded.');
 });
 
