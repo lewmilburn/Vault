@@ -8,10 +8,12 @@ async function checkStatus() {
         }).then(response => response.json())
             .then(jsonResponse => {
                 if (jsonResponse.status !== 200) {
+                    alert('2 JSONRESPONSE: '+jsonResponse.toString());
                     screenOffline();
                 }
             })
-            .catch(() => {
+            .catch(jsonResponse => {
+                alert('1 JSONRESPONSE: '+jsonResponse.toString());
                 screenOffline();
             });
     }

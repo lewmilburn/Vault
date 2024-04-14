@@ -5,8 +5,10 @@ const ipcMain = require('electron').ipcMain;
 const electronBrowserWindow = require('electron').BrowserWindow;
 const nodePath = require('path');
 
+require(__dirname + '/server_processes/settings')(electronApp);
+
 let window;
-let settings = require(nodePath.join(__dirname + '/server_processes/readJsonFile'))(nodePath.join(__dirname + '/settings.json'));
+let settings = require(nodePath.join(__dirname + '/server_processes/readJsonFile'))(require(__dirname + '/server_processes/path')(electronApp, '/settings.json'));
 
 console.log("[VAULT] Loaded settings:");
 console.log(settings);
@@ -38,7 +40,7 @@ function createWindow() {
             window.name = 'Vault';
             window.show();
 
-            if (!require(nodePath.join(__dirname + '/server_processes/fileExists'))(nodePath.join(__dirname + '/vault.json'))) {
+            if (!require(nodePath.join(__dirname + '/server_processes/fileExists'))(require(__dirname + '/server_processes/path')(electronApp, '/vault.json'))) {
                 screen('misconfiguration');
             }
         });
@@ -59,8 +61,8 @@ ipcMain.on('request-settings', () => {
 ipcMain.on('update-settings', (event, user, clientSettings) => {
     console.log('[Vault][IPC] Renderer updated settings.');
     console.log(clientSettings);
-    require(nodePath.join(__dirname + '/server_processes/writeJsonFile'))(nodePath.join(__dirname + '/settings.json'), clientSettings);
-    require(nodePath.join(__dirname + '/server_processes/deleteJsonFile'))(nodePath.join(__dirname + '/'+user+'.cache'));
+    require(nodePath.join(__dirname + '/server_processes/writeJsonFile'))(require(__dirname + '/server_processes/path')(electronApp, '/settings.json'), clientSettings);
+    require(nodePath.join(__dirname + '/server_processes/deleteJsonFile'))(require(__dirname + '/server_processes/path')(electronApp, '/'+user+'.cache'));
 });
 
 /**
@@ -108,7 +110,7 @@ ipcMain.on('screen-misconfiguration', () => {
  */
 ipcMain.on('full-reload', () => {
     console.log('[Vault] Starting full reload...');
-    settings = require(nodePath.join(__dirname + '/server_processes/readJsonFile'))(nodePath.join(__dirname + '/settings.json'));
+    settings = require(nodePath.join(__dirname + '/server_processes/readJsonFile'))(require(__dirname + '/server_processes/path')(electronApp, '/settings.json'));
     console.log('[Vault] Reloaded.');
 });
 
@@ -121,7 +123,7 @@ ipcMain.on('cache-update', (event, user, data, key) => {
     let encryptedData = require(nodePath.join(__dirname + '/server_processes/encrypt'))(data, key,settings);
     require(nodePath.join(__dirname + '/server_processes/cache_save'))(user, encryptedData, checksum);
     let date = require(nodePath.join(__dirname + '/server_processes/currentDate'))();
-    require(nodePath.join(__dirname + '/server_processes/user_save'))(user, date);
+    require(nodePath.join(__dirname + '/server_processes/user_save'))(user, date, electronApp);
     console.log('[Vault][IPC] Cache updated.');
 });
 
@@ -143,7 +145,7 @@ ipcMain.on('cache-request', (event, user, key) => {
  */
 ipcMain.on('user-request', (event, user) => {
     console.log('[Vault][IPC] User data requested...');
-    let userdata = require(nodePath.join(__dirname + '/server_processes/user_load'))(user);
+    let userdata = require(nodePath.join(__dirname + '/server_processes/user_load'))(user, electronApp);
     if (userdata !== null) {
         window.webContents.send('user_data', userdata);
         console.log('[Vault][IPC] User data sent.');
@@ -158,7 +160,7 @@ ipcMain.on('user-request', (event, user) => {
 ipcMain.on('resync', (event, user) => {
     console.log('[Vault][IPC] Resync requested...');
     let date = require(nodePath.join(__dirname + '/server_processes/currentDate'))();
-    require(nodePath.join(__dirname + '/server_processes/user_save'))(user, date);
+    require(nodePath.join(__dirname + '/server_processes/user_save'))(user, date, electronApp);
 });
 
 /**

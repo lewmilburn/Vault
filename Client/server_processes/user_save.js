@@ -3,8 +3,9 @@
  *
  * @param user
  * @param lastchange
+ * @param electronApp
  */
-module.exports = function (user, lastchange) {
+module.exports = function (user, lastchange, electronApp) {
     console.log('[VAULT] Saving User data to file...');
     let dataToSave = {
         "last_change": lastchange
@@ -12,13 +13,13 @@ module.exports = function (user, lastchange) {
 
     let fs = require('fs');
     try {
-        if (fs.existsSync(__dirname + '/../' + user+'.json')) {
-            fs.writeFileSync(__dirname + '/../' + user+'.json', JSON.stringify(dataToSave), 'utf-8');
+        if (fs.existsSync(require(__dirname + '/server_processes/path')(electronApp, '/../' + user + '.json'))) {
+            fs.writeFileSync(require(__dirname + '/server_processes/path')(electronApp, '/../' + user + '.json'), JSON.stringify(dataToSave), 'utf-8');
         } else {
             const { dialog } = require('electron');
             dialog.showErrorBox("User file does not exist.",dataToSave.toString());
-            fs.writeFileSync(__dirname + '/../' + user+'.json', JSON.stringify(dataToSave), 'utf-8');
-            let data = fs.readFileSync(__dirname + '/../' + user+'.json');
+            fs.writeFileSync(require(__dirname + '/server_processes/path')(electronApp, '/../' + user + '.json'), JSON.stringify(dataToSave), 'utf-8');
+            let data = fs.readFileSync(require(__dirname + '/server_processes/path')(electronApp, '/../' + user + '.json'));
             dialog.showErrorBox("Saved data",data.toString());
         }
         console.log('[VAULT] User data saved to file.');
