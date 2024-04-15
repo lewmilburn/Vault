@@ -85,7 +85,6 @@ contextBridge.exposeInMainWorld(
         },
 
         screenOffline: () => {
-            console.log('test');
             ipcRenderer.send('screen-offline');
         }
     }

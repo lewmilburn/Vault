@@ -8,11 +8,21 @@ async function apiGetVault (override = false) {
             if (jsonResponse.status === undefined) {
                 requestUser();
                 window.bridge.recieveUserData((event, user) => {
-                    if (user.last_change !== jsonResponse.last_change && override === false && settings.VAULT.ALLOW_OFFLINE_MODE === "true") {
+                    if (
+                        user !== undefined &&
+                        user.last_change !== jsonResponse.last_change &&
+                        override === false &&
+                        settings.VAULT.ALLOW_OFFLINE_MODE === "true"
+                    ) {
                         cacheGetVault(true);
                         localStorage.setItem('remote_vault_temp', JSON.stringify(jsonResponse.data));
                         syncMismatch(user.last_change, jsonResponse.last_change);
                     } else {
+                        if (user === undefined) {
+                            alert("Welcome to Vault! Since it's your first time here we're unable to load " +
+                                "your user information from file so we're grabbing it from the server for you. " +
+                                "This may take a moment.")
+                        }
                         if (!document.getElementById('syncmismatch').classList.contains('hidden')) {
                             document.getElementById('syncmismatch').classList.add('hidden');
                         }

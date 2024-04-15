@@ -1,12 +1,12 @@
 /**
- * @name cache_save.js
- * @description Saves cache to file.
+ * Saves cache to file.
  *
  * @param user
  * @param data
  * @param checksum
+ * @param electronApp
  */
-module.exports = function (user, data, checksum) {
+module.exports = function (user, data, checksum, electronApp) {
     console.log('[VAULT] Saving cache to file...');
     let dataToSave = {
         "data": data,
@@ -15,7 +15,7 @@ module.exports = function (user, data, checksum) {
 
     let fs = require('fs');
     try {
-        fs.writeFileSync(user+'.cache', JSON.stringify(dataToSave), 'utf-8');
+        fs.writeFileSync(require(__dirname + '/path')(electronApp, user+'.cache'), JSON.stringify(dataToSave), 'utf-8');
         console.log('[VAULT] Cache saved to file.');
     } catch(error) {
         console.log('[VAULT] Failed to save cache!');
