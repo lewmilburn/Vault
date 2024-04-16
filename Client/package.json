@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "description": "A desktop client for the Vault project.",
   "main": "app.js",
+  "homepage": "https://github.com/lewmilburn/vault",
+  "releaseDate": "2024-04-16",
   "scripts": {
     "start": "electron .",
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -32,6 +34,14 @@
   },
   "build": {
     "productName": "Vault",
-    "copyright": "Copyright © 2024 ${author} - Icons by Freepik on Flaticon"
+    "copyright": "Copyright © 2024 ${author} - Icons by Freepik on Flaticon",
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowElevation": true,
+      "license": "license.txt",
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    }
   }
 }
