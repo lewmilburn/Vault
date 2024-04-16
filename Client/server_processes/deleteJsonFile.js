@@ -8,7 +8,9 @@ module.exports = function (file) {
     let fs = require('fs');
 
     try {
-        fs.rmSync(file);
+        if (fs.existsSync(file)) {
+            fs.rmSync(file);
+        }
     } catch(error) {
         const {dialog} = require('electron');
         dialog.showErrorBox('Vault Error (3)',error.toString());

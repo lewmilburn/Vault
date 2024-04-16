@@ -15,7 +15,7 @@ module.exports = function (user, electronApp) {
             console.log('[VAULT][CACHE] Cache read.')
             return cache;
         } catch (e) {
-            dialog.showErrorBox('Error whilst reading cache.',e.toString());
+            dialog.showErrorBox('Vault Error (0)',e.toString());
             console.warn('[VAULT][CACHE] Error whilst reading cache.');
             console.error('[VAULT][CACHE] ' + e.toString());
             console.warn('[VAULT][CACHE] Please check the file is readable and try again.');
