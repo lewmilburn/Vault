@@ -15,7 +15,7 @@ module.exports = function (user, electronApp) {
             console.log('[VAULT][CACHE] Cache read.')
             return cache;
         } catch (e) {
-            dialog.showErrorBox('Vault Error (0)',e.toString());
+            dialog.showErrorBox('Vault Error (0)',e.toString()+" - More help: bit.ly/vaulterrors");
             console.warn('[VAULT][CACHE] Error whilst reading cache.');
             console.error('[VAULT][CACHE] ' + e.toString());
             console.warn('[VAULT][CACHE] Please check the file is readable and try again.');
@@ -24,7 +24,7 @@ module.exports = function (user, electronApp) {
         try {
             fs.writeFileSync(require(__dirname + '/path')(electronApp, user+'.cache'), '');
         } catch (e) {
-            dialog.showErrorBox('Vault Error (1)',e.toString());
+            dialog.showErrorBox('Vault Error (1)',e.toString()+" - More help: bit.ly/vaulterrors");
         }
         if (!fs.existsSync(require(__dirname + '/path')(electronApp, user+'.cache'))) {
             dialog.showErrorBox(

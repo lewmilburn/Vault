@@ -12,7 +12,7 @@ let settings = require(nodePath.join(__dirname + '/server_processes/readJsonFile
 
 if (settings === null || settings === undefined) {
     const {dialog} = require('electron');
-    dialog.showErrorBox('Vault Error (12)', 'Unable to fetch settings.');
+    dialog.showErrorBox('Vault Error (12)', 'Unable to fetch settings. More help: bit.ly/vaulterrors');
 }
 
 console.log("[VAULT] Loaded settings:");
@@ -110,7 +110,7 @@ ipcMain.on('screen-misconfiguration', () => {
     const {dialog} = require('electron');
     dialog.showErrorBox(
         'Vault Error (13)',
-        'Vault is misconfigured, please check your settings and try again.'
+        'Vault is misconfigured, please check your settings and try again. More help: bit.ly/vaulterrors'
     );
     screen('misconfiguration');
 });

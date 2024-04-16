@@ -17,7 +17,7 @@ module.exports = function (user, electronApp) {
             return cache;
         } catch (e) {
             const {dialog} = require('electron');
-            dialog.showErrorBox('Vault Error (7)',e.toString());
+            dialog.showErrorBox('Vault Error (7)',e.toString()+" - More help: bit.ly/vaulterrors");
             console.warn('[VAULT][USER] Error whilst reading user data.');
             console.error('[VAULT][USER] ' + e);
             console.warn('[VAULT][USER] Please check the file is readable and try again.');
@@ -29,7 +29,10 @@ module.exports = function (user, electronApp) {
         let userData = JSON.parse(fs.readFileSync(require(__dirname + '/path')(electronApp, user + '.json')).toString());
         if (!fs.existsSync(require(__dirname + '/path')(electronApp, user + '.json'))) {
             const {dialog} = require('electron');
-            dialog.showErrorBox('Vault Error (8)','Unable to create file '+require(__dirname + '/path')(electronApp, user + '.json'));
+            dialog.showErrorBox(
+                'Vault Error (8)',
+                'Unable to create file '+require(__dirname + '/path')(electronApp, user + '.json')+" - More help: bit.ly/vaulterrors"
+            );
         }
         console.log('[VAULT][USER] User data read.')
         return userData;

@@ -18,12 +18,14 @@ module.exports = function (file, data) {
                 const {dialog} = require('electron');
                 dialog.showErrorBox(
                     "Vault Error (10)",
-                    "Vault attempted to create a configuration file but was unsuccessful. File: "+require(__dirname + '/path')(electronApp, '/vault.json'))
+                    "Vault attempted to create a configuration file but was unsuccessful. File: "+
+                    require(__dirname + '/path')(electronApp, '/vault.json')+
+                    " - More help: bit.ly/vaulterrors")
             }
         }
     } catch(error) {
         const {dialog} = require('electron');
-        dialog.showErrorBox('Vault Error (11)',error.toString());
+        dialog.showErrorBox('Vault Error (11)',error.toString()+" - More help: bit.ly/vaulterrors");
         console.log('[VAULT] Failed to read JSON file "'+require(__dirname + '/path')(electronApp, '/vault.json')+'"');
         console.log('[VAULT] Error: ' + error);
         console.log('[VAULT] Please check "'+require(__dirname + '/path')(electronApp, '/vault.json')+'" is readable and try again.');
