@@ -43,6 +43,7 @@ use Vault\security\ValidationManager;
 
             <main>
                 <form action="/auth" method="post" class="text-center sm:w-1/2 md:w-1/3 lg:w-1/4 mx-auto">
+                    <label for="csrf" class="hidden">Hidden field</label>
                     <input
                         id="csrf"
                         name="csrf"
