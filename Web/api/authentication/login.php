@@ -5,6 +5,7 @@ use Vault\api\ApiError;
 use Vault\authentication\AuthenticationManager;
 use Vault\data\DataManager;
 use Vault\Libraries\PHPGangsta_GoogleAuthenticator;
+use Vault\security\InputManager;
 use Vault\security\ValidationManager;
 
 header('Content-Type: application/json; charset=utf-8');
@@ -33,15 +34,16 @@ if (!$am->authenticated() && !isset($_SESSION['user'])) {
 
         if (!$factor->verifyCode($factorData->secret, $sentData->code)) {
             $eh->authCodeMismatch();
-            exit;
         }
 
         unset($factorData);
+
+        $im = new InputManager();
         $am = new AuthenticationManager();
         if ($am->login(
-            $sentData->username,
-            $sentData->password,
-            $sentData->code
+            $im->escapeString($sentData->username),
+            $im->escapeString($sentData->password),
+            $im->escapeString($sentData->code)
         )) {
             if (isset($sentData->sendall)) {
                 echo '{"status": 200, "name": "'.$_SESSION['name'].'", "user": "'.$_SESSION['user'].'", "token": "'.$_SESSION['token'].'", "apikey": "'.urlencode($_SESSION['key']).'"}';
