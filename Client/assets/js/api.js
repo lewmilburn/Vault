@@ -59,7 +59,6 @@ function apiUpdatePassword (data) {
         data,
         time: getDateTime()
     };
-    console.log(password);
 
     sendRequest('PUT',password,'Password saved.', 'Unable to update password');
 }
@@ -78,6 +77,7 @@ function apiDeletePassword (id) {
 }
 
 function sendRequest(type, data, successMessage, errorMessage, noReload = false) {
+    console.log(data);
     let url = settings.VAULT.SYNC_SERVER_URL + '/api/password/';
     fetch(url, {
         method: type,
@@ -93,12 +93,12 @@ function sendRequest(type, data, successMessage, errorMessage, noReload = false)
                 }
             } else {
                 if (errorMessage !== null) {
-                    displayError(errorMessage,xhr.responseText);
+                    displayError(errorMessage,jsonResponse.toString());
                 }
                 return false;
             }
         })
-        .catch(xhr => {
-            displayError(xhr);
+        .catch(jsonResponse => {
+            displayError(jsonResponse.toString());
         });
 }
