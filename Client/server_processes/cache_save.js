@@ -19,7 +19,7 @@ module.exports = function (user, data, checksum, electronApp) {
         console.log('[VAULT] Cache saved to file.');
     } catch(error) {
         const {dialog} = require('electron');
-        dialog.showErrorBox('Vault Error (2)',error.toString());
+        dialog.showErrorBox('Vault Error (18)',error.toString());
         console.log('[VAULT] Failed to save cache!');
         console.log('[VAULT] Error: ' + error);
         console.log('[VAULT] Please check the cache file is writeable and try again.');

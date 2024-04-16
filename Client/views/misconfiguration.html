@@ -92,7 +92,11 @@
                                 </select>
                             </div>
                             <br>
-                            <button onclick="updateSettings();" class="btn-green">Save</button>
+                            <div class="grid">
+                                <button onclick="updateSettings();" class="btn-green">Save Settings</button>
+                                &nbsp;
+                                <button onclick="clearLocalStorage();" class="btn-red">Reset Local Storage</button>
+                            </div>
                             <br>
                             <p>Changing settings will clear your offline cache and require Vault to restart.</p>
                         </div>

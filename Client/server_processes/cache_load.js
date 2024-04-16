@@ -28,7 +28,7 @@ module.exports = function (user, electronApp) {
         }
         if (!fs.existsSync(require(__dirname + '/path')(electronApp, user+'.cache'))) {
             dialog.showErrorBox(
-                'Vault Error.',
+                'Vault Error (2)',
                 "Unable to create file: "+require(__dirname + '/path')(electronApp, user+'.cache')
             );
             console.warn('[VAULT][CACHE] Error whilst reading cache.');

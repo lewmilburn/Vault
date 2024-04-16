@@ -91,3 +91,8 @@ function waitForSettings() {
         }, 5);
     });
 }
+
+function clearLocalStorage() {
+    localStorage.clear();
+    screenRestart();
+}

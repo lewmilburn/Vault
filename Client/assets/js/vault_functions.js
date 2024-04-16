@@ -10,7 +10,7 @@ async function getVault(override = false) {
     } else if ((localStorage.getItem('using-cache') === 'true' && settings.VAULT.ALLOW_OFFLINE_MODE) || override === true) {
         cacheGetVault();
     } else {
-        alert('Unable to access Vault. Please restart Vault and try again.')
+        alert('Vault Error (16) - Unable to access Vault. Please restart Vault and try again.')
     }
 }
 
@@ -34,7 +34,7 @@ function createPassword() {
     } else if (settings.VAULT.FORCE_OFFLINE_MODE === "true") {
         cacheCreatePassword(data);
     } else {
-        alert('Unable to access Vault. Please restart Vault and try again.')
+        alert('Vault Error (15) - Unable to access Vault. Please restart Vault and try again.')
     }
 }
 
@@ -47,13 +47,14 @@ function updatePassword(id) {
         url: document.getElementById('url').value,
         notes: document.getElementById('notes').value,
     }
+    console.log(data);
 
     if (localStorage.getItem('using-cache') === 'false') {
         apiUpdatePassword(data);
     } else if ((localStorage.getItem('using-cache') === 'true' && settings.VAULT.ALLOW_OFFLINE_MODE === "true")) {
         cacheUpdatePassword(data);
     } else {
-        alert('Unable to access Vault. Please restart Vault and try again.')
+        alert('Vault Error (14) - Unable to access Vault. Please restart Vault and try again.')
     }
 }
 
@@ -69,6 +70,6 @@ function deletePassword(id) {
     } else if (settings.VAULT.FORCE_OFFLINE_MODE === "true") {
         cacheDeletePassword(id);
     } else {
-        alert('Unable to access Vault. Please restart Vault and try again.')
+        alert('Vault Error (17) - Unable to access Vault. Please restart Vault and try again.')
     }
 }
