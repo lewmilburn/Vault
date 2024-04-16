@@ -58,7 +58,6 @@ $qr = $factor->getQRCodeGoogleUrl($_SERVER['SERVER_NAME'], $secret, 'Vault');
                         name="csrf"
                         class="hidden"
                         value="<?php $vm = new ValidationManager(); echo $vm->csrfToken(); ?>"
-                        aria-hidden="true"
                     >
                     <div class="grid">
                         <label for="user">Username</label>
