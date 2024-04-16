@@ -19,25 +19,25 @@ $qr = $factor->getQRCodeGoogleUrl($_SERVER['SERVER_NAME'], $secret, 'Vault');
             <?php require_once __DIR__.'/common/alerts.php'; ?>
 
             <?php if (isset($_GET['rf'])) { ?>
-                <?php if (isset($_GET['rf']) && $_GET['rf'] == 'userExists') { ?>
+                <?php if ($_GET['rf'] == 'userExists') { ?>
                     <div class="alert-red">
                         Setup failed, a user with this account name already exists.
                     </div>
                 <?php } ?>
-                <?php if (isset($_GET['rf']) && $_GET['rf'] == 'pass') { ?>
+                <?php if ($_GET['rf'] == 'pass') { ?>
                     <div class="alert-red">
                         Your password must contain 8 characters,
                         including at least 1 uppercase,
                         1 lowercase, 1 number, and 1 symbol.
                     </div>
                 <?php } ?>
-                <?php if (isset($_GET['rf']) && $_GET['rf'] == 'user') { ?>
+                <?php if ($_GET['rf'] == 'user') { ?>
                     <div class="alert-red">
                         Your username must be at least 4 characters
                         and can not include any symbols.
                     </div>
                 <?php } ?>
-                <?php if (isset($_GET['rf']) && $_GET['rf'] == 'user') { ?>
+                <?php if ($_GET['rf'] == 'user') { ?>
                     <div class="alert-red">
                         Invalid two-factor authentication code.
                     </div>
@@ -51,15 +51,16 @@ $qr = $factor->getQRCodeGoogleUrl($_SERVER['SERVER_NAME'], $secret, 'Vault');
             <main>
                 <form action="/reg" method="post" class="text-center sm:w-1/2 md:w-1/3 lg:w-1/4 mx-auto">
                     <div class="hidden">
-                        <input id="secret" name="secret" value="<?= $secret; ?>">
+                        <label for="secret" class="hidden">Hidden field</label>
+                        <input id="secret" name="secret" class="hidden" value="<?= $secret; ?>">
+                        <label for="csrf" class="hidden">Hidden field</label>
+                        <input
+                                id="csrf"
+                                name="csrf"
+                                class="hidden"
+                                value="<?php $vm = new ValidationManager(); echo $vm->csrfToken(); ?>"
+                        >
                     </div>
-                    <input
-                        id="csrf"
-                        name="csrf"
-                        class="hidden"
-                        value="<?php $vm = new ValidationManager(); echo $vm->csrfToken(); ?>"
-                        aria-hidden="true"
-                    >
                     <div class="grid">
                         <label for="user">Username</label>
                         <input id="user" name="user">

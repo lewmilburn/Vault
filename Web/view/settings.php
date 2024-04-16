@@ -98,10 +98,10 @@ if (isset($_GET['delete'])) {
                                 <input id="code" name="code" type="password" required>
                             </div>
                             <div class="grid">
-                                <label>
+                                <p class="label">
                                     Warning: Resetting your password will delete your Vault data, please create a
                                     backup before continuing.
-                                </label>
+                                </p>
                                 <button class="btn-primary" id="reset" name="reset">
                                     Reset Password, Clear Vault,  and Log out
                                 </button>

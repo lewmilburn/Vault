@@ -2499,7 +2499,7 @@ form {
   gap: 0.5rem;
 }
 
-label {
+label, .label {
   text-align: left;
   font-size: 0.875rem;
   line-height: 1.25rem;
