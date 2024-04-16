@@ -82,16 +82,7 @@
                                     class="btn-green flex-grow"
                                     name="type"
                                     value="create"
-                                    x-on:click="
-                                    open=false;
-                                    newItem=false;
-                                    pass='';
-                                    user='';
-                                    name='';
-                                    url='';
-                                    notes='';
-                                    strength='';
-                                ">
+                                >
                                     Add to Vault
                                 </button>
                                 <button
@@ -101,16 +92,7 @@
                                     name="type"
                                     value="update"
                                     :id="pid"
-                                    x-on:click="
-                                    open=false;
-                                    newItem=false;
-                                    pass='';
-                                    user='';
-                                    name='';
-                                    url='';
-                                    notes='';
-                                    strength='';
-                                ">
+                                >
                                     Save changes
                                 </button>
                                 <button
@@ -120,16 +102,7 @@
                                     name="type"
                                     value="delete"
                                     :id="pid"
-                                    x-on:click="
-                                    open=false;
-                                    newItem=false;
-                                    pass='';
-                                    user='';
-                                    name='';
-                                    url='';
-                                    notes='';
-                                    strength='';
-                                ">
+                                >
                                     Delete
                                 </button>
                             </div>
