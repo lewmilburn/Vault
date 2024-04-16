@@ -5,7 +5,7 @@ window.bridge.requestSettings(() => {});
 window.bridge.sendSettings((event, vaultSettings) => {
     settings = vaultSettings;
 
-    if (!document.getElementById('vault.sync_server_url') === null) {
+    if (document.getElementById('vault.sync_server_url') !== null) {
 
         document.getElementById('vault.sync_server_url').value = settings.VAULT.SYNC_SERVER_URL;
 
