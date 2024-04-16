@@ -3,12 +3,14 @@
         class="fa-solid fa-house btn-sidebar"
         title="Dashboard"
         role="button"
+        tabIndex="0"
         onclick="window.location = '/'"
     ></i>
     <i
         class="fa-solid fa-cog btn-sidebar"
         title="Settings"
         role="button"
+        tabIndex="0"
         onclick="window.location = '/settings'"
     ></i>
     <?php if ($_SESSION['role'] == 1) { ?>
@@ -16,6 +18,7 @@
         class="fa-solid fa-users btn-sidebar"
         title="Users"
         role="button"
+        tabIndex="0"
         onclick="window.location = '/users'"
     ></i>
     <?php } ?>
@@ -24,11 +27,13 @@
         class="fa-solid fa-right-from-bracket btn-sidebar"
         title="Log out"
         role="button"
+        tabIndex="0"
         onclick="window.location = '/logout'"
     ></i>
     <i
         class="fa-solid fa-lock btn-sidebar"
         title="Secured with AEAD Encryption"
         role="button"
+        tabIndex="0"
     ></i>
 </nav>
