@@ -1,6 +1,5 @@
 /**
- * @name currentDate.js
- * @decription Gets the current datetime.
+ * Gets the current datetime.
  *
  * @returns {string}
  */

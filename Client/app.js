@@ -10,6 +10,11 @@ require(__dirname + '/server_processes/settings')(electronApp);
 let window;
 let settings = require(nodePath.join(__dirname + '/server_processes/readJsonFile'))(require(__dirname + '/server_processes/path')(electronApp, '/settings.json'));
 
+if (settings === null || settings === undefined) {
+    const {dialog} = require('electron');
+    dialog.showErrorBox('Vault Error (12)', 'Unable to fetch settings.');
+}
+
 console.log("[VAULT] Loaded settings:");
 console.log(settings);
 
@@ -27,9 +32,9 @@ function createWindow() {
             nodeIntegration: false,
             contextIsolation: true,
             preload: nodePath.join(__dirname, '/preload.js'),
-            devTools: true
+            devTools: false
         },
-        autoHideMenuBar: false
+        autoHideMenuBar: true
     });
 
     window.loadFile(nodePath.join(__dirname + '/views/loading.html'))
@@ -102,6 +107,11 @@ ipcMain.on('screen-restart', () => {
  */
 ipcMain.on('screen-misconfiguration', () => {
     console.log('[Vault][IPC] Renderer requested screen change.');
+    const {dialog} = require('electron');
+    dialog.showErrorBox(
+        'Vault Error (13)',
+        'Vault is misconfigured, please check your settings and try again.'
+    );
     screen('misconfiguration');
 });
 

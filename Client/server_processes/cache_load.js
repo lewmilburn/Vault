@@ -24,7 +24,7 @@ module.exports = function (user, electronApp) {
         try {
             fs.writeFileSync(require(__dirname + '/path')(electronApp, user+'.cache'), '');
         } catch (e) {
-            dialog.showErrorBox('Error whilst creating cache.',e.toString());
+            dialog.showErrorBox('Vault Error (1)',e.toString());
         }
         if (!fs.existsSync(require(__dirname + '/path')(electronApp, user+'.cache'))) {
             dialog.showErrorBox(

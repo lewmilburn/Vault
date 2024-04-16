@@ -8,7 +8,7 @@ module.exports = function (electronApp) {
         );
         if (!require(__dirname + '/fileExists')(require(__dirname + '/path')(electronApp, 'settings.json'))) {
             dialog.showErrorBox(
-                "Vault Error",
+                "Vault Error (6)",
                 "Vault was unable to create your settings file. " +
                 "Please ensure that '"+require(__dirname + '/path')(electronApp, 'settings.json')+
                 "' exists and Vault has permission to create, read, and edit files there."
