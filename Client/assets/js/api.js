@@ -77,7 +77,6 @@ function apiDeletePassword (id) {
 }
 
 function sendRequest(type, data, successMessage, errorMessage, noReload = false) {
-    console.log(data);
     let url = settings.VAULT.SYNC_SERVER_URL + '/api/password/';
     fetch(url, {
         method: type,
@@ -87,6 +86,7 @@ function sendRequest(type, data, successMessage, errorMessage, noReload = false)
         .then(jsonResponse => {
             if (jsonResponse.status === 200) {
                 displaySuccess(successMessage);
+                document.getElementById('closeEditPanel').click();
 
                 if (noReload === false) {
                     reloadVault();

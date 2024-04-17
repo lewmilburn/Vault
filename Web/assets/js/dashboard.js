@@ -81,5 +81,6 @@ $(document).ready(function() {
         } else if (e.target.value === 'create') {
             createPassword();
         }
+
     });
 });
