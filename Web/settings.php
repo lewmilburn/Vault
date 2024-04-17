@@ -1,6 +1,6 @@
 <?php
 
-const ENV = DEV;
+const ENV = PROD;
 const STORAGE_TYPE = FILESYSTEM;
 const ALLOW_REGISTRATION = false;
 const USERS_FILE = 'users.json';
