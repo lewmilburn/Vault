@@ -29,7 +29,7 @@ class UserManager
         foreach ($users as $key => $item) {
             if ($item->user == $user) {
                 if (!isset($users[$key]->last_change)) {
-                    $users[$key]->last_change = date('Y-m-d H:i', strtotime('-1 hour'));
+                    $users[$key]->last_change = date('Y-m-d H:i:s', strtotime('-1 hour'));
                     file_put_contents($this->userFile, json_encode($users));
                 }
 
