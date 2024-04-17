@@ -13,6 +13,7 @@ The project will be developed in two parts, a JavaScript-based offline/syncable 
 * [Kanban Board](https://github.com/users/lewmilburn/projects/3/views/3)
 * [Gantt Chart](https://github.com/users/lewmilburn/projects/3/views/2)
 * [Documentation](https://github.com/lewmilburn/Vault/wiki)
+* [Demo Video](https://youtu.be/_bd3XUPydaE)
 
 ## Testing
 
