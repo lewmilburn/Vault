@@ -32,9 +32,9 @@ function createWindow() {
             nodeIntegration: false,
             contextIsolation: true,
             preload: nodePath.join(__dirname, '/preload.js'),
-            devTools: true
+            devTools: false
         },
-        autoHideMenuBar: false
+        autoHideMenuBar: true
     });
 
     window.loadFile(nodePath.join(__dirname + '/views/loading.html'))
