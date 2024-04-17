@@ -7,7 +7,7 @@
         <title>Vault Dashboard</title>
         <?php require_once __DIR__.'/common/head.php'; ?>
     </head>
-    <body class="flex w-screen h-screen">
+    <body class="flex w-screen min-h-screen h-full">
         <?php require_once __DIR__.'/common/sidebar.php'; ?>
         <div class="flex-grow">
             <?php require_once __DIR__.'/common/alerts.php';?>
@@ -66,7 +66,7 @@
                                 <p class="h3 w-full">Password Strength: <span x-text="strength"></span>/10</p>
                             </div>
                             <div class="col-span-2 flex space-x-2">
-                                <button type="button" class="inline btn-primary" x-on:click="
+                                <button type="button" id="closeEditPanel" class="inline btn-primary" x-on:click="
                                     open=false;
                                     newItem=false;
                                     pass='';

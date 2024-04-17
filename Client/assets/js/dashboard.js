@@ -68,16 +68,6 @@ function addNewPasswordButton() {
     passwordGrid.appendChild(newChild);
 }
 
-function displayError(message, apiError) {
-    if (apiError !== undefined) {
-        message = message + ' (Error ' + apiError.status + ' - ' + apiError.error + ')'
-    }
-
-    let errorBox = document.getElementById('error');
-    errorBox.classList.remove('hidden');
-    errorBox.innerHTML = message;
-}
-
 function displaySuccess(message) {
     let successBox = document.getElementById('success');
     successBox.classList.remove('hidden');

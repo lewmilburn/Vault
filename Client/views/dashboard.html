@@ -12,7 +12,7 @@
         ></script>
         <meta charset="UTF-8">
     </head>
-    <body class="flex w-screen h-screen">
+    <body class="flex w-screen min-h-screen h-full">
         <nav class="flex flex-col bg-blue-700 p-0">
             <i
                 class="fa-solid fa-house btn-sidebar"
@@ -149,7 +149,7 @@
                         <div class="p-2">
                             Software Settings<br>
                             <div class="grid-std">
-                                <label for="vault.sync_server_url">Sync Server URL</label>
+                                <label for="vault.sync_server_url">Vault Server URL</label>
                                 <input id="vault.sync_server_url">
 
                                 <label for="vault.allow_offline_mode">Allow Offline Mode</label>
@@ -198,7 +198,7 @@
                         </header>
 
                         <div class="p-2" id="syncmismatch-msg">
-                            Vault has identified that changes have been made to the sync server since you were last online.
+                            Vault has identified that changes have been made to Vault Server since you were last online.
                             <br><br>
                             <div class="grid-std">
                                 <p>Last local change: <span id="lastLocalChange"></span></p>
@@ -207,7 +207,7 @@
                                 <button onclick="keepRemote()" class="btn-primary">Keep remote changes</button>
                             </div>
                             <br>
-                            The changes you decide to keep will also be pushed to the sync server.<br>
+                            The changes you decide to keep will also be pushed to your Vault Server.<br>
                             <br>
                             If this is your first time running Vault, please click "Keep remote changes".
                         </div>
@@ -220,6 +220,7 @@
                 </div>
             </main>
         </div>
+        <script src="../assets/js/error.js"></script>
         <script src="../assets/js/electron.js"></script>
         <script src="../assets/js/lib/alpine.js" defer></script>
         <script src="../assets/js/cache.js"></script>
