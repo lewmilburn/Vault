@@ -24,6 +24,23 @@ function createPassword() {
         notes: document.getElementById('notes').value
     }
 
+    if (data.pass === undefined || data.pass === null || data.pass.trim() === "") {
+        displayError('Please enter a password.')
+        return;
+    }
+    if (data.user === undefined || data.user === null || data.user.trim() === "") {
+        displayError('Please enter a username.')
+        return;
+    }
+    if (data.name === undefined || data.name === null || data.name.trim() === "") {
+        displayError('Please enter a name.')
+        return;
+    }
+    if (data.url === undefined || data.url === null || data.url.trim() === "") {
+        displayError('Please enter a URL.')
+        return;
+    }
+
     if (localStorage.getItem('using-cache') === 'false') {
         apiCreatePassword(data);
     } else if (
@@ -31,7 +48,7 @@ function createPassword() {
         settings.VAULT.ALLOW_OFFLINE_MODE === "true" &&
         settings.VAULT.FORCE_OFFLINE_MODE !== "true"
     ) {
-        alert('Please reconnect to your Vault Sync Server.')
+        alert('Please reconnect to your Vault Server.')
     } else if (settings.VAULT.FORCE_OFFLINE_MODE === "true") {
         cacheCreatePassword(data);
     } else {
@@ -50,7 +67,27 @@ function updatePassword(id) {
         url: document.getElementById('url').value,
         notes: document.getElementById('notes').value,
     }
-    console.log(data);
+
+    if (data.pid === undefined || data.pid === null || data.pid.trim() === "") {
+        displayError('Unable to access PasswordID, please try again later.')
+        return;
+    }
+    if (data.pass === undefined || data.pass === null || data.pass.trim() === "") {
+        displayError('Please enter a password.')
+        return;
+    }
+    if (data.user === undefined || data.user === null || data.user.trim() === "") {
+        displayError('Please enter a username.')
+        return;
+    }
+    if (data.name === undefined || data.name === null || data.name.trim() === "") {
+        displayError('Please enter a name.')
+        return;
+    }
+    if (data.url === undefined || data.url === null || data.url.trim() === "") {
+        displayError('Please enter a URL.')
+        return;
+    }
 
     if (localStorage.getItem('using-cache') === 'false') {
         apiUpdatePassword(data);
@@ -64,6 +101,12 @@ function updatePassword(id) {
 }
 
 function deletePassword(id) {
+
+    if (id === undefined || id === null || id.trim() === "") {
+        displayError('Unable to access PasswordID, please try again later.')
+        return;
+    }
+
     if (localStorage.getItem('using-cache') === 'false') {
         apiDeletePassword(id);
     } else if (
@@ -71,7 +114,7 @@ function deletePassword(id) {
         settings.VAULT.ALLOW_OFFLINE_MODE === "true" &&
         settings.VAULT.FORCE_OFFLINE_MODE !== "true"
     ) {
-        alert('Please reconnect to your Vault Sync Server.')
+        alert('Please reconnect to your Vault Server.')
     } else if (settings.VAULT.FORCE_OFFLINE_MODE === "true") {
         cacheDeletePassword(id);
     } else {
