@@ -9,6 +9,11 @@ use Vault\security\ValidationManager;
     <body class="flex w-screen h-screen">
         <nav class="flex flex-col bg-blue-700 p-0">
             <span class="flex-grow"></span>
+            <i
+                class="fa-regular fa-circle-question btn-sidebar"
+                onclick="window.open('https://github.com/lewmilburn/Vault/wiki/Vault-User-Guide', '_blank').focus();"
+                title="View Help"
+            ></i>
             <i class="fa-solid fa-lock btn-sidebar" title="Secured with AEAD Encryption"></i>
         </nav>
         <div class="flex-grow">
