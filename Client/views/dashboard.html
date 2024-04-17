@@ -28,6 +28,11 @@
             ></i>
             <span class="flex-grow"></span>
             <i
+                    class="fa-regular fa-circle-question btn-sidebar"
+                    onclick="window.open('https://github.com/lewmilburn/Vault/wiki/Vault-User-Guide', '_blank').focus();"
+                    title="View Help"
+            ></i>
+            <i
                class="fa-solid fa-lock btn-sidebar"
                title="Secured with AEAD Encryption"
             ></i>
@@ -202,7 +207,9 @@
                                 <button onclick="keepRemote()" class="btn-primary">Keep remote changes</button>
                             </div>
                             <br>
-                            The changes you decide to keep will also be pushed to the sync server.
+                            The changes you decide to keep will also be pushed to the sync server.<br>
+                            <br>
+                            If this is your first time running Vault, please click "Keep remote changes".
                         </div>
                         <div class="w-full text-center hidden" id="syncmismatch-spinner">
                             <br>
