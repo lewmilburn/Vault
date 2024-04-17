@@ -10,16 +10,27 @@ module.exports = function (user, electronApp) {
     let fs = require('fs');
 
     if (fs.existsSync(require(__dirname + '/path')(electronApp, user+'.cache'))) {
+        let cache;
         try {
-            let cache = JSON.parse(fs.readFileSync(require(__dirname + '/path')(electronApp, user+'.cache')).toString());
+            cache = fs.readFileSync(require(__dirname + '/path')(electronApp, user+'.cache')).toString();
             console.log('[VAULT][CACHE] Cache read.')
-            return cache;
         } catch (e) {
-            dialog.showErrorBox('Vault Error (0)',e.toString()+" - More help: bit.ly/vaulterrors");
+            dialog.showErrorBox('Vault Error (0a)',e.toString()+" - More help: bit.ly/vaulterrors");
             console.warn('[VAULT][CACHE] Error whilst reading cache.');
             console.error('[VAULT][CACHE] ' + e.toString());
             console.warn('[VAULT][CACHE] Please check the file is readable and try again.');
+            return null;
         }
+        try {
+            cache = JSON.parse(cache);
+        } catch (e) {
+            dialog.showErrorBox('Vault Error (0b)',e.toString()+" - More help: bit.ly/vaulterrors");
+            console.warn('[VAULT][CACHE] Error whilst reading cache.');
+            console.error('[VAULT][CACHE] ' + e.toString());
+            console.warn('[VAULT][CACHE] Please check the file is readable and try again.');
+            return null;
+        }
+        return cache;
     } else {
         try {
             fs.writeFileSync(require(__dirname + '/path')(electronApp, user+'.cache'), '');
