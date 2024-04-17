@@ -63,7 +63,7 @@ if (isset($_GET['delete'])) {
         <title>Vault Settings</title>
         <?php require_once __DIR__.'/common/head.php'; ?>
     </head>
-    <body class="flex w-screen h-screen">
+    <body class="flex w-screen min-h-screen h-full">
         <?php require_once __DIR__.'/common/sidebar.php'; ?>
 
         <div class="flex-grow">
