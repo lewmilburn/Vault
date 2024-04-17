@@ -33,7 +33,8 @@ if (!$am->authenticated() && !isset($_SESSION['user'])) {
         $factorData = $factorData->getUserData($sentData->username);
 
         if (!$factor->verifyCode($factorData->secret, $sentData->code)) {
-            $eh->authCodeMismatch();
+            echo '{"status": 403, "error": "Two-factor authentication code does not match."}';
+            exit;
         }
 
         unset($factorData);

@@ -17,7 +17,10 @@ module.exports = function (user, lastchange, electronApp) {
         console.log('[VAULT] User data saved to file.');
     } catch(error) {
         const { dialog } = require('electron');
-        dialog.showErrorBox("Vault Error", "Unable to save user file: "+error.toString());
+        dialog.showErrorBox(
+            "Vault Error (9)",
+            "Unable to save user file: "+error.toString()+" - More help: bit.ly/vaulterrors"
+        );
         console.log('[VAULT] Failed to save User data!');
         console.log('[VAULT] Error: ' + error);
         console.log('[VAULT] Please check the User data file is writeable and try again.');

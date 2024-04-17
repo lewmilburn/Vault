@@ -9,6 +9,11 @@ use Vault\security\ValidationManager;
     <body class="flex w-screen h-screen">
         <nav class="flex flex-col bg-blue-700 p-0">
             <span class="flex-grow"></span>
+            <i
+                class="fa-regular fa-circle-question btn-sidebar"
+                onclick="window.open('https://github.com/lewmilburn/Vault/wiki/Vault-User-Guide', '_blank').focus();"
+                title="View Help"
+            ></i>
             <i class="fa-solid fa-lock btn-sidebar" title="Secured with AEAD Encryption"></i>
         </nav>
         <div class="flex-grow">
@@ -43,6 +48,7 @@ use Vault\security\ValidationManager;
 
             <main>
                 <form action="/auth" method="post" class="text-center sm:w-1/2 md:w-1/3 lg:w-1/4 mx-auto">
+                    <label for="csrf" class="hidden">Hidden field</label>
                     <input
                         id="csrf"
                         name="csrf"

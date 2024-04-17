@@ -10,7 +10,7 @@
                 referrerpolicy="no-referrer"
         ></script>
     </head>
-    <body class="flex w-screen h-screen">
+    <body class="flex w-screen min-h-screen h-full">
         <nav class="flex flex-col bg-blue-700 p-0">
             <i
                     class="fa-solid fa-rotate btn-sidebar"
@@ -25,6 +25,11 @@
                     role="button"
             ></i>
             <span class="flex-grow"></span>
+            <i
+                    class="fa-regular fa-circle-question btn-sidebar"
+                    onclick="window.open('https://github.com/lewmilburn/Vault/wiki/Vault-User-Guide', '_blank').focus();"
+                    title="View Help"
+            ></i>
             <i
                     class="fa-solid fa-circle-xmark btn-sidebar"
                     title="Close Vault"
@@ -52,7 +57,7 @@
                     <button type="button" onclick="retry()" class="btn-primary">Retry</button>
                 </div>
                 <div id="settings" class="hidden absolute top-0 left-0 right-0 bottom-0 bg-black/50" role="dialog">
-                    <div class="absolute top-10 left-10 right-10 bottom-10 bg-white dark:bg-neutral-900">
+                    <div class="absolute top-10 left-10 right-10 bottom-10 bg-white dark:bg-neutral-900 overflow-y-scroll">
                         <header>
                             <p>Settings</p>
                         </header>
@@ -92,7 +97,11 @@
                                 </select>
                             </div>
                             <br>
-                            <button onclick="updateSettings();" class="btn-green">Save</button>
+                            <div class="grid">
+                                <button onclick="updateSettings();" class="btn-green">Save Settings</button>
+                                &nbsp;
+                                <button onclick="clearLocalStorage();" class="btn-red">Reset Local Storage</button>
+                            </div>
                             <br>
                             <p>Changing settings will clear your offline cache and require Vault to restart.</p>
                         </div>

@@ -10,7 +10,7 @@ async function apiGetVault (override = false) {
                 window.bridge.recieveUserData((event, user) => {
                     if (
                         user !== undefined &&
-                        user.last_change !== jsonResponse.last_change &&
+                        !timeChangeIsAcceptable(jsonResponse.last_change,user.last_change) &&
                         override === false &&
                         settings.VAULT.ALLOW_OFFLINE_MODE === "true"
                     ) {
@@ -59,7 +59,6 @@ function apiUpdatePassword (data) {
         data,
         time: getDateTime()
     };
-    console.log(password);
 
     sendRequest('PUT',password,'Password saved.', 'Unable to update password');
 }
@@ -87,18 +86,19 @@ function sendRequest(type, data, successMessage, errorMessage, noReload = false)
         .then(jsonResponse => {
             if (jsonResponse.status === 200) {
                 displaySuccess(successMessage);
+                document.getElementById('closeEditPanel').click();
 
                 if (noReload === false) {
                     reloadVault();
                 }
             } else {
                 if (errorMessage !== null) {
-                    displayError(errorMessage,xhr.responseText);
+                    displayError(errorMessage,jsonResponse.toString());
                 }
                 return false;
             }
         })
-        .catch(xhr => {
-            displayError(xhr);
+        .catch(jsonResponse => {
+            displayError(jsonResponse.toString());
         });
 }

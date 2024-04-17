@@ -215,6 +215,14 @@ class DataManager
         try {
             array_push($vault, $tempArray);
         } catch (Exception $e) {
+            $eh = new ErrorHandler();
+            $eh->error(
+                'data',
+                'DataManager',
+                'addPassword',
+                $e->getMessage(),
+                $e->getCode()
+            );
         }
 
         $vault = json_encode($vault);

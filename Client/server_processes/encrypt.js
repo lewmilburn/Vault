@@ -1,6 +1,5 @@
 /**
- * @name encrypt.js
- * @description Encrypts data to be added to the cache.
+ * Encrypts data to be added to the cache.
  * @see decrypt.js
  * @see cache_load.js
  * @see cache_savae.js

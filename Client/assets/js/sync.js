@@ -60,3 +60,7 @@ function keepRemote() {
         screenDashboard();
     }, 2000);
 }
+
+function timeChangeIsAcceptable(remote, local) {
+    return Math.abs(new Date(remote) - new Date(local)) <= 5000
+}

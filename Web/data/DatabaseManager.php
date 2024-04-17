@@ -68,6 +68,7 @@ class DatabaseManager
                     `user` VARCHAR(8) NOT NULL ,
                     `pass` VARCHAR(64) NOT NULL ,
                     `role` INT(1) NOT NULL ,
+                    `secret` VARCHAR(32) NOT NULL ,
                     PRIMARY KEY (`id`))
                     ENGINE = InnoDB;'
             );

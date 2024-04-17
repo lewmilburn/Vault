@@ -54,6 +54,8 @@ function sendRequest(type, data, successMessage, errorMessage, noReload = false)
             if (successMessage !== null) {
                 displaySuccess(successMessage);
             }
+
+            document.getElementById('closeEditPanel').click();
         },
         error: function (xhr) {
             if (errorMessage !== null) {

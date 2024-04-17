@@ -24,6 +24,11 @@
     <?php } ?>
     <span class="flex-grow"></span>
     <i
+            class="fa-regular fa-circle-question btn-sidebar"
+            onclick="window.open('https://github.com/lewmilburn/Vault/wiki/Vault-User-Guide', '_blank').focus();"
+            title="View Help"
+    ></i>
+    <i
         class="fa-solid fa-right-from-bracket btn-sidebar"
         title="Log out"
         role="button"

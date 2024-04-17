@@ -1,6 +1,5 @@
 /**
- * @name currentDate.js
- * @decription Gets the current datetime.
+ * Gets the current datetime.
  *
  * @returns {string}
  */
@@ -12,6 +11,7 @@ module.exports = function() {
     let day = String(date.getDate()).padStart(2, '0');
     let hours = String(date.getHours()).padStart(2, '0');
     let minutes = String(date.getMinutes()).padStart(2, '0');
+    let seconds = String(date.getSeconds()).padStart(2, '0');
 
-    return year + '-' + month + '-' + day + ' ' + hours + ':' + minutes;
+    return year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
 }
