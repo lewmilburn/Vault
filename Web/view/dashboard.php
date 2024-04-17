@@ -60,7 +60,7 @@
                             </div>
                             <div class="col-span-2">
                                 <label for="notes" class="h3 text-center w-full">Notes</label><br>
-                                <textarea type="text" id="notes" name="notes" x-text="notes" class="w-full"></textarea>
+                                <textarea type="text" id="notes" name="notes" x-model="notes" class="w-full"></textarea>
                             </div>
                             <div>
                                 <p class="h3 w-full">Password Strength: <span x-text="strength"></span>/10</p>
