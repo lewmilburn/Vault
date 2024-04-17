@@ -66,7 +66,7 @@
                                 <p class="h3 w-full">Password Strength: <span x-text="strength"></span>/10</p>
                             </div>
                             <div class="col-span-2 flex space-x-2">
-                                <button type="button" class="inline btn-primary" x-on:click="
+                                <button type="button" id="closeEditPanel" class="inline btn-primary" x-on:click="
                                     open=false;
                                     newItem=false;
                                     pass='';
