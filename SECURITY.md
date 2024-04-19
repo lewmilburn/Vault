@@ -1,5 +1,7 @@
 # Security Policy
 
+Please read [this page with advice on how to use Vault securely](https://github.com/lewmilburn/Vault/wiki/Security) before using the software.
+
 ## Supported Versions
 
 | Version | Supported          |
