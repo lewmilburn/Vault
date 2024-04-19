@@ -3,6 +3,7 @@
 const ENV = PROD;
 const STORAGE_TYPE = FILESYSTEM;
 const ALLOW_REGISTRATION = false;
+const WHITELIST = false;
 const USERS_FILE = 'users.json';
 const SECURE_LOCATION = '';
 const FILE_SEPARATOR = '[SEP]';
