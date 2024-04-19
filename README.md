@@ -8,6 +8,8 @@ The product is for security-conscious users who are worried about the possibilit
 
 The project will be developed in two parts, a JavaScript-based offline/syncable application and a PHP-JavaScript web-based application for users who prefer to use the cloud.
 
+Please read [this page with advice on how to use Vault securely](https://github.com/lewmilburn/Vault/wiki/Security) before using the software.
+
 ## Quick Links
 * [UML Diagrams](https://github.com/lewmilburn/Vault/issues/1)
 * [Kanban Board](https://github.com/users/lewmilburn/projects/3/views/3)
