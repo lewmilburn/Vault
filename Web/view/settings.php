@@ -165,7 +165,7 @@ if (isset($_GET['delete'])) {
                                     Yes
                                 </option>
                                 <option
-                                        value="DATABASE"<?php if (!ALLOW_REGISTRATION) { ?> selected<?php } ?>
+                                        value="false"<?php if (!ALLOW_REGISTRATION) { ?> selected<?php } ?>
                                 >
                                     No
                                 </option>
