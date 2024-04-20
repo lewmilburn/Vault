@@ -171,6 +171,21 @@ if (isset($_GET['delete'])) {
                                 </option>
                             </select>
                         </div>
+
+                        <div class="grid">
+                            <label for="WHITELIST">Whitelist</label>
+                            <div class="grid">
+                                <label for="WHITELIST">Whitelist</label>
+                                <input
+                                    id="WHITELIST"
+                                    name="WHITELIST"
+                                    value="<?php if (trim(WHITELIST) !== "") { echo WHITELIST; } ?>"
+                                    class="w-full"
+                                    placeholder="Disabled. To enable enter comma separated IPs."
+                                >
+                            </div>
+                            <sub>Your IP: <?= htmlspecialchars($_SERVER['REMOTE_ADDR']); ?></sub>
+                        </div>
                     </div>
                     <br>
                     <div class="grid gap-2">

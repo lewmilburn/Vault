@@ -10,6 +10,7 @@ class SettingsManager
         $env,
         $storage_type,
         $allow_registration,
+        $whitelist,
         $users_file,
         $secure_location,
         $file_separator,
@@ -24,10 +25,12 @@ class SettingsManager
         $db_socket,
         $db_prefix
     ): bool|int {
+        if (trim($whitelist) == "") { $whitelist = false; } else { $whitelist = '"'.$whitelist.'"'; }
         $data = "<?php
 const ENV = {$env};
 const STORAGE_TYPE = {$storage_type};
 const ALLOW_REGISTRATION = {$allow_registration};
+const WHITELIST = {$whitelist};
 const USERS_FILE = '{$users_file}';
 const SECURE_LOCATION = '{$secure_location}';
 const FILE_SEPARATOR = '{$file_separator}';
@@ -102,10 +105,13 @@ const DB_PREFIX = '{$db_prefix}';";
         $db_socket = $im->escapeString($_POST['DB_SOCKET']);
         $db_prefix = $im->escapeString($_POST['DB_PREFIX']);
 
+        $whitelist = $im->escapeString($_POST['WHITELIST']);
+
         if (!$this->update(
             $env,
             $storage_type,
             $allow_registration,
+            $whitelist,
             $users_file,
             $secure_location,
             $file_separator,

@@ -107,7 +107,7 @@ $qr = $factor->getQRCodeGoogleUrl($_SERVER['SERVER_NAME'], $secret, 'Vault');
         <main>
             <form action="/" method="post" class="text-center sm:w-1/2 md:w-1/3 lg:w-1/4 mx-auto">
                 <div class="grid gap-2">
-                    <h2>Administrator Account</h2>
+                    <h2>Your Account: Login Information</h2>
                     <p class="text-center">
                         This account will be the administrator for the instance.
                         We recommend creating a separate account to store your own passwords if this is a public site.
@@ -122,14 +122,6 @@ $qr = $factor->getQRCodeGoogleUrl($_SERVER['SERVER_NAME'], $secret, 'Vault');
                     <div class="grid">
                         <label for="pass">Admin Password</label>
                         <input id="pass" name="pass" type="password">
-                    </div>
-                    <div class="grid">
-                        <label for="code">Two-factor Authentication QR Setup</label>
-                        <img src="<?= $qr; ?>" class="mx-auto" alt="Two-factor Authentication QR Setup">
-                    </div>
-                    <div class="grid">
-                        <label for="code">2FA Code</label>
-                        <input id="code" name="code" type="password">
                     </div>
                     <p>
                         Warning: Make a note of your password in a safe, secure place. For security reasons, it is not
@@ -176,6 +168,21 @@ $qr = $factor->getQRCodeGoogleUrl($_SERVER['SERVER_NAME'], $secret, 'Vault');
                                 No
                             </option>
                         </select>
+                    </div>
+
+                    <div class="grid">
+                        <label for="WHITELIST">Whitelist</label>
+                        <div class="grid">
+                            <label for="WHITELIST">Whitelist</label>
+                            <input
+                                    id="WHITELIST"
+                                    name="WHITELIST"
+                                    value="<?php if (trim(WHITELIST) !== "") { echo WHITELIST; } ?>"
+                                    class="w-full"
+                                    placeholder="Disabled. To enable enter comma separated IPs."
+                            >
+                        </div>
+                        <sub>Your IP: <?= htmlspecialchars($_SERVER['REMOTE_ADDR']); ?></sub>
                     </div>
                 </div>
                 <br>
@@ -293,6 +300,18 @@ $qr = $factor->getQRCodeGoogleUrl($_SERVER['SERVER_NAME'], $secret, 'Vault');
                     <div class="grid">
                         <label for="DB_PREFIX">Database Prefix</label>
                         <input id="DB_PREFIX" name="DB_PREFIX" value="<?= DB_PREFIX; ?>" class="w-full">
+                    </div>
+                </div>
+                <br>
+                <div class="grid gap-2">
+                    <h2>Your Account: 2-Factor Authentication</h2>
+                    <div class="grid">
+                        <label for="code">Two-factor Authentication QR Setup</label>
+                        <img src="<?= $qr; ?>" class="mx-auto" alt="Two-factor Authentication QR Setup">
+                    </div>
+                    <div class="grid">
+                        <label for="code">2FA Code</label>
+                        <input id="code" name="code" type="password">
                     </div>
                 </div>
                 <button type="submit" class="btn-primary">Finish Setup</button>
