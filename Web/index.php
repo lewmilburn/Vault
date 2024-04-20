@@ -7,11 +7,18 @@
 
 use Vault\authentication\AuthenticationManager;
 use Vault\event\RouteHandler;
+use Vault\security\Whitelist;
 
 ob_start();
 session_start();
 
 require_once __DIR__.'/autoload.php';
+
+$whitelist = new Whitelist();
+if (!$whitelist->check($_SERVER['REMOTE_ADDR'])) {
+    http_response_code(403);
+    exit;
+}
 
 $router = new RouteHandler();
 $auth = new AuthenticationManager();

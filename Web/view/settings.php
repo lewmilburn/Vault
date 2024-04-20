@@ -165,11 +165,23 @@ if (isset($_GET['delete'])) {
                                     Yes
                                 </option>
                                 <option
-                                        value="DATABASE"<?php if (!ALLOW_REGISTRATION) { ?> selected<?php } ?>
+                                        value="false"<?php if (!ALLOW_REGISTRATION) { ?> selected<?php } ?>
                                 >
                                     No
                                 </option>
                             </select>
+                        </div>
+
+                        <div class="grid">
+                            <label for="WHITELIST">Whitelist</label>
+                            <input
+                                    id="WHITELIST"
+                                    name="WHITELIST"
+                                    value="<?php if (trim(WHITELIST) !== "") { echo WHITELIST; } ?>"
+                                    class="w-full"
+                                    placeholder="Disabled. To enable enter comma separated IPs."
+                                >
+                            <sub>Your IP: <?= htmlspecialchars($_SERVER['REMOTE_ADDR']); ?></sub>
                         </div>
                     </div>
                     <br>
