@@ -2,7 +2,8 @@
 
 namespace Vault\security;
 
-class Whitelist {
+class Whitelist
+{
     public function check(string $ip): bool
     {
         if (WHITELIST !== false) {

@@ -25,7 +25,11 @@ class SettingsManager
         $db_socket,
         $db_prefix
     ): bool|int {
-        if (trim($whitelist) == "") { $whitelist = false; } else { $whitelist = '"'.$whitelist.'"'; }
+        if (trim($whitelist) == '') {
+            $whitelist = false;
+        } else {
+            $whitelist = '"'.$whitelist.'"';
+        }
         $data = "<?php
 const ENV = {$env};
 const STORAGE_TYPE = {$storage_type};
