@@ -1,6 +1,6 @@
 <?php
 
-use Vault\data\DataManager;
+use Vault\authentication\AuthenticationManager;use Vault\data\DataManager;
 use Vault\data\FileManager;
 use Vault\Libraries\PHPGangsta_GoogleAuthenticator;use Vault\security\InputManager;
 use Vault\security\ValidationManager;
@@ -56,6 +56,9 @@ if (isset($_POST['user']) && isset($_POST['pass'])) {
     $fm = new FileManager();
     file_put_contents(__DIR__ . '/../run.json', '{"config":true}');
 
+    $auth = new AuthenticationManager();
+    $auth->login($user,$pass,htmlspecialchars($_POST['code']));
+
     header('Location: /?sc');
 } else {
 $secret = $factor->createSecret();
@@ -108,7 +111,7 @@ $qr = $factor->getQRCodeGoogleUrl($_SERVER['SERVER_NAME'], $secret, 'Vault');
             <form action="/" method="post" class="text-center sm:w-1/2 md:w-1/3 lg:w-1/4 mx-auto">
                 <div class="grid gap-2">
                     <h2>Your Account: Login Information</h2>
-                    <p class="text-center">
+                    <p class="text-center alert-yellow">
                         This account will be the administrator for the instance.
                         We recommend creating a separate account to store your own passwords if this is a public site.
                     </p>
@@ -123,7 +126,7 @@ $qr = $factor->getQRCodeGoogleUrl($_SERVER['SERVER_NAME'], $secret, 'Vault');
                         <label for="pass">Admin Password</label>
                         <input id="pass" name="pass" type="password">
                     </div>
-                    <p>
+                    <p class="alert-red mb-6">
                         Warning: Make a note of your password in a safe, secure place. For security reasons, it is not
                         possible to change your password unless you are logged in, and changing your password will clear
                         your Vault.
@@ -171,7 +174,6 @@ $qr = $factor->getQRCodeGoogleUrl($_SERVER['SERVER_NAME'], $secret, 'Vault');
                     </div>
 
                     <div class="grid">
-                        <label for="WHITELIST">Whitelist</label>
                         <div class="grid">
                             <label for="WHITELIST">Whitelist</label>
                             <input
@@ -306,9 +308,12 @@ $qr = $factor->getQRCodeGoogleUrl($_SERVER['SERVER_NAME'], $secret, 'Vault');
                 <div class="grid gap-2">
                     <h2>Your Account: 2-Factor Authentication</h2>
                     <div class="grid">
-                        <label for="code">Two-factor Authentication QR Setup</label>
+                        <label>Scan the QR Code below on Google Authenticator to generate a 2FA Code</label>
                         <img src="<?= $qr; ?>" class="mx-auto" alt="Two-factor Authentication QR Setup">
                     </div>
+                    <p class="alert-red mb-6">
+                        Ensure you have enough time remaining on the token before you finish setup.
+                    </p>
                     <div class="grid">
                         <label for="code">2FA Code</label>
                         <input id="code" name="code" type="password">
